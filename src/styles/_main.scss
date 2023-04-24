@@ -1,3 +1,6 @@
+$primary-color: green;
+$secondary-color: blue;
+
 h1 {
-    color: red;
+    color: $primary-color;
 }

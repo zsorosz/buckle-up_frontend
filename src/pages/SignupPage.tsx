@@ -1,5 +1,5 @@
 
-function SignupPage() {
+function SignupPage(): JSX.Element {
   return (
     <div>SignupPage</div>
   )

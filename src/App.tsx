@@ -6,6 +6,7 @@ import SignupPage from "./pages/SignupPage";
 import ProfilePage from "./pages/ProfilePage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import NewTripForm from "./components/NewTripForm";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />}/>
+        <Route path="/trip-planner" element={<NewTripForm />}/>
       </Routes>
       <Footer />
     </>

@@ -1,5 +1,5 @@
 
-function Navbar() {
+function Navbar(): JSX.Element {
   return (
     <div>Navbar</div>
   )

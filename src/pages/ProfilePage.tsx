@@ -1,5 +1,5 @@
 
-function ProfilePage() {
+function ProfilePage(): JSX.Element {
   return (
     <div>ProfilePage</div>
   )
