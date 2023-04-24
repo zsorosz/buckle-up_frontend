@@ -1,0 +1,29 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#root {
+    max-width: 100vw;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+    font-family: $font-primary;
+    line-height: 1.5;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color-scheme: light dark;
+    color: $grey-color;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+ 
