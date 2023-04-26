@@ -1,0 +1,68 @@
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgb(182, 179, 179);
+    padding: .5rem 2rem;
+    h1 {
+        color: $grey-color;
+        font-weight: 800;
+        font-size: 2rem;
+        @include respond(tab-port){
+            font-size: 3rem;
+        }
+    }
+}
+
+.nav-list {
+    position: fixed;
+    transform: translateY(-100%);
+    transition: transform 0.2s;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    background: white;
+    color: $grey-color;
+    list-style: none;
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    @include respond(tab-port) {
+        transform: translateY(0);
+        flex-direction: row;
+        padding: 0;
+        position: relative;
+    }
+    li {
+        position: relative;
+        padding: 25px 15px;
+    }
+    a {
+        text-decoration: none;
+        color: $grey-color;
+        &:active {
+            color: $primary-color;
+        }
+        &:hover {
+            color: $primary-color;
+        }
+    }   
+}
+.showMenu {
+    transform: translateY(0);
+  }
+.hamburger {
+    position: fixed;
+    z-index: 100;
+    top: 1rem;
+    right: 1rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    @include respond(tab-port) {
+        display: none;
+    }
+}
