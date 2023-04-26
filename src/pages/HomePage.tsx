@@ -1,4 +1,3 @@
-import "../styles/_main.scss"
 
 function HomePage(): JSX.Element {
   return (
