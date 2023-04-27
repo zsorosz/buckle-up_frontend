@@ -63,7 +63,6 @@ const SessionContextProvider = ({
         setUserData(null);
         setIsAuthenticated(false);
         setToken(null);
-        navigate("/");
         console.log("userData not found");
       }
     } catch (error) {

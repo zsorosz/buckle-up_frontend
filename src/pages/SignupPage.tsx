@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import { SessionContext } from "../contexts/SessionContext";
 import AuthForm from "../components/AuthForm";
 
-const SignupPage: React.FC = () => {
+const SignupPage = (): JSX.Element  => {
   const navigate = useNavigate();
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -15,10 +15,12 @@ const SignupPage: React.FC = () => {
   useEffect(() => {
     if (userData && userData.username !== undefined) {
       isAuthenticated && navigate("/");
+      console.log(userData)
     }
   }, [isAuthenticated, navigate, userData]);
 
   const handleSubmit = async (): Promise<void> => {
+    console.log('handling submit')
     const response = await fetch(`${BASE_URL}/auth/signup`, {
       method: "POST",
       headers: {
