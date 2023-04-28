@@ -26,45 +26,38 @@ const AuthForm = ({
 
   return (
     <div>
-      <form onSubmit={submitCallback}>
-        <div>
-          <label>
-            Username:
-            <input
+      <form onSubmit={submitCallback} className="AuthForm">
+      <div className="title">{isLogin ? "Welcome back!" : "Welcome!"}</div>
+      <div className="subtitle">{isLogin ? "" : "Let's create your account!" } </div>
+        <div className="auth-ctn">
+            <input className="input-ctn"
               type="text"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
-              placeholder="Enter username"
+              placeholder="Username"
             />
-          </label>
         </div>
         {isLogin ? (
           ""
         ) : (
-          <div>
-            <label>
-              Email:
-              <input
+          <div className="auth-ctn">
+              <input className="input-ctn"
                 type="text"
                 value={email}
                 onChange={(event) => setEmail && setEmail(event.target.value)}
-                placeholder="Enter email"
+                placeholder="Email"
               />
-            </label>
           </div>
         )}
-        <div>
-          <label>
-            Password:
-            <input
-              type="text"
+        <div className="auth-ctn">
+            <input className="input-ctn"
+              type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Password"
             />
-          </label>
         </div>
-        <button type="submit">{isLogin ? "Log In" : "Sign Up"}</button>
+        <button type="submit" className="button-auth">{isLogin ? "Log In" : "Sign Up"}</button>
       </form>
     </div>
   );
