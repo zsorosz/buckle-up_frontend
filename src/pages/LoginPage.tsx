@@ -27,7 +27,6 @@ const LoginPage = (): JSX.Element  => {
 
   return (
     <div className="form-ctn">
-    <h1>Login</h1>
     <AuthForm
       username={username}
       setUsername={setUsername} 

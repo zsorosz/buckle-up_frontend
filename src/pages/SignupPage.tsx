@@ -34,7 +34,6 @@ const SignupPage = (): JSX.Element  => {
   };
   return (
     <div className="form-ctn">
-      <h1>Signup</h1>
       <AuthForm
         username={username}
         setUsername={setUsername}

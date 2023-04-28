@@ -1,0 +1,58 @@
+.AuthForm {
+    background-color: #15172b;
+    border-radius: 20px;
+    box-sizing: border-box;
+    height: 500px;
+    padding: 20px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: auto;
+}
+.title {
+    color: $primary-color;
+    font-size: 36px;
+    font-weight: 600;
+    margin-top: 30px;
+}
+.subtitle {
+    color: $primary-color;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+.input-ctn {
+    width: 100%;
+    height: 2rem;
+}
+.input-ctn::placeholder {
+    color: $primary-color;
+}
+
+.button-auth {
+    width: 10rem;
+    background-color: $primary-color;
+    border: solid transparent;
+    border-radius: 16px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    line-height: 20px;
+    margin: 0;
+    outline: none;
+    overflow: visible;
+    padding: 13px 16px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 2rem;
+}
+
+.button-auth:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
