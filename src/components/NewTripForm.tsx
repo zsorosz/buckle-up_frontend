@@ -40,27 +40,30 @@ const NewTripForm = (): JSX.Element => {
   };
 
   return (
-    <form className="trip-form" onSubmit={callOpenAIAPI}>
-      From:
-      <input
-        type="text"
-        placeholder="Starting City"
-        onChange={(e) => setStartingCity(e.target.value)}
-      />
-      To:
-      <input
-        type="text"
-        placeholder="Destination"
-        onChange={(e) => setDestination(e.target.value)}
-      />
-      Trip duration:
-      <input
-        type="number"
-        onChange={(e) => setDuration(e.target.valueAsNumber)}
-      />
-      <button type="submit">Create a plan</button>
-      {response !== "" ? <div>{response}</div> : null}
-    </form>
+    <div>
+      <h2>New road trip</h2>
+      <form className="trip-form" onSubmit={callOpenAIAPI}>
+        From:
+        <input
+          type="text"
+          placeholder="Starting City"
+          onChange={(e) => setStartingCity(e.target.value)}
+        />
+        To:
+        <input
+          type="text"
+          placeholder="Destination"
+          onChange={(e) => setDestination(e.target.value)}
+        />
+        Trip duration:
+        <input
+          type="number"
+          onChange={(e) => setDuration(e.target.valueAsNumber)}
+        />
+        <button type="submit">Create a plan</button>
+        {response !== "" ? <div>{response}</div> : null}
+      </form>
+    </div>
   );
 };
 
