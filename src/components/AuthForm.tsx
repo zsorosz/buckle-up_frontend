@@ -51,7 +51,7 @@ const AuthForm = ({
         )}
         <div className="auth-ctn">
             <input className="input-ctn"
-              type="text"
+              type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Password"
