@@ -17,7 +17,7 @@ const NewTripForm = (): JSX.Element => {
   ): Promise<void> => {
     event.preventDefault();
     const APIBody = {
-      model: "text-davinci-002",
+      model: "text-davinci-003",
       prompt: prompt,
       temperature: 0,
       max_tokens: 200,
