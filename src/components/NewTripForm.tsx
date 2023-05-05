@@ -38,6 +38,7 @@ const NewTripForm = (): JSX.Element => {
         return data.json();
       })
       .then((data) => {
+        console.log(data);
         setResponse(data.choices[0].text.trim().split("\n"));
       });
   };
@@ -64,9 +65,8 @@ const NewTripForm = (): JSX.Element => {
           onChange={(e) => setDuration(e.target.valueAsNumber)}
         />
         <button type="submit">Create a plan</button>
-        {response ? <div>{response}</div> : null}
       </form>
-      <Map cities={response} />
+      {response.length ? <Map cities={response} /> : null}
     </div>
   );
 };

@@ -8,16 +8,17 @@ type MapProps = {
 function Map({ cities }: MapProps): JSX.Element {
   console.log(cities);
   const getCoordinates = function (index: number): number[] {
-    const arr = cities[index].split(":");
-    const newArr = arr[1].split(",");
     const coordinates: number[] = [];
-    newArr.map((coord) => coordinates.push(Number(coord.replace(/\s/g, ""))));
-    console.log("coordinates", coordinates);
+    const citiesArr = cities[index].split(":");
+    citiesArr[1]
+      .split(",")
+      .map((coord) => coordinates.push(Number(coord.replace(/\s/g, ""))));
+    console.log(coordinates);
     return coordinates;
   };
   return (
     <MapContainer
-      center={[51.505, -0.09]}
+      center={getCoordinates(0) as [number, number]}
       zoom={4}
       scrollWheelZoom={true}
       style={{ height: "400px", width: "100%", marginTop: "50px" }}
@@ -28,9 +29,7 @@ function Map({ cities }: MapProps): JSX.Element {
       />
       {cities.map((city: string, index: number) => (
         <Marker position={getCoordinates(index) as [number, number]}>
-          <Popup>
-            {city} <br /> Easily customizable.
-          </Popup>
+          <Popup>{city}</Popup>
         </Marker>
       ))}
     </MapContainer>
