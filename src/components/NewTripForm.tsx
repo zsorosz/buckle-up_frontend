@@ -8,7 +8,9 @@ const NewTripForm = (): JSX.Element => {
   const [response, setResponse] = useState([]);
 
   const API_KEY: string = import.meta.env.VITE_OPENAI_KEY as string;
-  const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}.
+  const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with maximum ${
+    duration + 2
+  } stops.
   Desired format:
   City name: latitude, longitude`;
 
@@ -38,7 +40,7 @@ const NewTripForm = (): JSX.Element => {
         return data.json();
       })
       .then((data) => {
-        console.log(data);
+        console.log(data.choices[0].text.trim().split("\n"));
         setResponse(data.choices[0].text.trim().split("\n"));
       });
   };
