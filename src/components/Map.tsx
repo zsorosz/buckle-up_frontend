@@ -12,24 +12,19 @@ import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import RoutingMachine from "./RoutingMachine";
 
+export type City = {
+  name: string;
+  coord: number[];
+};
+
 type MapProps = {
-  cities: string[];
+  cities: City[];
 };
 
 function Map({ cities }: MapProps): JSX.Element {
-  console.log(cities);
-  const getCoordinates = function (index: number): number[] {
-    const coordinates: number[] = [];
-    const citiesArr = cities[index].split(":");
-    citiesArr[1]
-      .split(",")
-      .map((coord) => coordinates.push(Number(coord.replace(/\s/g, ""))));
-    console.log(coordinates);
-    return coordinates;
-  };
   return (
     <MapContainer
-      center={getCoordinates(0) as [number, number]}
+      center={cities[0].coord as [number, number]}
       zoom={4}
       scrollWheelZoom={true}
       style={{ height: "400px", width: "100%", marginTop: "50px" }}
@@ -39,11 +34,6 @@ function Map({ cities }: MapProps): JSX.Element {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <RoutingMachine />
-      {/* {cities.map((city: string, index: number) => (
-          <Marker position={getCoordinates(index) as [number, number]}>
-            <Popup>{city}</Popup>
-          </Marker>
-        ))} */}
     </MapContainer>
   );
 }

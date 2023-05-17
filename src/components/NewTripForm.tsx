@@ -1,16 +1,15 @@
 import { useState } from "react";
 import Map from "./Map";
+import { City } from "./Map";
 
 const NewTripForm = (): JSX.Element => {
   const [destination, setDestination] = useState("");
   const [startingCity, setStartingCity] = useState("");
   const [duration, setDuration] = useState(0);
-  const [response, setResponse] = useState([]);
+  const [response, setResponse] = useState([] as object[]);
 
   const API_KEY: string = import.meta.env.VITE_OPENAI_KEY as string;
-  const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with maximum ${
-    duration + 2
-  } stops.
+  const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with ${duration} +/-2 stops between the starting city and destination. Do not add numbers before the city names and include the starting city and destination.
   Desired format:
   City name: latitude, longitude`;
 
@@ -36,12 +35,26 @@ const NewTripForm = (): JSX.Element => {
       body: JSON.stringify(APIBody),
     })
       .then((data) => {
-        console.log(data);
         return data.json();
       })
       .then((data) => {
-        console.log(data.choices[0].text.trim().split("\n"));
-        setResponse(data.choices[0].text.trim().split("\n"));
+        const cities = data.choices[0].text.trim().split("\n");
+
+        const result: object[] = [];
+
+        cities.map((city: string) => {
+          const citiesArr = city.split(":");
+          const coordinates: number[] = [];
+          citiesArr[1]
+            .split(",")
+            .map((coord) => coordinates.push(Number(coord.replace(/\s/g, ""))));
+          const waypoint = {
+            name: citiesArr[0],
+            coord: coordinates,
+          };
+          result.push(waypoint);
+        });
+        setResponse(result);
       });
   };
 
@@ -68,7 +81,7 @@ const NewTripForm = (): JSX.Element => {
         />
         <button type="submit">Create a plan</button>
       </form>
-      {response.length ? <Map cities={response} /> : null}
+      {response.length ? <Map cities={response as City[]} /> : null}
     </div>
   );
 };
