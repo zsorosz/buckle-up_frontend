@@ -1,5 +1,16 @@
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  useMap,
+  Marker,
+  Popup,
+  LayersControl,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import "leaflet-routing-machine";
+import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
+import RoutingMachine from "./RoutingMachine";
 
 type MapProps = {
   cities: string[];
@@ -27,11 +38,12 @@ function Map({ cities }: MapProps): JSX.Element {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {cities.map((city: string, index: number) => (
-        <Marker position={getCoordinates(index) as [number, number]}>
-          <Popup>{city}</Popup>
-        </Marker>
-      ))}
+      <RoutingMachine />
+      {/* {cities.map((city: string, index: number) => (
+          <Marker position={getCoordinates(index) as [number, number]}>
+            <Popup>{city}</Popup>
+          </Marker>
+        ))} */}
     </MapContainer>
   );
 }
