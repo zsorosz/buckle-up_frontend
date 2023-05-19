@@ -1,19 +1,21 @@
 import L from "leaflet";
 import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
-import {City} from "./Map"
+import { City } from "./Map";
 
-/* type RoutingProps= {
-  cities: City[]
-} */
+type Coord = {
+  lat: number;
+  lng: number;
+};
 
-const createRoutineMachineLayer = ({cities}: any)=> {
-  const coordinates: L.Routing.Waypoint[] = []
-  cities.forEach((city: any)=> {
-    const latlng = L.latLng(city.coord)
-    coordinates.push(latlng as any)
-  })
-  console.log(coordinates)
+const createRoutineMachineLayer = ({ cities }: any): L.Routing.Control => {
+  const coordinates: L.LatLng[] = [];
+  cities.forEach((city: City) => {
+    const latlng: Coord = L.latLng(city.coord);
+    console.log("latlng", latlng);
+    coordinates.push(latlng as L.LatLng);
+  });
+  console.log(coordinates);
   const instance = L.Routing.control({
     waypoints: coordinates,
     lineOptions: {
@@ -24,7 +26,6 @@ const createRoutineMachineLayer = ({cities}: any)=> {
     show: false,
     addWaypoints: false,
     routeWhileDragging: true,
-    // draggableWaypoints: true,
     fitSelectedRoutes: true,
     showAlternatives: false,
   });
