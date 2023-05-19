@@ -14,7 +14,7 @@ import RoutingMachine from "./RoutingMachine";
 
 export type City = {
   name: string;
-  coord: number[];
+  coord: [number, number];
 };
 
 export type MapProps = {
@@ -33,7 +33,7 @@ function Map({ cities }: MapProps): JSX.Element {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <RoutingMachine cities={cities as City[]} />
+      <RoutingMachine cities={cities as L.ControlOptions} />
     </MapContainer>
   );
 }
