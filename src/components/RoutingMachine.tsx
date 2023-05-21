@@ -12,7 +12,6 @@ const createRoutineMachineLayer = ({ cities }: any): L.Routing.Control => {
   const coordinates: L.LatLng[] = [];
   cities.forEach((city: City) => {
     const latlng: Coord = L.latLng(city.coord);
-    console.log("latlng", latlng);
     coordinates.push(latlng as L.LatLng);
   });
   console.log(coordinates);
