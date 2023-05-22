@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Map from "./Map";
 import { City } from "./Map";
+import SearchSuggestions from "./SearchSuggestions";
 
 const NewTripForm = (): JSX.Element => {
   const [destination, setDestination] = useState("");
@@ -8,8 +9,8 @@ const NewTripForm = (): JSX.Element => {
   const [duration, setDuration] = useState(0);
   const [response, setResponse] = useState([] as object[]);
 
-  const API_KEY: string = import.meta.env.VITE_OPENAI_KEY as string;
-  const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with ${duration} +/-2 stops between the starting city and destination. Do not add numbers before the city names and include the starting city and destination.
+  const OPENAI_API_KEY: string = import.meta.env.VITE_OPENAI_KEY as string;
+  const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with ${duration} +/-1 stops between the starting city and destination. Do not add numbers before the city names and include the starting city and destination.
   Desired format:
   City name: latitude, longitude`;
 
@@ -30,7 +31,7 @@ const NewTripForm = (): JSX.Element => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + API_KEY,
+        Authorization: "Bearer " + OPENAI_API_KEY,
       },
       body: JSON.stringify(APIBody),
     })
@@ -66,14 +67,32 @@ const NewTripForm = (): JSX.Element => {
         <input
           type="text"
           placeholder="Starting City"
+          value={startingCity}
           onChange={(e) => setStartingCity(e.target.value)}
         />
+        {startingCity.length ? (
+          <SearchSuggestions
+            query={startingCity}
+            waypoint="start"
+            setStartingCity={setStartingCity}
+            setDestination={setDestination}
+          />
+        ) : null}
         To:
         <input
           type="text"
           placeholder="Destination"
+          value={destination}
           onChange={(e) => setDestination(e.target.value)}
         />
+        {destination.length ? (
+          <SearchSuggestions
+            query={destination}
+            waypoint="end"
+            setStartingCity={setStartingCity}
+            setDestination={setDestination}
+          />
+        ) : null}
         Trip duration:
         <input
           type="number"

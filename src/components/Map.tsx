@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -6,6 +5,7 @@ import {
   Marker,
   Popup,
   LayersControl,
+  useMapEvent,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine";
@@ -22,6 +22,14 @@ export type MapProps = {
 };
 
 function Map({ cities }: MapProps): JSX.Element {
+  function MyComponent() {
+    const map = useMapEvent("click", (e) => {
+      console.log(e.latlng);
+      map.setView(e.latlng, map.getZoom());
+    });
+    return null;
+  }
+
   return (
     <MapContainer
       center={cities[0].coord as [number, number]}
@@ -29,6 +37,7 @@ function Map({ cities }: MapProps): JSX.Element {
       scrollWheelZoom={true}
       style={{ height: "400px", width: "100%", marginTop: "50px" }}
     >
+      <MyComponent />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

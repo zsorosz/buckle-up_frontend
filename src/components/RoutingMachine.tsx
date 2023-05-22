@@ -10,9 +10,9 @@ type Coord = {
 
 const createRoutineMachineLayer = ({ cities }: any): L.Routing.Control => {
   const coordinates: L.LatLng[] = [];
+
   cities.forEach((city: City) => {
     const latlng: Coord = L.latLng(city.coord);
-    console.log("latlng", latlng);
     coordinates.push(latlng as L.LatLng);
   });
   console.log(coordinates);
@@ -23,13 +23,17 @@ const createRoutineMachineLayer = ({ cities }: any): L.Routing.Control => {
       extendToWaypoints: false,
       missingRouteTolerance: 2,
     },
-    show: false,
-    addWaypoints: false,
+    show: true,
+    addWaypoints: true,
     routeWhileDragging: true,
     fitSelectedRoutes: true,
     showAlternatives: false,
+    collapsible: true,
   });
-
+  // console.log(instance);
+  const plan = instance.getPlan();
+  const router = instance.getRouter();
+  console.log(router);
   return instance;
 };
 
