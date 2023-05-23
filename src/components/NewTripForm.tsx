@@ -2,10 +2,13 @@ import { useState } from "react";
 import Map from "./Map";
 import { City } from "./Map";
 import SearchSuggestions from "./SearchSuggestions";
+import TripDetails from "./TripDetails";
 
 const NewTripForm = (): JSX.Element => {
   const [destination, setDestination] = useState("");
   const [startingCity, setStartingCity] = useState("");
+  const [startQuery, setStartQuery] = useState("");
+  const [destQuery, setDestQuery] = useState("");
   const [duration, setDuration] = useState(0);
   const [response, setResponse] = useState([] as object[]);
 
@@ -17,6 +20,7 @@ const NewTripForm = (): JSX.Element => {
   const callOpenAIAPI = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
+    console.log(prompt);
     event.preventDefault();
     const APIBody = {
       model: "text-davinci-003",
@@ -68,11 +72,14 @@ const NewTripForm = (): JSX.Element => {
           type="text"
           placeholder="Starting City"
           value={startingCity}
-          onChange={(e) => setStartingCity(e.target.value)}
+          onChange={(e) => {
+            setStartingCity(e.target.value);
+            setStartQuery(e.target.value);
+          }}
         />
-        {startingCity.length ? (
+        {startQuery.length ? (
           <SearchSuggestions
-            query={startingCity}
+            query={startQuery}
             waypoint="start"
             setStartingCity={setStartingCity}
             setDestination={setDestination}
@@ -83,11 +90,14 @@ const NewTripForm = (): JSX.Element => {
           type="text"
           placeholder="Destination"
           value={destination}
-          onChange={(e) => setDestination(e.target.value)}
+          onChange={(e) => {
+            setDestination(e.target.value);
+            setDestQuery(e.target.value);
+          }}
         />
-        {destination.length ? (
+        {destQuery.length ? (
           <SearchSuggestions
-            query={destination}
+            query={destQuery}
             waypoint="end"
             setStartingCity={setStartingCity}
             setDestination={setDestination}

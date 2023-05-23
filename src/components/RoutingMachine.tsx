@@ -8,7 +8,11 @@ type Coord = {
   lng: number;
 };
 
-const createRoutineMachineLayer = ({ cities }: any): L.Routing.Control => {
+const createRoutineMachineLayer = ({
+  cities,
+  setDistance,
+  setTotalTime,
+}: any): L.Routing.Control => {
   const coordinates: L.LatLng[] = [];
 
   cities.forEach((city: City) => {
@@ -29,11 +33,14 @@ const createRoutineMachineLayer = ({ cities }: any): L.Routing.Control => {
     fitSelectedRoutes: true,
     showAlternatives: false,
     collapsible: true,
+  }).on("routesfound", function (e) {
+    setDistance(e.routes[0].summary.totalDistance / 1000);
+    setTotalTime(e.routes[0].summary.totalTime);
   });
   // console.log(instance);
-  const plan = instance.getPlan();
-  const router = instance.getRouter();
-  console.log(router);
+  // const plan = instance.getPlan();
+  // const router = instance.getRouter();
+  // console.log(router);
   return instance;
 };
 
