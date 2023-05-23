@@ -111,7 +111,6 @@ const NewTripForm = (): JSX.Element => {
         <button type="submit">Create a plan</button>
       </form>
       {response.length ? <Map cities={response as City[]} /> : null}
-      {response.length ? <TripDetails cities={response as City[]} /> : null}
     </div>
   );
 };

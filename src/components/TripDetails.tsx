@@ -7,7 +7,7 @@ export type TripProps = {
 function TripDetails({ cities }: TripProps): JSX.Element {
   return (
     <div>
-      My trip
+      Itinerary:
       <ul>
         {cities.map((city: City) => (
           <li>{city.name}</li>
