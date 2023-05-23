@@ -5,6 +5,7 @@ import SearchSuggestions from "./SearchSuggestions";
 import TripDetails from "./TripDetails";
 
 const NewTripForm = (): JSX.Element => {
+  const [isLoading, setIsLoading] = useState(false);
   const [destination, setDestination] = useState("");
   const [startingCity, setStartingCity] = useState("");
   const [startQuery, setStartQuery] = useState("");
@@ -13,14 +14,16 @@ const NewTripForm = (): JSX.Element => {
   const [response, setResponse] = useState([] as object[]);
 
   const OPENAI_API_KEY: string = import.meta.env.VITE_OPENAI_KEY as string;
-  const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with ${duration} +/-1 stops between the starting city and destination. Do not add numbers before the city names and include the starting city and destination.
+  const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with all together ${
+    duration + 1
+  } stops. Do not add numbers before the city names and include the starting city and destination.
   Desired format:
   City name: latitude, longitude`;
 
   const callOpenAIAPI = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
-    console.log(prompt);
+    setIsLoading(true);
     event.preventDefault();
     const APIBody = {
       model: "text-davinci-003",
@@ -60,6 +63,7 @@ const NewTripForm = (): JSX.Element => {
           result.push(waypoint);
         });
         setResponse(result);
+        setIsLoading(false);
       });
   };
 
@@ -108,9 +112,17 @@ const NewTripForm = (): JSX.Element => {
           type="number"
           onChange={(e) => setDuration(e.target.valueAsNumber)}
         />
-        <button type="submit">Create a plan</button>
+        <button className="primary-btn" type="submit">
+          Create a plan
+        </button>
       </form>
-      {response.length ? <Map cities={response as City[]} /> : null}
+      {isLoading && (
+        <img src="../../public/destination.gif" style={{ width: "150px" }} />
+      )}
+
+      {!isLoading && response.length ? (
+        <TripDetails cities={response as City[]} />
+      ) : null}
     </div>
   );
 };
