@@ -16,7 +16,7 @@ const createRoutineMachineLayer = ({
   const waypoints: L.Routing.Waypoint[] = [];
 
   cities.forEach((city: City) => {
-    const latlng: Coord = L.latLng(city.coord);
+    const latlng: Coord = L.latLng(city.coord as [number, number]);
     const waypoint: L.Routing.Waypoint = L.Routing.waypoint(
       latlng as L.LatLng,
       city.name

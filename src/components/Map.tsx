@@ -14,7 +14,7 @@ import RoutingMachine from "./RoutingMachine";
 
 export type City = {
   name: string;
-  coord: [number, number];
+  coord: number[];
 };
 
 export type MapProps = {

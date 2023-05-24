@@ -1,12 +1,14 @@
 import { City } from "./Map";
 import Map from "./Map";
+import { Activities } from "./NewTripForm";
 import { useState } from "react";
 
 export type TripProps = {
   cities: City[];
+  attractions: Activities[];
 };
 
-function TripDetails({ cities }: TripProps): JSX.Element {
+function TripDetails({ cities, attractions }: TripProps): JSX.Element {
   const [distance, setDistance] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
   return (
@@ -15,10 +17,11 @@ function TripDetails({ cities }: TripProps): JSX.Element {
         <div>
           <h4>Itinerary:</h4>
           <ul>
-            {cities.map((city: City) => (
-              <li style={{ margin: "0 1rem", listStyle: "none" }}>
-                {city.name}
-              </li>
+            {attractions.map((place: Activities) => (
+              <div style={{ margin: "0 1rem", listStyle: "none" }}>
+                <h5>{place.city}:</h5>
+                {place.attractions.map((at)=>(<li>{at}</li>))}
+              </div>
             ))}
           </ul>
         </div>
