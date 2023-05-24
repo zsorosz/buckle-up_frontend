@@ -1,0 +1,36 @@
+.trip-summary {
+    margin: 0 1rem;
+    text-align: left;
+    h4 {
+        margin-bottom: 2rem;
+        font-size: 1.4rem;
+    }
+}
+.trip-waypoints {
+    position: relative;
+    padding: 1rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    h5 {
+        max-width: 30%;
+    }
+    ul {
+        width: 50%;
+        font-size: .8rem;
+    }
+    li {
+        margin-left: 1rem;
+    }
+}
+.trip-line {
+    position: absolute;
+    height: 60%;
+    left: 12px;
+    top: 45px;
+    // bottom: 20px;
+    z-index: -5;
+    width: 2px;
+    border-radius: 8px;
+    background-image: repeating-linear-gradient(transparent, transparent 3px, $grey-color 3px, $grey-color 10px);
+}

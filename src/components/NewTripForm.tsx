@@ -4,11 +4,10 @@ import { City } from "./Map";
 import SearchSuggestions from "./SearchSuggestions";
 import TripDetails from "./TripDetails";
 
-
 export type Activities = {
   city: string;
   attractions: string[];
-}
+};
 
 const NewTripForm = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +52,7 @@ const NewTripForm = (): JSX.Element => {
       })
       .then((data) => {
         const responseArr: string[] = data.choices[0].text.split(";");
-        const activitiesArr: Activities[] = []
+        const activitiesArr: Activities[] = [];
         responseArr.map((element) => {
           const splittedArr = element.split(":");
           const activities = {
@@ -62,7 +61,7 @@ const NewTripForm = (): JSX.Element => {
           };
           activitiesArr.push(activities);
         });
-        setAttractions(activitiesArr)
+        setAttractions(activitiesArr);
       });
   };
   const callOpenAIAPI = async (
@@ -169,12 +168,13 @@ const NewTripForm = (): JSX.Element => {
           Create a plan
         </button>
       </form>
-      {isLoading && (
-        <img src="../../public/destination.gif" style={{ width: "150px" }} />
-      )}
+      {isLoading && <img src="/destination.gif" style={{ width: "150px" }} />}
 
       {!isLoading && response.length && attractions.length ? (
-        <TripDetails cities={response as City[]} attractions={attractions as Activities[]} />
+        <TripDetails
+          cities={response as City[]}
+          attractions={attractions as Activities[]}
+        />
       ) : null}
     </div>
   );

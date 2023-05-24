@@ -13,25 +13,35 @@ function TripDetails({ cities, attractions }: TripProps): JSX.Element {
   const [totalTime, setTotalTime] = useState(0);
   return (
     <div>
-      <section>
-        <div>
+      <section className="trip-summary">
+        <div className="trip-itinerary">
           <h4>Itinerary:</h4>
-          <ul>
-            {attractions.map((place: Activities) => (
-              <div style={{ margin: "0 1rem", listStyle: "none" }}>
-                <h5>{place.city}:</h5>
-                {place.attractions.map((at)=>(<li>{at}</li>))}
-              </div>
-            ))}
-          </ul>
+
+          {attractions.map((place: Activities) => (
+            <div
+              style={{ margin: "0 1rem", listStyle: "none" }}
+              className="trip-waypoints"
+            >
+              <img src="/public/placeholder.png" style={{ width: "25px" }} />
+              <div className="trip-line"></div>
+              <h5>{place.city}:</h5>
+              <ul>
+                <b>Places to visit:</b>
+                {place.attractions.map((at) => (
+                  <li>{at}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
         <div>
           <h4>Total Distance:</h4>{" "}
           {Math.round((distance + Number.EPSILON) * 100) / 100} km
         </div>
         <div>
-          <h4>Total Time:</h4>Total Time: {Math.floor(totalTime / 3600)} h{" "}
-          {Math.round((totalTime / 60) % 60)} min
+          <h4>Total Driving Time:</h4>
+          {Math.floor(totalTime / 3600)} h {Math.round((totalTime / 60) % 60)}{" "}
+          min
         </div>
       </section>
       <Map
