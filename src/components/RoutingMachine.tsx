@@ -13,15 +13,20 @@ const createRoutineMachineLayer = ({
   setDistance,
   setTotalTime,
 }: any): L.Routing.Control => {
-  const coordinates: L.LatLng[] = [];
+  const waypoints: L.Routing.Waypoint[] = [];
 
   cities.forEach((city: City) => {
     const latlng: Coord = L.latLng(city.coord);
-    coordinates.push(latlng as L.LatLng);
+    const waypoint: L.Routing.Waypoint = L.Routing.waypoint(
+      latlng as L.LatLng,
+      city.name
+    );
+    waypoints.push(waypoint);
+    console.log(waypoint);
   });
-  console.log(coordinates);
+  console.log(waypoints);
   const instance = L.Routing.control({
-    waypoints: coordinates,
+    waypoints: waypoints,
     lineOptions: {
       styles: [{ color: "#6FA1EC", weight: 4 }],
       extendToWaypoints: false,
