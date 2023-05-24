@@ -14,9 +14,7 @@ const NewTripForm = (): JSX.Element => {
   const [response, setResponse] = useState([] as object[]);
 
   const OPENAI_API_KEY: string = import.meta.env.VITE_OPENAI_KEY as string;
-  const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with all together ${
-    duration + 1
-  } stops. Do not add numbers before the city names and include the starting city and destination.
+  const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with all together ${duration} stops. Do not add numbers before the city names and include the starting city and destination.
   Desired format:
   City name: latitude, longitude`;
 

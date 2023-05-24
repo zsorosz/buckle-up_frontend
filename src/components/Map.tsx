@@ -38,7 +38,7 @@ function Map({ cities, setDistance, setTotalTime }: MapProps): JSX.Element {
         center={cities[0].coord as [number, number]}
         zoom={4}
         scrollWheelZoom={true}
-        style={{ height: "400px", width: "100%", marginTop: "50px" }}
+        style={{ height: "500px", width: "100%", marginTop: "50px" }}
       >
         <CenterMap />
         <TileLayer

@@ -11,21 +11,26 @@ function TripDetails({ cities }: TripProps): JSX.Element {
   const [totalTime, setTotalTime] = useState(0);
   return (
     <div>
-      <div>
-        Total Distance: {Math.round((distance + Number.EPSILON) * 100) / 100} km
-      </div>
-      <div>
-        Total Time: {Math.floor(totalTime / 3600)} h{" "}
-        {Math.round((totalTime / 60) % 60)} min
-      </div>
-      <div>
-        Itinerary:
-        <ul>
-          {cities.map((city: City) => (
-            <li>{city.name}</li>
-          ))}
-        </ul>
-      </div>
+      <section>
+        <div>
+          <h4>Itinerary:</h4>
+          <ul>
+            {cities.map((city: City) => (
+              <li style={{ margin: "0 1rem", listStyle: "none" }}>
+                {city.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h4>Total Distance:</h4>{" "}
+          {Math.round((distance + Number.EPSILON) * 100) / 100} km
+        </div>
+        <div>
+          <h4>Total Time:</h4>Total Time: {Math.floor(totalTime / 3600)} h{" "}
+          {Math.round((totalTime / 60) % 60)} min
+        </div>
+      </section>
       <Map
         cities={cities as City[]}
         setDistance={setDistance}
