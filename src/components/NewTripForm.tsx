@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Map from "./Map";
 import { City } from "./Map";
 import SearchSuggestions from "./SearchSuggestions";
 import TripDetails from "./TripDetails";
+
+
+export type Activities = {
+  city: string;
+  attractions: string[];
+}
 
 const NewTripForm = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,16 +17,60 @@ const NewTripForm = (): JSX.Element => {
   const [startQuery, setStartQuery] = useState("");
   const [destQuery, setDestQuery] = useState("");
   const [duration, setDuration] = useState(0);
-  const [response, setResponse] = useState([] as object[]);
+  const [response, setResponse] = useState([] as City[]);
+  const [attractions, setAttractions] = useState([] as Activities[]);
 
   const OPENAI_API_KEY: string = import.meta.env.VITE_OPENAI_KEY as string;
-  const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with all together ${duration} stops. Do not add numbers before the city names and include the starting city and destination.
-  Desired format:
-  City name: latitude, longitude`;
 
+  const getAttractions = async (): Promise<void> => {
+    const places: string[] = [];
+    response.map((place: City) => {
+      places.push(place.name);
+    });
+    console.log(places);
+    const attractionsPrompt = `Give me a list of maximum 3 tourist attractions in each of these cities: ${places}. 
+    Desired format: Cityname: attraction1, attraction2, attraction3; Cityname: attraction1, attraction2, attraction3...`;
+    console.log(attractionsPrompt);
+    const APIBody = {
+      model: "text-davinci-003",
+      prompt: attractionsPrompt,
+      temperature: 0,
+      max_tokens: 200,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    };
+    await fetch("https://api.openai.com/v1/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + OPENAI_API_KEY,
+      },
+      body: JSON.stringify(APIBody),
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        const responseArr: string[] = data.choices[0].text.split(";");
+        const activitiesArr: Activities[] = []
+        responseArr.map((element) => {
+          const splittedArr = element.split(":");
+          const activities = {
+            city: splittedArr[0],
+            attractions: splittedArr[1].split(","),
+          };
+          activitiesArr.push(activities);
+        });
+        setAttractions(activitiesArr)
+      });
+  };
   const callOpenAIAPI = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
+    const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with all together ${duration} stops. Do not add numbers before the city names and include the starting city and destination.
+  Desired format:
+  City name: latitude, longitude`;
     setIsLoading(true);
     event.preventDefault();
     const APIBody = {
@@ -46,7 +96,7 @@ const NewTripForm = (): JSX.Element => {
       .then((data) => {
         const cities = data.choices[0].text.trim().split("\n");
 
-        const result: object[] = [];
+        const result: City[] = [];
 
         cities.map((city: string) => {
           const citiesArr = city.split(":");
@@ -64,6 +114,11 @@ const NewTripForm = (): JSX.Element => {
         setIsLoading(false);
       });
   };
+  useEffect(() => {
+    if (response.length) {
+      getAttractions();
+    }
+  }, [response]);
 
   return (
     <div>
@@ -118,8 +173,8 @@ const NewTripForm = (): JSX.Element => {
         <img src="../../public/destination.gif" style={{ width: "150px" }} />
       )}
 
-      {!isLoading && response.length ? (
-        <TripDetails cities={response as City[]} />
+      {!isLoading && response.length && attractions.length ? (
+        <TripDetails cities={response as City[]} attractions={attractions as Activities[]} />
       ) : null}
     </div>
   );
