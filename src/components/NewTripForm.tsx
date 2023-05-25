@@ -62,6 +62,7 @@ const NewTripForm = (): JSX.Element => {
           activitiesArr.push(activities);
         });
         setAttractions(activitiesArr);
+        setIsLoading(false);
       });
   };
   const callOpenAIAPI = async (
@@ -110,7 +111,7 @@ const NewTripForm = (): JSX.Element => {
           result.push(waypoint);
         });
         setResponse(result);
-        setIsLoading(false);
+        // setIsLoading(false);
       });
   };
   useEffect(() => {

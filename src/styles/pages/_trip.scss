@@ -1,8 +1,27 @@
+.trip {
+    @include respond(tab-land) {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    
+}
+
+.trip-map {
+height: 600px;
+        @include respond(tab-land) {
+            margin-top: 1rem;
+            flex: 1;
+        }
+}
+
 .trip-summary {
     margin: 0 1rem;
     text-align: left;
+    @include respond(tab-land) {
+        width: 30%;
+    }
     h4 {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         font-size: 1.4rem;
     }
 }
@@ -12,8 +31,11 @@
     display: flex;
     align-items: flex-start;
     gap: 1rem;
+    // @include respond(tab-land) {
+    //     width: 30%;
+    // }
     h5 {
-        max-width: 30%;
+        width: 30%;
     }
     ul {
         width: 50%;
@@ -33,4 +55,10 @@
     width: 2px;
     border-radius: 8px;
     background-image: repeating-linear-gradient(transparent, transparent 3px, $grey-color 3px, $grey-color 10px);
+}
+
+.trip-data {
+    display: flex;
+    gap: 4rem;
+    margin-top: 2rem;
 }

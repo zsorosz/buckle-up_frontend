@@ -33,25 +33,23 @@ function Map({ cities, setDistance, setTotalTime }: MapProps): JSX.Element {
   }
 
   return (
-    <>
-      <MapContainer
-        center={cities[0].coord as [number, number]}
-        zoom={4}
-        scrollWheelZoom={true}
-        style={{ height: "500px", width: "100%", marginTop: "50px" }}
-      >
-        <CenterMap />
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <RoutingMachine
-          cities={cities as L.ControlOptions}
-          setDistance={setDistance}
-          setTotalTime={setTotalTime}
-        />
-      </MapContainer>
-    </>
+    <MapContainer
+      center={cities[0].coord as [number, number]}
+      zoom={4}
+      scrollWheelZoom={true}
+      style={{ height: "100%", width: "100%" }}
+    >
+      <CenterMap />
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <RoutingMachine
+        cities={cities as L.ControlOptions}
+        setDistance={setDistance}
+        setTotalTime={setTotalTime}
+      />
+    </MapContainer>
   );
 }
 
