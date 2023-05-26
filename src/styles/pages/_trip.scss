@@ -47,9 +47,9 @@ height: 600px;
 }
 .trip-line {
     position: absolute;
-    height: 60%;
+    height: 65%;
     left: 12px;
-    top: 45px;
+    top: 43px;
     // bottom: 20px;
     z-index: -5;
     width: 2px;
@@ -60,5 +60,14 @@ height: 600px;
 .trip-data {
     display: flex;
     gap: 4rem;
-    margin-top: 2rem;
+    margin: 2rem 0;
+}
+.trip-ctas {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    @include respond(tab-land) {
+        justify-content: flex-end;
+        margin-right: 3rem;
+    }
 }
