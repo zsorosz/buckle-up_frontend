@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import Map from "./Map";
 import { City } from "./Map";
 import SearchSuggestions from "./SearchSuggestions";
 import TripDetails from "./TripDetails";
 
-
 export type Activities = {
   city: string;
   attractions: string[];
-}
+};
 
 const NewTripForm = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isTripShowing, setIsTripShowing] = useState(false);
   const [destination, setDestination] = useState("");
   const [startingCity, setStartingCity] = useState("");
   const [startQuery, setStartQuery] = useState("");
@@ -53,7 +52,7 @@ const NewTripForm = (): JSX.Element => {
       })
       .then((data) => {
         const responseArr: string[] = data.choices[0].text.split(";");
-        const activitiesArr: Activities[] = []
+        const activitiesArr: Activities[] = [];
         responseArr.map((element) => {
           const splittedArr = element.split(":");
           const activities = {
@@ -62,7 +61,8 @@ const NewTripForm = (): JSX.Element => {
           };
           activitiesArr.push(activities);
         });
-        setAttractions(activitiesArr)
+        setAttractions(activitiesArr);
+        setIsLoading(false);
       });
   };
   const callOpenAIAPI = async (
@@ -111,8 +111,17 @@ const NewTripForm = (): JSX.Element => {
           result.push(waypoint);
         });
         setResponse(result);
-        setIsLoading(false);
+        setIsTripShowing(true);
       });
+  };
+
+  const resetTrip = () => {
+    setIsTripShowing(false);
+    setStartQuery("");
+    setDestQuery("");
+    setStartingCity("");
+    setDestination("");
+    setResponse([]);
   };
   useEffect(() => {
     if (response.length) {
@@ -122,59 +131,76 @@ const NewTripForm = (): JSX.Element => {
 
   return (
     <div>
-      <h2>New road trip</h2>
-      <form className="trip-form" onSubmit={callOpenAIAPI}>
-        From:
-        <input
-          type="text"
-          placeholder="Starting City"
-          value={startingCity}
-          onChange={(e) => {
-            setStartingCity(e.target.value);
-            setStartQuery(e.target.value);
-          }}
-        />
-        {startQuery.length ? (
-          <SearchSuggestions
-            query={startQuery}
-            waypoint="start"
-            setStartingCity={setStartingCity}
-            setDestination={setDestination}
+      <h1>
+        {!isTripShowing
+          ? "New road trip"
+          : `${duration}-day road trip from ${startingCity.substring(
+              0,
+              startingCity.indexOf(",")
+            )} to ${destination.substring(0, destination.indexOf(","))}`}
+      </h1>
+      {!isTripShowing ? (
+        <form className="trip-form" onSubmit={callOpenAIAPI}>
+          From:
+          <input
+            type="text"
+            placeholder="Starting City"
+            value={startingCity}
+            onChange={(e) => {
+              setStartingCity(e.target.value);
+              setStartQuery(e.target.value);
+            }}
           />
-        ) : null}
-        To:
-        <input
-          type="text"
-          placeholder="Destination"
-          value={destination}
-          onChange={(e) => {
-            setDestination(e.target.value);
-            setDestQuery(e.target.value);
-          }}
-        />
-        {destQuery.length ? (
-          <SearchSuggestions
-            query={destQuery}
-            waypoint="end"
-            setStartingCity={setStartingCity}
-            setDestination={setDestination}
+          {startQuery.length ? (
+            <SearchSuggestions
+              query={startQuery}
+              waypoint="start"
+              setStartingCity={setStartingCity}
+              setDestination={setDestination}
+            />
+          ) : null}
+          To:
+          <input
+            type="text"
+            placeholder="Destination"
+            value={destination}
+            onChange={(e) => {
+              setDestination(e.target.value);
+              setDestQuery(e.target.value);
+            }}
           />
-        ) : null}
-        Trip duration:
-        <input
-          type="number"
-          onChange={(e) => setDuration(e.target.valueAsNumber)}
-        />
-        <button className="primary-btn" type="submit">
-          Create a plan
-        </button>
-      </form>
-      {isLoading && (
-        <img src="../../public/destination.gif" style={{ width: "150px" }} />
+          {destQuery.length ? (
+            <SearchSuggestions
+              query={destQuery}
+              waypoint="end"
+              setStartingCity={setStartingCity}
+              setDestination={setDestination}
+            />
+          ) : null}
+          Trip duration:
+          <input
+            type="number"
+            onChange={(e) => setDuration(e.target.valueAsNumber)}
+          />
+          <button className="primary-btn" type="submit">
+            Create a plan
+          </button>
+        </form>
+      ) : (
+        <div className="trip-ctas">
+          <button className="primary-btn">Save trip</button>
+          <button className="secondary-btn" onClick={resetTrip}>
+            Create new trip
+          </button>
+        </div>
       )}
+      {isLoading && <img src="/destination.gif" style={{ width: "150px" }} />}
 
       {!isLoading && response.length && attractions.length ? (
-        <TripDetails cities={response as City[]} attractions={attractions as Activities[]} />
+        <TripDetails
+          cities={response as City[]}
+          attractions={attractions as Activities[]}
+        />
       ) : null}
     </div>
   );
