@@ -22,10 +22,10 @@ const NewTripForm = (): JSX.Element => {
   const [attractions, setAttractions] = useState([] as Activities[]);
   const [totalDistance, setTotalDistance] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
-  const navigate =useNavigate();
-  
+  const navigate = useNavigate();
+
   const OPENAI_API_KEY: string = import.meta.env.VITE_OPENAI_KEY as string;
-  const BASE_URL: string = import.meta.env.VITE_BASE_URL as string
+  const BASE_URL: string = import.meta.env.VITE_BASE_URL as string;
 
   const getAttractions = async (): Promise<void> => {
     const places: string[] = [];
@@ -57,7 +57,7 @@ const NewTripForm = (): JSX.Element => {
         return data.json();
       })
       .then((data) => {
-        const responseArr: string[] = data.choices[0].text.split(";");
+        const responseArr: string[] = data.choices[0].text.trim().split(";");
         const activitiesArr: Activities[] = [];
         responseArr.map((element) => {
           const splittedArr = element.split(":");
@@ -135,7 +135,7 @@ const NewTripForm = (): JSX.Element => {
     }
   }, [response]);
 
-  const saveTrip=async()=> {
+  const saveTrip = async () => {
     const trip = {
       title: `${duration}-day road trip from ${startingCity.substring(
         0,
@@ -146,13 +146,13 @@ const NewTripForm = (): JSX.Element => {
       waypoints: response,
       attractions: attractions,
       totalDistance: totalDistance,
-      totalTime: totalTime,  
-    }
+      totalTime: totalTime,
+    };
     const request = await axios.post(`${BASE_URL}/trip/add`, {
-      trip
-    })
-    navigate('/')
-  }
+      trip,
+    });
+    navigate("/");
+  };
 
   return (
     <div>
@@ -168,43 +168,43 @@ const NewTripForm = (): JSX.Element => {
         <form className="trip-form" onSubmit={callOpenAIAPI}>
           <p>From</p>
           <div className="input-container">
-          <input
-            type="text"
-            placeholder="Starting City"
-            value={startingCity}
-            onChange={(e) => {
-              setStartingCity(e.target.value);
-              setStartQuery(e.target.value);
-            }}
-          />
-          {startQuery.length ? (
-            <SearchSuggestions
-              query={startQuery}
-              waypoint="start"
-              setStartingCity={setStartingCity}
-              setDestination={setDestination}
+            <input
+              type="text"
+              placeholder="Starting City"
+              value={startingCity}
+              onChange={(e) => {
+                setStartingCity(e.target.value);
+                setStartQuery(e.target.value);
+              }}
             />
-          ) : null}
+            {startQuery.length ? (
+              <SearchSuggestions
+                query={startQuery}
+                waypoint="start"
+                setStartingCity={setStartingCity}
+                setDestination={setDestination}
+              />
+            ) : null}
           </div>
           <p>To</p>
           <div className="input-container">
-          <input
-            type="text"
-            placeholder="Destination"
-            value={destination}
-            onChange={(e) => {
-              setDestination(e.target.value);
-              setDestQuery(e.target.value);
-            }}
-          />
-          {destQuery.length ? (
-            <SearchSuggestions
-              query={destQuery}
-              waypoint="end"
-              setStartingCity={setStartingCity}
-              setDestination={setDestination}
+            <input
+              type="text"
+              placeholder="Destination"
+              value={destination}
+              onChange={(e) => {
+                setDestination(e.target.value);
+                setDestQuery(e.target.value);
+              }}
             />
-          ) : null}
+            {destQuery.length ? (
+              <SearchSuggestions
+                query={destQuery}
+                waypoint="end"
+                setStartingCity={setStartingCity}
+                setDestination={setDestination}
+              />
+            ) : null}
           </div>
           <p>Trip duration</p>
           <input
@@ -219,7 +219,9 @@ const NewTripForm = (): JSX.Element => {
         </form>
       ) : (
         <div className="trip-ctas">
-          <button className="primary-btn" onClick={saveTrip}>Save trip</button>
+          <button className="primary-btn" onClick={saveTrip}>
+            Save trip
+          </button>
           <button className="secondary-btn" onClick={resetTrip}>
             Create new trip
           </button>
@@ -233,8 +235,8 @@ const NewTripForm = (): JSX.Element => {
           attractions={attractions as Activities[]}
           setTotalDistance={setTotalDistance}
           setTotalTime={setTotalTime}
-          totalDistance= {totalDistance}
-          totalTime= {totalTime}
+          totalDistance={totalDistance}
+          totalTime={totalTime}
         />
       ) : null}
     </div>
