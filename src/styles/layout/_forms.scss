@@ -19,8 +19,12 @@
         padding: 0 5px;
         border: none;
         background-color: $white-color;
+        color: $grey-color;
     }
     button {
         align-self: center;
+    }
+    p {
+        font-style: italic;
     }
 }

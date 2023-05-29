@@ -1,0 +1,31 @@
+.input-container {
+    position: relative;
+    width: 100%;
+    
+}
+
+.search-suggestion {
+    background-color: white;
+    border: 2px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    position:absolute;
+    text-align: left;
+    z-index: 1;
+    width: 100%;
+    div {
+        font-style: italic;
+        &:hover{
+            cursor: pointer;
+            background-color: lightblue;
+        }
+    }
+}
+
+
+
+.trip-form {
+    
+}
+
+

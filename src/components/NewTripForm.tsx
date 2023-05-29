@@ -141,7 +141,8 @@ const NewTripForm = (): JSX.Element => {
       </h1>
       {!isTripShowing ? (
         <form className="trip-form" onSubmit={callOpenAIAPI}>
-          From:
+          <p>From</p>
+          <div className="input-container">
           <input
             type="text"
             placeholder="Starting City"
@@ -159,7 +160,9 @@ const NewTripForm = (): JSX.Element => {
               setDestination={setDestination}
             />
           ) : null}
-          To:
+          </div>
+          <p>To</p>
+          <div className="input-container">
           <input
             type="text"
             placeholder="Destination"
@@ -177,9 +180,12 @@ const NewTripForm = (): JSX.Element => {
               setDestination={setDestination}
             />
           ) : null}
-          Trip duration:
+          </div>
+          <p>Trip duration</p>
           <input
             type="number"
+            min="1"
+            defaultValue={1}
             onChange={(e) => setDuration(e.target.valueAsNumber)}
           />
           <button className="primary-btn" type="submit">
