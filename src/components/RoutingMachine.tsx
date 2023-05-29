@@ -10,7 +10,7 @@ type Coord = {
 
 const createRoutineMachineLayer = ({
   cities,
-  setDistance,
+  setTotalDistance,
   setTotalTime,
 }: any): L.Routing.Control => {
   const waypoints: L.Routing.Waypoint[] = [];
@@ -39,7 +39,7 @@ const createRoutineMachineLayer = ({
     showAlternatives: false,
     collapsible: true,
   }).on("routesfound", function (e) {
-    setDistance(e.routes[0].summary.totalDistance / 1000);
+    setTotalDistance(e.routes[0].summary.totalDistance / 1000);
     setTotalTime(e.routes[0].summary.totalTime);
   });
   // console.log(instance);

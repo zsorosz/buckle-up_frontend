@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { City } from "./Map";
 import SearchSuggestions from "./SearchSuggestions";
 import TripDetails from "./TripDetails";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export type Activities = {
   city: string;
@@ -18,8 +20,12 @@ const NewTripForm = (): JSX.Element => {
   const [duration, setDuration] = useState(0);
   const [response, setResponse] = useState([] as City[]);
   const [attractions, setAttractions] = useState([] as Activities[]);
-
+  const [totalDistance, setTotalDistance] = useState(0);
+  const [totalTime, setTotalTime] = useState(0);
+  const navigate =useNavigate();
+  
   const OPENAI_API_KEY: string = import.meta.env.VITE_OPENAI_KEY as string;
+  const BASE_URL: string = import.meta.env.VITE_BASE_URL as string
 
   const getAttractions = async (): Promise<void> => {
     const places: string[] = [];
@@ -129,6 +135,25 @@ const NewTripForm = (): JSX.Element => {
     }
   }, [response]);
 
+  const saveTrip=async()=> {
+    const trip = {
+      title: `${duration}-day road trip from ${startingCity.substring(
+        0,
+        startingCity.indexOf(",")
+      )} to ${destination.substring(0, destination.indexOf(","))}`,
+      startingCity: startingCity,
+      destination: destination,
+      waypoints: response,
+      attractions: attractions,
+      totalDistance: totalDistance,
+      totalTime: totalTime,  
+    }
+    const request = await axios.post(`${BASE_URL}/trip/add`, {
+      trip
+    })
+    navigate('/')
+  }
+
   return (
     <div>
       <h1>
@@ -194,7 +219,7 @@ const NewTripForm = (): JSX.Element => {
         </form>
       ) : (
         <div className="trip-ctas">
-          <button className="primary-btn">Save trip</button>
+          <button className="primary-btn" onClick={saveTrip}>Save trip</button>
           <button className="secondary-btn" onClick={resetTrip}>
             Create new trip
           </button>
@@ -206,6 +231,10 @@ const NewTripForm = (): JSX.Element => {
         <TripDetails
           cities={response as City[]}
           attractions={attractions as Activities[]}
+          setTotalDistance={setTotalDistance}
+          setTotalTime={setTotalTime}
+          totalDistance= {totalDistance}
+          totalTime= {totalTime}
         />
       ) : null}
     </div>

@@ -6,11 +6,14 @@ import { useState } from "react";
 export type TripProps = {
   cities: City[];
   attractions: Activities[];
+  setTotalDistance: (arg0: number) => void;
+  setTotalTime: (arg0: number) => void;
+  totalDistance: number;
+  totalTime: number;
 };
 
-function TripDetails({ cities, attractions }: TripProps): JSX.Element {
-  const [distance, setDistance] = useState(0);
-  const [totalTime, setTotalTime] = useState(0);
+function TripDetails({ cities, attractions, setTotalDistance, setTotalTime, totalDistance, totalTime }: TripProps): JSX.Element {
+  
   return (
     <div className="trip">
       <section className="trip-summary">
@@ -39,7 +42,7 @@ function TripDetails({ cities, attractions }: TripProps): JSX.Element {
         <div className="trip-data">
           <div>
             <h5>Total Distance:</h5>{" "}
-            {Math.round((distance + Number.EPSILON) * 100) / 100} km
+            {Math.round((totalDistance + Number.EPSILON) * 100) / 100} km
           </div>
           <div>
             <h5>Total Driving Time:</h5>
@@ -51,7 +54,7 @@ function TripDetails({ cities, attractions }: TripProps): JSX.Element {
       <section className="trip-map">
         <Map
           cities={cities as City[]}
-          setDistance={setDistance}
+          setTotalDistance={setTotalDistance}
           setTotalTime={setTotalTime}
         />
       </section>

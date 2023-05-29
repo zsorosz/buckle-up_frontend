@@ -19,11 +19,11 @@ export type City = {
 
 export type MapProps = {
   cities: City[];
-  setDistance: (prevState: number) => void;
+  setTotalDistance: (prevState: number) => void;
   setTotalTime: (prevState: number) => void;
 };
 
-function Map({ cities, setDistance, setTotalTime }: MapProps): JSX.Element {
+function Map({ cities, setTotalDistance, setTotalTime }: MapProps): JSX.Element {
   function CenterMap() {
     const map = useMapEvent("click", (e) => {
       console.log(e.latlng);
@@ -46,7 +46,7 @@ function Map({ cities, setDistance, setTotalTime }: MapProps): JSX.Element {
       />
       <RoutingMachine
         cities={cities as L.ControlOptions}
-        setDistance={setDistance}
+        setTotalDistance={setTotalDistance}
         setTotalTime={setTotalTime}
       />
     </MapContainer>
