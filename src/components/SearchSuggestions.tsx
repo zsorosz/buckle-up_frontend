@@ -53,7 +53,7 @@ const SearchSuggestions = ({
   }, [query]);
 
   return (
-    <div>
+    <div className="search-suggestion">
       {startSuggestions.length
         ? startSuggestions.map((city: SuggestionData) => (
             <div
@@ -70,7 +70,7 @@ const SearchSuggestions = ({
         : null}
       {destSuggestions.length
         ? destSuggestions.map((city: SuggestionData) => (
-            <div
+            <div 
               key={city.place_id}
               onClick={(e) => {
                 e.preventDefault();
