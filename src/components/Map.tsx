@@ -19,8 +19,8 @@ export type City = {
 
 export type MapProps = {
   cities: City[];
-  setTotalDistance: (prevState: number) => void;
-  setTotalTime: (prevState: number) => void;
+  setTotalDistance?: (prevState: number) => void;
+  setTotalTime?: (prevState: number) => void;
 };
 
 function Map({ cities, setTotalDistance, setTotalTime }: MapProps): JSX.Element {

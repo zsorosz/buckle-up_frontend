@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 interface UserData {
   username: string;
+  email: string;
+  trips: string[];
 }
 
 interface SessionContextState {

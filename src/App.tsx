@@ -3,7 +3,7 @@ import "./styles/main.scss";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import ProfilePage from "./pages/ProfilePage";
+import MyTrips from "./pages/MyTrips";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import NewTripForm from "./components/NewTripForm";
@@ -20,7 +20,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/mytrips" element={<MyTrips />} />
         <Route path="/trip-planner" element={<NewTripForm />} />
       </Routes>
       <Footer />

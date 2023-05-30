@@ -1,19 +1,24 @@
 import { City } from "./Map";
 import Map from "./Map";
 import { Activities } from "./NewTripForm";
-import { useState } from "react";
 
 export type TripProps = {
   cities: City[];
   attractions: Activities[];
-  setTotalDistance: (arg0: number) => void;
-  setTotalTime: (arg0: number) => void;
+  setTotalDistance?: (arg0: number) => void;
+  setTotalTime?: (arg0: number) => void;
   totalDistance: number;
   totalTime: number;
 };
 
-function TripDetails({ cities, attractions, setTotalDistance, setTotalTime, totalDistance, totalTime }: TripProps): JSX.Element {
-  
+function TripDetails({
+  cities,
+  attractions,
+  setTotalDistance,
+  setTotalTime,
+  totalDistance,
+  totalTime,
+}: TripProps): JSX.Element {
   return (
     <div className="trip">
       <section className="trip-summary">
