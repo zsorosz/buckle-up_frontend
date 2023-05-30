@@ -3,8 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import { SessionContext } from "../contexts/SessionContext";
 import AuthForm from "../components/AuthForm";
 
-
-const LoginPage = (): JSX.Element  => {
+const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -21,22 +20,22 @@ const LoginPage = (): JSX.Element  => {
       body: JSON.stringify({ username, password }),
     });
     const parsed = await response.json();
-    setToken(parsed.token); 
-    navigate("/");
+    setToken(parsed.token);
+    navigate(-1);
   };
 
   return (
     <div className="form-ctn">
-    <AuthForm
-      username={username}
-      setUsername={setUsername} 
-      password={password}
-      setPassword={setPassword}
-      isLogin
-      handleSubmit={handleSubmit}
-    />
-  </div>
-  )
-}
+      <AuthForm
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+        isLogin
+        handleSubmit={handleSubmit}
+      />
+    </div>
+  );
+};
 
-export default LoginPage
+export default LoginPage;

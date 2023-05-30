@@ -12,6 +12,10 @@
         @include respond(tab-port){
             font-size: 3rem;
         }
+        a {
+            text-decoration: none;
+        color: $grey-color;
+        }
     }
 }
 
