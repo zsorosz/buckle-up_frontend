@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import NewTripForm from "./components/NewTripForm";
 import { SessionContext } from "./contexts/SessionContext";
 import { useContext } from "react";
+import TripDetailsPage from "./pages/TripDetailsPage";
 
 function App() {
   const { isAuthenticated } = useContext(SessionContext);
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/mytrips" element={<MyTrips />} />
         <Route path="/trip-planner" element={<NewTripForm />} />
+        <Route path="/:tripId" element={<TripDetailsPage />} />
       </Routes>
       <Footer />
     </>
