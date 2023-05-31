@@ -1,10 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { City } from "./Map";
 import SearchSuggestions from "./SearchSuggestions";
 import TripDetails from "./TripDetails";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { SessionContext } from "../contexts/SessionContext";
 
 export type Activities = {
   city: string;
@@ -24,9 +23,6 @@ const NewTripForm = (): JSX.Element => {
   const [totalDistance, setTotalDistance] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
   const navigate = useNavigate();
-
-  const { userData, isAuthenticated, refreshData } = useContext(SessionContext);
-  console.log(userData?.trips);
 
   const OPENAI_API_KEY: string = import.meta.env.VITE_OPENAI_KEY as string;
   const BASE_URL: string = import.meta.env.VITE_BASE_URL as string;
@@ -140,27 +136,22 @@ const NewTripForm = (): JSX.Element => {
   }, [response]);
 
   const saveTrip = async () => {
-    if (!userData) {
-      navigate("/login");
-    } else {
-      const trip = {
-        title: `${duration}-day road trip from ${startingCity.substring(
-          0,
-          startingCity.indexOf(",")
-        )} to ${destination.substring(0, destination.indexOf(","))}`,
-        startingCity: startingCity,
-        destination: destination,
-        waypoints: response,
-        attractions: attractions,
-        totalDistance: totalDistance,
-        totalTime: totalTime,
-      };
-      const request = await axios.post(`${BASE_URL}/trip/add`, {
-        trip,
-        userData,
-      });
-      navigate("/");
-    }
+    const trip = {
+      title: `${duration}-day road trip from ${startingCity.substring(
+        0,
+        startingCity.indexOf(",")
+      )} to ${destination.substring(0, destination.indexOf(","))}`,
+      startingCity: startingCity,
+      destination: destination,
+      waypoints: response,
+      attractions: attractions,
+      totalDistance: totalDistance,
+      totalTime: totalTime,
+    };
+    const request = await axios.post(`${BASE_URL}/trip/add`, {
+      trip,
+    });
+    navigate("/");
   };
 
   return (
