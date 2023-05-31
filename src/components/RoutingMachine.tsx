@@ -39,8 +39,9 @@ const createRoutineMachineLayer = ({
     showAlternatives: false,
     collapsible: true,
   }).on("routesfound", function (e) {
-    setTotalDistance(e.routes[0].summary.totalDistance / 1000);
-    setTotalTime(e.routes[0].summary.totalTime);
+    setTotalDistance &&
+      setTotalDistance(e.routes[0].summary.totalDistance / 1000);
+    setTotalTime && setTotalTime(e.routes[0].summary.totalTime);
   });
   // console.log(instance);
   // const plan = instance.getPlan();
