@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserData } from "../types";
 
-interface UserData {
-  username: string;
-  email: string;
-  trips: string[];
-}
+
+
 
 interface SessionContextState {
   setToken: (token: string | null) => void;
