@@ -26,32 +26,32 @@ function MyTrips(): JSX.Element {
   }, [userData]);
 
   return (
-    <div className="cards-container">
+    <div>
       {isLoading && user ? (
         <p>Loading...</p>
       ) : (
-        <div>
-          {user.trips?.map((trip) => (
-            <article className="card">
-              <img
-                src={`https://source.unsplash.com/600x300/?${trip.destination}`}
-                alt="destination photo"
-                width="1920"
-                height="2193"
-              />
-              <div className="card-details">
-                <h2 className="card-title">{trip.destination}</h2>
-                <p className="card-description">
-                  The trip from {trip.startingCity}
-                  <br></br>to {trip.destination}
-                </p>
+        <>
+          <h2>My Trips</h2>
+          <div className="cards-container">
+            {user.trips?.map((trip) => (
+              <a href={`/${trip._id}`} className="card">
+                <img
+                  src={`https://source.unsplash.com/600x300/?${trip.destination}`}
+                  alt="destination photo"
+                  width="1920"
+                  height="2193"
+                />
+                <div className="card-details">
+                  <h2 className="card-title">{trip.title}</h2>
+                  {/* <p className="card-description">{trip.title}</p>
                 <div className="primary-btn">
                   <a href={`/${trip._id}`}>See details</a>
+                </div> */}
                 </div>
-              </div>
-            </article>
-          ))}
-        </div>
+              </a>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

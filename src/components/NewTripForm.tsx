@@ -144,8 +144,29 @@ const NewTripForm = (): JSX.Element => {
         0,
         startingCity.indexOf(",")
       )} to ${destination.substring(0, destination.indexOf(","))}`,
-      startingCity: startingCity,
-      destination: destination,
+      startingCity:
+        startingCity.substring(0, startingCity.indexOf(",")) +
+        startingCity.substring(
+          startingCity.lastIndexOf(","),
+          startingCity.length
+        ),
+      destination:
+        destination.substring(0, destination.indexOf(",")) +
+        destination.substring(destination.lastIndexOf(","), destination.length),
+      // startingCity: `${startingCity.substring(
+      //   0,
+      //   startingCity.indexOf(",")
+      // )}${startingCity.substring(
+      //   startingCity.lastIndexOf(","),
+      //   startingCity.length
+      // )}`,
+      // destination: `${destination.substring(
+      //   0,
+      //   destination.indexOf(",")
+      // )}${destination.substring(
+      //   destination.lastIndexOf(","),
+      //   destination.length
+      // )}`,
       waypoints: response,
       attractions: attractions,
       totalDistance: totalDistance,
