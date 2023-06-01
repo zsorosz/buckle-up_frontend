@@ -5,6 +5,7 @@ export interface UserData {
   username: string;
   email: string;
   trips: Trip[];
+  _id: string
 }
 
 export interface Trip {

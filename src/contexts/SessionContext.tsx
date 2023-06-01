@@ -3,9 +3,6 @@ import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserData } from "../types";
 
-
-
-
 interface SessionContextState {
   setToken: (token: string | null) => void;
   token: string | null | undefined;
