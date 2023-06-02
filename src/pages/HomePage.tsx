@@ -7,7 +7,7 @@ function HomePage(): JSX.Element {
         <img src="/public/buckle_up-hero.jpg" />
         <div className="home-main_content">
           <h1>Let's plan your best trip ever!</h1>
-          <h2>Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</h2>
+          <h2>Create a road trip plan with route suggestions from Open AI</h2>
         </div>
         <NewTripForm />
       </section>

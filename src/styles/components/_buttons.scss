@@ -7,6 +7,7 @@
     font-family: $font-primary;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-top: 1rem;
     color: white;
 }
@@ -19,4 +20,15 @@
 .secondary-btn {
     @extend %btn;
     background-color: $grey-color;
+}
+
+.option-btn {
+    @extend %btn;
+    color: $white-color;
+    background-color: rgba(#f7f7f7, 0.3);
+    border-radius: 8px 8px 0 0;
+    font-size: .7rem;
+    width: 100%;
+    padding: .5rem;
+    text-align: center;
 }

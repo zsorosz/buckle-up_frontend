@@ -1,10 +1,17 @@
-.trip-form {
+.form-ctn {
+    padding: 0 2rem;
+}
+
+.form-input-ctn {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 70%;
-    margin: 0 auto 2rem auto;
+    width: 95%;
+    background-color: $white-color;
+    margin: 0 auto;
+    padding: 1rem 1rem 2rem 1rem;
     gap: .5rem;
+    border-radius: 0 0 8px 8px;
     @include respond(tab-port) {
         width: 50%;
     }
@@ -14,10 +21,11 @@
     input {
         width: 100%;
         height: 2rem;
-        font-size: .9rem;
+        font-size: .7rem;
         font-family: $font-primary;
         padding: 0 5px;
-        border: none;
+        border: 1px solid $grey-color;
+        border-radius: 5px;
         background-color: $white-color;
         color: $grey-color;
     }
@@ -25,6 +33,37 @@
         align-self: center;
     }
     p {
-        font-style: italic;
+        font-size: .7rem;
+    }
+}
+
+.trip-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-ctn {
+    display: flex;
+    width: 95%;
+    margin: 0 auto;
+    div {
+        position: relative;
+    }
+    input {
+        opacity: 0.01;
+        z-index: 100;
+    }
+    input:checked+label {
+        background-color: $white-color;
+        color: $grey-color;
+    }
+    input {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        cursor: pointer;
     }
 }
