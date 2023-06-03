@@ -6,26 +6,21 @@
 
 .search-suggestion {
     background-color: white;
-    border: 2px solid gray;
-    border-radius: 5px;
-    /* padding: 5px; */
+    border: 1px solid gray;
+    border-radius: 0 0 5px 5px;
+    padding: 0 5px;
     position:absolute;
     text-align: left;
     z-index: 1;
     width: 100%;
     div {
         font-style: italic;
+        font-size: .9rem;
         &:hover{
             cursor: pointer;
             background-color: lightblue;
         }
     }
-}
-
-
-
-.trip-form {
-    
 }
 
 

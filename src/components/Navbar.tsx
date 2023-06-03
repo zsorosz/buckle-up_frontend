@@ -20,9 +20,9 @@ function Navbar(): JSX.Element {
           <li>
             <a href="/">Home</a>
           </li>
-          <li>
+          {/* <li>
             <a href="/trip-planner">Trip Planner</a>
-          </li>
+          </li> */}
           {isAuthenticated ? (
             <>
               <li>

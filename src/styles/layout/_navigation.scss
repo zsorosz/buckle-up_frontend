@@ -58,9 +58,10 @@
         position: relative;
         padding: 25px 15px;
     }
-    a {
+    a, div {
         text-decoration: none;
         color: $white-color;
+        cursor: pointer;
         &:active {
             color: $primary-color;
         }

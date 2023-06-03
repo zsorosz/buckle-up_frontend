@@ -258,7 +258,7 @@ const NewTripForm = (): JSX.Element => {
           </button>
         </div>
       )}
-      {isLoading && <img src="/destination.gif" style={{ width: "150px" }} />}
+      {isLoading && <img className="spinner" src="/destination.gif" />}
 
       {!isLoading && response.length && attractions.length ? (
         <TripDetails

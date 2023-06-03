@@ -26,12 +26,12 @@ function MyTrips(): JSX.Element {
   }, [userData]);
 
   return (
-    <div>
+    <main className="home-ctn mytrips-ctn">
       {isLoading && user ? (
         <p>Loading...</p>
       ) : (
         <>
-          <h2>My Trips</h2>
+          <h2 className="mytrips-title">My Trips</h2>
           <div className="cards-container">
             {user.trips?.map((trip) => (
               <a href={`/${trip._id}`} className="card">
@@ -53,7 +53,7 @@ function MyTrips(): JSX.Element {
           </div>
         </>
       )}
-    </div>
+    </main>
   );
 }
 

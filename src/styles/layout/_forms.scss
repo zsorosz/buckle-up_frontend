@@ -1,22 +1,25 @@
 .form-ctn {
-    padding: 0 2rem;
+    // padding: 0 2rem;
     width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
     @include respond(tab-port) {
         width: 90%;
         position: absolute;
         bottom: 2rem;
-        padding: 0 1.5rem;
+        // padding: 0 1.5rem;
     }
-    @include respond(tab-land) {
-        padding: 0 7rem;
-    }
+    // @include respond(tab-land) {
+    //     padding: 0 7rem;
+    // }
     @include respond(desktop) {
         width: 80%;
-        padding-left: 20rem;
+        // padding-left: 20rem;
     }
     @include respond(big-desktop) {
         bottom: 8rem;
-        padding-left: 30rem;
+        // padding-left: 30rem;
     }
 }
 
@@ -37,7 +40,7 @@
         font-family: $font-primary;
         padding: 0 5px;
         border: 1px solid $grey-color;
-        border-radius: 5px;
+        border-radius: 2px;
         background-color: $white-color;
         color: $grey-color;
         @include respond(big-desktop) {
@@ -71,11 +74,20 @@
 .trip-form {
     display: flex;
     flex-direction: column;
+    padding: 0 2rem;
     @include respond(tab-port) {
         width: 85vw;
+        padding: 0 1.5rem;
     }
     @include respond(tab-land) {
         width: 100%;
+        padding: 0 7rem;
+    }
+    @include respond(desktop) {
+        padding-left: 20rem;
+    }
+    @include respond(big-desktop) {
+        padding-left: 30rem;
     }
     button {
         @include respond(tab-port) {

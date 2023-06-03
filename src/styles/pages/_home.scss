@@ -5,11 +5,14 @@
 
 .home-main {
     position: relative;
-    height: 50vh;
+    height: auto;
    img {
-    height: 100%;
+    height: 50vh;
     width: 100vw;
     object-fit: cover;
+    @include respond(tab-port) {
+        height: 100%;
+    }
    }
    @include respond(tab-port) {
     height: 60vh;
@@ -37,7 +40,7 @@
         padding: 0 20rem;
     }
     @include respond(big-desktop) {
-        padding: 30rem;
+        padding: 0 30rem;
     }
     h1 {
         color: white;

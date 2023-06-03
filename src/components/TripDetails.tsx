@@ -20,7 +20,7 @@ function TripDetails({
   totalTime,
 }: TripProps): JSX.Element {
   return (
-    <div className="trip">
+    <div className="trip-ctn">
       <section className="trip-summary">
         <div className="trip-itinerary">
           <h4>Itinerary:</h4>
