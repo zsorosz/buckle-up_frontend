@@ -25,41 +25,46 @@ const AuthForm = ({
   };
 
   return (
-    <div>
-      <form onSubmit={submitCallback} className="AuthForm">
-      <div className="title">{isLogin ? "Welcome back!" : "Welcome!"}</div>
-      <div className="subtitle">{isLogin ? "" : "Let's create your account!" } </div>
+    <form onSubmit={submitCallback} className="auth-form">
+      <h2 className="title">{isLogin ? "Welcome back!" : "Welcome!"}</h2>
+      <h6 className="subtitle">
+        {isLogin ? "" : "Let's create your account!"}{" "}
+      </h6>
+      <div className="auth-ctn">
+        <input
+          className="input-ctn"
+          type="text"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+          placeholder="Username"
+        />
+      </div>
+      {isLogin ? (
+        ""
+      ) : (
         <div className="auth-ctn">
-            <input className="input-ctn"
-              type="text"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              placeholder="Username"
-            />
+          <input
+            className="input-ctn"
+            type="text"
+            value={email}
+            onChange={(event) => setEmail && setEmail(event.target.value)}
+            placeholder="Email"
+          />
         </div>
-        {isLogin ? (
-          ""
-        ) : (
-          <div className="auth-ctn">
-              <input className="input-ctn"
-                type="text"
-                value={email}
-                onChange={(event) => setEmail && setEmail(event.target.value)}
-                placeholder="Email"
-              />
-          </div>
-        )}
-        <div className="auth-ctn">
-            <input className="input-ctn"
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="Password"
-            />
-        </div>
-        <button type="submit" className="button-auth">{isLogin ? "Log In" : "Sign Up"}</button>
-      </form>
-    </div>
+      )}
+      <div className="auth-ctn">
+        <input
+          className="input-ctn"
+          type="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          placeholder="Password"
+        />
+      </div>
+      <button type="submit" className="primary-btn">
+        {isLogin ? "Log In" : "Sign Up"}
+      </button>
+    </form>
   );
 };
 
