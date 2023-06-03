@@ -179,7 +179,7 @@ const NewTripForm = (): JSX.Element => {
           </h1> */}
       {!isTripShowing ? (
         <form className="trip-form" onSubmit={callOpenAIAPI}>
-          <div className="btn-ctn">
+          <div className="trip-btn-ctn">
             <div>
               <input type="radio" id="one-way" name="trip-option" checked />
               <label className="option-btn">One-way Trip</label>
@@ -190,53 +190,59 @@ const NewTripForm = (): JSX.Element => {
             </div>
           </div>
           <div className="form-input-ctn">
-            <p>From</p>
-            <div className="input-container">
-              <input
-                type="text"
-                placeholder="Starting City"
-                value={startingCity}
-                onChange={(e) => {
-                  setStartingCity(e.target.value);
-                  setStartQuery(e.target.value);
-                }}
-              />
-              {startQuery.length ? (
-                <SearchSuggestions
-                  query={startQuery}
-                  waypoint="start"
-                  setStartingCity={setStartingCity}
-                  setDestination={setDestination}
+            <section>
+              <p>From</p>
+              <section className="input-container">
+                <input
+                  type="text"
+                  placeholder="Starting City"
+                  value={startingCity}
+                  onChange={(e) => {
+                    setStartingCity(e.target.value);
+                    setStartQuery(e.target.value);
+                  }}
                 />
-              ) : null}
-            </div>
-            <p>To</p>
-            <div className="input-container">
-              <input
-                type="text"
-                placeholder="Destination"
-                value={destination}
-                onChange={(e) => {
-                  setDestination(e.target.value);
-                  setDestQuery(e.target.value);
-                }}
-              />
-              {destQuery.length ? (
-                <SearchSuggestions
-                  query={destQuery}
-                  waypoint="end"
-                  setStartingCity={setStartingCity}
-                  setDestination={setDestination}
+                {startQuery.length ? (
+                  <SearchSuggestions
+                    query={startQuery}
+                    waypoint="start"
+                    setStartingCity={setStartingCity}
+                    setDestination={setDestination}
+                  />
+                ) : null}
+              </section>
+            </section>
+            <section>
+              <p>To</p>
+              <div className="input-container">
+                <input
+                  type="text"
+                  placeholder="Destination"
+                  value={destination}
+                  onChange={(e) => {
+                    setDestination(e.target.value);
+                    setDestQuery(e.target.value);
+                  }}
                 />
-              ) : null}
-            </div>
-            <p>Trip duration</p>
-            <input
-              type="number"
-              min="1"
-              defaultValue={1}
-              onChange={(e) => setDuration(e.target.valueAsNumber)}
-            />
+                {destQuery.length ? (
+                  <SearchSuggestions
+                    query={destQuery}
+                    waypoint="end"
+                    setStartingCity={setStartingCity}
+                    setDestination={setDestination}
+                  />
+                ) : null}
+              </div>
+            </section>
+            <section>
+              <p>Trip duration</p>
+              <input
+                type="number"
+                min="1"
+                defaultValue={1}
+                onChange={(e) => setDuration(e.target.valueAsNumber)}
+              />
+            </section>
           </div>
           <button className="primary-btn" type="submit">
             Create a plan

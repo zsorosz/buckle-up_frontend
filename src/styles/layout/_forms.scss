@@ -1,23 +1,35 @@
 .form-ctn {
     padding: 0 2rem;
+    width: 100%;
+    @include respond(tab-port) {
+        width: 90%;
+        position: absolute;
+        bottom: 2rem;
+        padding: 0 1.5rem;
+    }
+    @include respond(tab-land) {
+        padding: 0 7rem;
+    }
+    @include respond(desktop) {
+        width: 80%;
+        padding-left: 20rem;
+    }
+    @include respond(big-desktop) {
+        bottom: 8rem;
+        padding-left: 30rem;
+    }
 }
 
 .form-input-ctn {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 95%;
+    width: 100%;
     background-color: $white-color;
     margin: 0 auto;
     padding: 1rem 1rem 2rem 1rem;
     gap: .5rem;
-    border-radius: 0 0 8px 8px;
-    @include respond(tab-port) {
-        width: 50%;
-    }
-    @include respond(tab-land) {
-        width: 30%;
-    }
+    border-radius: 0 8px 8px 8px;
     input {
         width: 100%;
         height: 2rem;
@@ -28,24 +40,66 @@
         border-radius: 5px;
         background-color: $white-color;
         color: $grey-color;
+        @include respond(big-desktop) {
+           font-size: .8rem;
+        }
     }
     button {
         align-self: center;
     }
     p {
         font-size: .7rem;
+        font-weight: 600;
+        @include respond(desktop) {
+            font-size: .9rem;
+            margin-bottom: .8rem;
+        }
+    }
+    section {
+        width: 100%;
+        text-align: left;
+    }
+    @include respond(tab-port) {
+        flex-direction: row;
+        padding-right: 10rem;
+    }
+    @include respond(big-desktop) {
+        padding: 1.5rem 10rem 1.5rem 1rem;
     }
 }
 
 .trip-form {
     display: flex;
     flex-direction: column;
+    @include respond(tab-port) {
+        width: 85vw;
+    }
+    @include respond(tab-land) {
+        width: 100%;
+    }
+    button {
+        @include respond(tab-port) {
+            position: absolute;
+            right: 2rem;
+            top: calc(50% + .5rem);
+            margin: 0;
+        }
+        @include respond(tab-land) {
+            right: 8.5rem;
+        }
+        @include respond(desktop) {
+            top: calc(50% + 1rem);
+        }
+        @include respond(big-desktop) {
+            top: calc(50% + 1.8rem);
+        }
+        
+    }
 }
 
-.btn-ctn {
+.trip-btn-ctn {
     display: flex;
     width: 95%;
-    margin: 0 auto;
     div {
         position: relative;
     }
