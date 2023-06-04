@@ -19,7 +19,8 @@
 
 .secondary-btn {
     @extend %btn;
-    background-color: $grey-color;
+    background-color: $white-color;
+    color: $grey-color
 }
 
 .option-btn {

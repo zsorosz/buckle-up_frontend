@@ -177,7 +177,7 @@ const NewTripForm = (): JSX.Element => {
             startingCity.indexOf(",")
             )} to ${destination.substring(0, destination.indexOf(","))}`}
           </h1> */}
-      {!isTripShowing ? (
+      {!isTripShowing && (
         <form className="trip-form" onSubmit={callOpenAIAPI}>
           <div className="trip-btn-ctn">
             <div>
@@ -248,17 +248,12 @@ const NewTripForm = (): JSX.Element => {
             Create a plan
           </button>
         </form>
-      ) : (
-        <div className="trip-ctas">
-          <button className="primary-btn" onClick={saveTrip}>
-            Save trip
-          </button>
-          <button className="secondary-btn" onClick={resetTrip}>
-            Create new trip
-          </button>
+      )}
+      {isLoading && (
+        <div className="spinner-ctn">
+          <img className="spinner" src="/destination.gif" />
         </div>
       )}
-      {isLoading && <img className="spinner" src="/destination.gif" />}
 
       {!isLoading && response.length && attractions.length ? (
         <TripDetails
@@ -268,6 +263,8 @@ const NewTripForm = (): JSX.Element => {
           setTotalTime={setTotalTime}
           totalDistance={totalDistance}
           totalTime={totalTime}
+          saveTrip={saveTrip}
+          resetTrip={resetTrip}
         />
       ) : null}
     </section>

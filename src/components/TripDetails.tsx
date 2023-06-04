@@ -9,6 +9,12 @@ export type TripProps = {
   setTotalTime?: (arg0: number) => void;
   totalDistance: number;
   totalTime: number;
+  saveTrip?: () => void;
+  resetTrip?: () => void;
+  duration?: number;
+  startingCity?: string;
+  destination?: string;
+  title?: string;
 };
 
 function TripDetails({
@@ -18,9 +24,40 @@ function TripDetails({
   setTotalTime,
   totalDistance,
   totalTime,
+  saveTrip,
+  resetTrip,
+  duration,
+  startingCity,
+  destination,
+  title,
 }: TripProps): JSX.Element {
   return (
     <div className="trip-ctn">
+      {duration && startingCity && destination ? (
+        <h2 className="trip-title">
+          `${duration}-day road trip from $
+          {startingCity.substring(0, startingCity.indexOf(","))} to $
+          {destination.substring(0, destination.indexOf(","))}`
+        </h2>
+      ) : (
+        <h2 className="trip-title">{title}</h2>
+      )}
+
+      <section className="trip-ctas">
+        {saveTrip && resetTrip ? (
+          <button className="primary-btn" onClick={saveTrip}>
+            Save trip
+          </button>
+        ) : (
+          <button className="primary-btn" onClick={saveTrip}>
+            Edit trip
+          </button>
+        )}
+        <button className="secondary-btn" onClick={resetTrip}>
+          Create new trip
+        </button>
+      </section>
+
       <section className="trip-summary">
         <div className="trip-itinerary">
           <h4>Itinerary:</h4>
