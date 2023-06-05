@@ -36,6 +36,9 @@
         grid-row: 1 / 2;
         font-size: 2rem;
     }
+    @include respond(big-desktop) {
+        padding-top: 2rem;
+    }
 }
 .trip-summary {
     text-align: left;

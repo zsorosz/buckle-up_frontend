@@ -265,6 +265,9 @@ const NewTripForm = (): JSX.Element => {
           totalTime={totalTime}
           saveTrip={saveTrip}
           resetTrip={resetTrip}
+          duration={duration}
+          destination={destination}
+          startingCity={startingCity}
         />
       ) : null}
     </section>

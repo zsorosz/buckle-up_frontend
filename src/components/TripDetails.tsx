@@ -35,9 +35,9 @@ function TripDetails({
     <div className="trip-ctn">
       {duration && startingCity && destination ? (
         <h2 className="trip-title">
-          `${duration}-day road trip from $
-          {startingCity.substring(0, startingCity.indexOf(","))} to $
-          {destination.substring(0, destination.indexOf(","))}`
+          {duration}-day road trip from{" "}
+          {startingCity.substring(0, startingCity.indexOf(","))} to{" "}
+          {destination.substring(0, destination.indexOf(","))}
         </h2>
       ) : (
         <h2 className="trip-title">{title}</h2>

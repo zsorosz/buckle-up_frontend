@@ -61,12 +61,16 @@
     a, div {
         text-decoration: none;
         color: $white-color;
+        font-weight: 400;
         cursor: pointer;
         &:active {
             color: $primary-color;
         }
         &:hover {
             color: $primary-color;
+        }
+        @include respond(desktop) {
+            font-size: 1.2rem;
         }
     }   
 }
