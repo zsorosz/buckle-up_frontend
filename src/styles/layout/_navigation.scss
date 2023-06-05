@@ -1,21 +1,35 @@
 .navbar {
     width: 100%;
     display: flex;
+    z-index: 100;
     justify-content: space-between;
+    position: fixed;
     align-items: center;
-    border-bottom: 1px solid rgb(182, 179, 179);
-    padding: .5rem 2rem;
+    padding: .2rem 1.5rem;
+    background-color: transparent;
+    @include respond(tab-land) {
+        padding: 0 7rem;
+    }
+    @include respond(desktop) {
+        padding: 0 20rem;
+    }
+    @include respond(big-desktop) {
+        padding: 0 30rem;
+    }
     h1 {
-        color: $grey-color;
-        font-weight: 800;
-        font-size: 2rem;
+        font-weight: 400;
+        font-size: 1rem;
         @include respond(tab-port){
-            font-size: 3rem;
+            font-size: 1.2rem;
         }
         a {
             text-decoration: none;
-        color: $grey-color;
+            color: $white-color;
+            
         }
+    }
+    @include respond(tab-port) {
+        text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
     }
 }
 
@@ -28,8 +42,7 @@
     right: 0;
     bottom: 0;
     z-index: 99;
-    background: white;
-    color: $grey-color;
+    background: $grey-color;
     list-style: none;
     padding-top: 4rem;
     display: flex;
@@ -39,24 +52,31 @@
         flex-direction: row;
         padding: 0;
         position: relative;
+        background-color: transparent;
     }
     li {
         position: relative;
         padding: 25px 15px;
     }
-    a {
+    a, div {
         text-decoration: none;
-        color: $grey-color;
+        color: $white-color;
+        font-weight: 400;
+        cursor: pointer;
         &:active {
             color: $primary-color;
         }
         &:hover {
             color: $primary-color;
         }
+        @include respond(desktop) {
+            font-size: 1.2rem;
+        }
     }   
 }
 .showMenu {
     transform: translateY(0);
+    
   }
 .hamburger {
     position: fixed;
@@ -65,6 +85,7 @@
     right: 1rem;
     border: none;
     background: transparent;
+    color: $white-color;
     cursor: pointer;
     @include respond(tab-port) {
         display: none;

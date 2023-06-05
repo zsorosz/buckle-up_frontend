@@ -1,28 +1,58 @@
-.trip {
-    @include respond(tab-land) {
-        display: flex;
-        flex-direction: row-reverse;
+.trip-ctn {
+    background-color: $grey-color;
+    padding: 0 1.5rem 2rem 1.5rem;
+    @include respond(tab-port) {
+        position: absolute;
+        top: 5rem;
+        width: 100vw;
     }
-    
+    @include respond(tab-land) {
+        display: grid;
+        grid-template-rows: 4rem 4rem 1fr;
+        grid-template-columns: 60% 1fr;
+        grid-gap: 1rem;
+    }  
 }
 
 .trip-map {
-height: 600px;
-        @include respond(tab-land) {
-            margin-top: 1rem;
-            flex: 1;
-        }
-}
-
-.trip-summary {
-    margin: 0 1rem;
-    text-align: left;
+    height: 500px;
+    border: 1px solid $grey-color;
     @include respond(tab-land) {
-        width: 30%;
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+        margin-top: 1rem;
+        flex: 1;
+    }
+}
+.trip-title {
+    color: $white-color;
+    padding-top: 5rem;
+    margin: 0;
+    @include respond(tab-port) {
+        padding-top: 0;
+    }
+    @include respond(tab-land) {
+        grid-column: 1 / -1;
+        grid-row: 1 / 2;
+        font-size: 2rem;
+    }
+    @include respond(big-desktop) {
+        padding-top: 2rem;
+    }
+}
+.trip-summary {
+    text-align: left;
+    color: $white-color;
+    @include respond(tab-land) {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
     }
     h4 {
         margin-bottom: 1rem;
         font-size: 1.4rem;
+    }
+    img {
+        height: 25px;
     }
 }
 .trip-waypoints {
@@ -31,9 +61,6 @@ height: 600px;
     display: flex;
     align-items: flex-start;
     gap: 1rem;
-    // @include respond(tab-land) {
-    //     width: 30%;
-    // }
     h5 {
         width: 30%;
     }
@@ -51,10 +78,10 @@ height: 600px;
     left: 12px;
     top: 43px;
     // bottom: 20px;
-    z-index: -5;
+    // z-index: -5;
     width: 2px;
     border-radius: 8px;
-    background-image: repeating-linear-gradient(transparent, transparent 3px, $grey-color 3px, $grey-color 10px);
+    background-image: repeating-linear-gradient(transparent, transparent 3px, $white-color 3px, $white-color 10px);
 }
 
 .trip-data {
@@ -66,8 +93,28 @@ height: 600px;
     display: flex;
     gap: 1rem;
     justify-content: center;
+    background-color: $grey-color;
     @include respond(tab-land) {
+        grid-column: 1 / -1;    
         justify-content: flex-end;
         margin-right: 3rem;
     }
+}
+
+.spinner-ctn {
+   width: 100%;
+   margin-top: 1rem;
+   background-color: $white-color;
+   height: 20rem;
+   padding-top: 2rem;
+   @include respond(tab-port) {
+    position: absolute;
+    top: 100%;
+    width: 100vw;
+}
+   
+}
+.spinner {
+    width: 150px;
+    height: 150px;
 }

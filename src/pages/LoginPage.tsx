@@ -25,7 +25,7 @@ const LoginPage = (): JSX.Element => {
   };
 
   return (
-    <div className="form-ctn">
+    <main className="auth-form-ctn">
       <AuthForm
         username={username}
         setUsername={setUsername}
@@ -34,7 +34,7 @@ const LoginPage = (): JSX.Element => {
         isLogin
         handleSubmit={handleSubmit}
       />
-    </div>
+    </main>
   );
 };
 

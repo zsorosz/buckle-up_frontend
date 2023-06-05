@@ -2,11 +2,12 @@
     align-self: center;
     height: 2rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 500px;
     padding: 1rem;
     font-family: $font-primary;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-top: 1rem;
     color: white;
 }
@@ -18,5 +19,25 @@
 
 .secondary-btn {
     @extend %btn;
-    background-color: $grey-color;
+    background-color: $white-color;
+    color: $grey-color
+}
+
+.option-btn {
+    @extend %btn;
+    color: $white-color;
+    background-color: rgba(#f7f7f7, 0.3);
+    border-radius: 8px 8px 0 0;
+    font-size: .7rem;
+    width: 100%;
+    padding: .5rem;
+    text-align: center;
+    @include respond(tab-port) {
+        background-color: rgba($grey-color, 0.7);
+    }
+    @include respond(big-desktop) {
+        font-size: .9rem;
+        padding: 1rem;
+        height: 2.5rem;
+    }
 }

@@ -15,11 +15,12 @@
     font-family: $font-primary;
     line-height: 1.5;
     font-weight: 400;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
     color-scheme: light dark;
     color: $grey-color;
+    background-color: $grey-color;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;

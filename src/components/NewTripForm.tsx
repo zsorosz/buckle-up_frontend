@@ -153,20 +153,6 @@ const NewTripForm = (): JSX.Element => {
       destination:
         destination.substring(0, destination.indexOf(",")) +
         destination.substring(destination.lastIndexOf(","), destination.length),
-      // startingCity: `${startingCity.substring(
-      //   0,
-      //   startingCity.indexOf(",")
-      // )}${startingCity.substring(
-      //   startingCity.lastIndexOf(","),
-      //   startingCity.length
-      // )}`,
-      // destination: `${destination.substring(
-      //   0,
-      //   destination.indexOf(",")
-      // )}${destination.substring(
-      //   destination.lastIndexOf(","),
-      //   destination.length
-      // )}`,
       waypoints: response,
       attractions: attractions,
       totalDistance: totalDistance,
@@ -182,79 +168,92 @@ const NewTripForm = (): JSX.Element => {
   };
 
   return (
-    <div>
-      <h1>
+    <section className="form-ctn">
+      {/* <h1>
         {!isTripShowing
           ? "New road trip"
           : `${duration}-day road trip from ${startingCity.substring(
-              0,
-              startingCity.indexOf(",")
+            0,
+            startingCity.indexOf(",")
             )} to ${destination.substring(0, destination.indexOf(","))}`}
-      </h1>
-      {!isTripShowing ? (
+          </h1> */}
+      {!isTripShowing && (
         <form className="trip-form" onSubmit={callOpenAIAPI}>
-          <p>From</p>
-          <div className="input-container">
-            <input
-              type="text"
-              placeholder="Starting City"
-              value={startingCity}
-              onChange={(e) => {
-                setStartingCity(e.target.value);
-                setStartQuery(e.target.value);
-              }}
-            />
-            {startQuery.length ? (
-              <SearchSuggestions
-                query={startQuery}
-                waypoint="start"
-                setStartingCity={setStartingCity}
-                setDestination={setDestination}
-              />
-            ) : null}
+          <div className="trip-btn-ctn">
+            <div>
+              <input type="radio" id="one-way" name="trip-option" checked />
+              <label className="option-btn">One-way Trip</label>
+            </div>
+            <div>
+              <input type="radio" id="round" name="trip-option" />
+              <label className="option-btn">Round Trip</label>
+            </div>
           </div>
-          <p>To</p>
-          <div className="input-container">
-            <input
-              type="text"
-              placeholder="Destination"
-              value={destination}
-              onChange={(e) => {
-                setDestination(e.target.value);
-                setDestQuery(e.target.value);
-              }}
-            />
-            {destQuery.length ? (
-              <SearchSuggestions
-                query={destQuery}
-                waypoint="end"
-                setStartingCity={setStartingCity}
-                setDestination={setDestination}
+          <div className="form-input-ctn">
+            <section>
+              <p>From</p>
+              <section className="input-container">
+                <input
+                  type="text"
+                  placeholder="Starting City"
+                  value={startingCity}
+                  onChange={(e) => {
+                    setStartingCity(e.target.value);
+                    setStartQuery(e.target.value);
+                  }}
+                />
+                {startQuery.length ? (
+                  <SearchSuggestions
+                    query={startQuery}
+                    waypoint="start"
+                    setStartingCity={setStartingCity}
+                    setDestination={setDestination}
+                  />
+                ) : null}
+              </section>
+            </section>
+            <section>
+              <p>To</p>
+              <div className="input-container">
+                <input
+                  type="text"
+                  placeholder="Destination"
+                  value={destination}
+                  onChange={(e) => {
+                    setDestination(e.target.value);
+                    setDestQuery(e.target.value);
+                  }}
+                />
+                {destQuery.length ? (
+                  <SearchSuggestions
+                    query={destQuery}
+                    waypoint="end"
+                    setStartingCity={setStartingCity}
+                    setDestination={setDestination}
+                  />
+                ) : null}
+              </div>
+            </section>
+            <section>
+              <p>Trip duration</p>
+              <input
+                type="number"
+                min="1"
+                defaultValue={1}
+                onChange={(e) => setDuration(e.target.valueAsNumber)}
               />
-            ) : null}
+            </section>
           </div>
-          <p>Trip duration</p>
-          <input
-            type="number"
-            min="1"
-            defaultValue={1}
-            onChange={(e) => setDuration(e.target.valueAsNumber)}
-          />
           <button className="primary-btn" type="submit">
             Create a plan
           </button>
         </form>
-      ) : (
-        <div className="trip-ctas">
-          <button className="primary-btn" onClick={saveTrip}>
-            Save trip
-          </button>
-          <button className="secondary-btn" onClick={resetTrip}>
-            Create new trip
-          </button>
+      )}
+      {isLoading && (
+        <div className="spinner-ctn">
+          <img className="spinner" src="/destination.gif" />
         </div>
       )}
-      {isLoading && <img src="/destination.gif" style={{ width: "150px" }} />}
 
       {!isLoading && response.length && attractions.length ? (
         <TripDetails
@@ -264,9 +263,14 @@ const NewTripForm = (): JSX.Element => {
           setTotalTime={setTotalTime}
           totalDistance={totalDistance}
           totalTime={totalTime}
+          saveTrip={saveTrip}
+          resetTrip={resetTrip}
+          duration={duration}
+          destination={destination}
+          startingCity={startingCity}
         />
       ) : null}
-    </div>
+    </section>
   );
 };
 

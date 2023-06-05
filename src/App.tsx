@@ -10,13 +10,14 @@ import NewTripForm from "./components/NewTripForm";
 import { SessionContext } from "./contexts/SessionContext";
 import { useContext } from "react";
 import TripDetailsPage from "./pages/TripDetailsPage";
+import Header from "./components/Header";
 
 function App() {
   const { isAuthenticated } = useContext(SessionContext);
   console.log("isAuthenticated", isAuthenticated);
   return (
     <>
-      <Navbar />
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignupPage />} />

@@ -33,7 +33,7 @@ const SignupPage = (): JSX.Element => {
     }
   };
   return (
-    <div className="form-ctn">
+    <main className="auth-form-ctn">
       <AuthForm
         username={username}
         setUsername={setUsername}
@@ -43,7 +43,7 @@ const SignupPage = (): JSX.Element => {
         setPassword={setPassword}
         handleSubmit={handleSubmit}
       />
-    </div>
+    </main>
   );
 };
 
