@@ -7,11 +7,15 @@
     align-items: center;
     padding: .2rem 1.5rem;
     background-color: transparent;
-    background-color: rgba( #000000, 0.4);
+    background-color: rgba( #000000, 0.3);
+    @include respond(tab-port) {
+        height: 3rem;
+    }
     @include respond(tab-land) {
         padding: 0 7rem;
     }
     @include respond(desktop) {
+        height: 4rem;
         a{
             font-size: 2rem;
             font-weight: bold;
