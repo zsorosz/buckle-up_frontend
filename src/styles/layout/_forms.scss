@@ -85,7 +85,7 @@
     button {
         @include respond(tab-port) {
             position: absolute;
-            right: 2rem;
+            right: 5rem;
             top: calc(50% + .5rem);
             margin: 0;
         }

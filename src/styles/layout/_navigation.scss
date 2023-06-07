@@ -7,14 +7,15 @@
     align-items: center;
     padding: .2rem 1.5rem;
     background-color: transparent;
+    background-color: rgba( #000000, 0.4);
     @include respond(tab-land) {
         padding: 0 7rem;
     }
     @include respond(desktop) {
-        padding: 0 20rem;
-    }
-    @include respond(big-desktop) {
-        padding: 0 30rem;
+        a{
+            font-size: 2rem;
+            font-weight: bold;
+        }
     }
     h1 {
         font-weight: 400;
@@ -25,7 +26,6 @@
         a {
             text-decoration: none;
             color: $white-color;
-            
         }
     }
     @include respond(tab-port) {
@@ -42,7 +42,7 @@
     right: 0;
     bottom: 0;
     z-index: 99;
-    background: $grey-color;
+    background-color: rgba( $grey-color, 0.95);
     list-style: none;
     padding-top: 4rem;
     display: flex;

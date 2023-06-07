@@ -43,10 +43,6 @@ function MyTrips(): JSX.Element {
                 />
                 <div className="card-details">
                   <h2 className="card-title">{trip.title}</h2>
-                  {/* <p className="card-description">{trip.title}</p>
-                <div className="primary-btn">
-                  <a href={`/${trip._id}`}>See details</a>
-                </div> */}
                 </div>
               </a>
             ))}

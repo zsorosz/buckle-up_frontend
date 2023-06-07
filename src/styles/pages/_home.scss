@@ -70,3 +70,16 @@
         }
     }
 }
+
+.PopularDestinations-ctn {
+    display: flex;
+    flex-direction: column;
+    h2{
+        color: white;
+    }
+}
+.card:hover {
+        /* transform: translateY(5px); */
+        transform: scale(105%) ;
+        transition: 0.3s ease-in-out;
+}
