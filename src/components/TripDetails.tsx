@@ -77,7 +77,7 @@ function TripDetails({
               className="trip-waypoints"
             >
               <div>
-                <img src="/public/placeholder.png" style={{ width: "25px" }} />
+                <img src="/placeholder.png" style={{ width: "25px" }} />
                 <div className="trip-line"></div>
               </div>
               <h5>{place.city}:</h5>
