@@ -40,7 +40,7 @@ function TripDetailsPage(): JSX.Element {
   }, []);
 
   return (
-    <div>
+    <main>
       {isLoading || !tripData ? (
         <p>Loading....</p>
       ) : (
@@ -55,7 +55,7 @@ function TripDetailsPage(): JSX.Element {
           />
         </>
       )}
-    </div>
+    </main>
   );
 }
 
