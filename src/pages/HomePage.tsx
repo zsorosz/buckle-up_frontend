@@ -1,4 +1,5 @@
 import NewTripForm from "../components/NewTripForm";
+import PopularDestinations from "../components/PopularDestinations";
 
 function HomePage(): JSX.Element {
   return (
@@ -11,6 +12,7 @@ function HomePage(): JSX.Element {
         </div>
         <NewTripForm />
       </section>
+      <PopularDestinations />
     </main>
   );
 }
