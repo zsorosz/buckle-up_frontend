@@ -4,7 +4,6 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import MyTrips from "./pages/MyTrips";
-import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import NewTripForm from "./components/NewTripForm";
 import { SessionContext } from "./contexts/SessionContext";

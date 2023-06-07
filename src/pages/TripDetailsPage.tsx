@@ -19,7 +19,6 @@ export type Trip = {
 
 function TripDetailsPage(): JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
-  const [trip, setTrip] = useState({} as Trip);
 
   const { tripData, setTripData } = useContext(TripContext);
 

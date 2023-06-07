@@ -4,7 +4,7 @@ import { UserData } from "../types";
 import axios from "axios";
 
 function MyTrips(): JSX.Element {
-  const { userData, refreshData } = useContext(SessionContext);
+  const { userData } = useContext(SessionContext);
   // console.log(userData);
   // const trips: Trip[] | undefined = userData?.trips;
 
