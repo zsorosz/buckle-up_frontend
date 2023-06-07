@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 
 export type Activities = {
   city: string;

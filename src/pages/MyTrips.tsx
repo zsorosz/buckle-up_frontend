@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { SessionContext } from "../contexts/SessionContext";
-import { Trip, UserData } from "../types";
+import { UserData } from "../types";
 import axios from "axios";
 
 function MyTrips(): JSX.Element {
