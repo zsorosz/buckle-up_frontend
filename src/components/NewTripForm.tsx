@@ -23,6 +23,7 @@ const NewTripForm = (): JSX.Element => {
   const [attractions, setAttractions] = useState([] as Activities[]);
   const [totalDistance, setTotalDistance] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
+  const [tripOption, setTripOption] = useState("oneway");
   const navigate = useNavigate();
 
   const { userData, refreshData } = useContext(SessionContext);
@@ -77,9 +78,19 @@ const NewTripForm = (): JSX.Element => {
   const callOpenAIAPI = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
-    const prompt = `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with all together ${duration} stops. Do not add numbers before the city names and include the starting city and destination.
+    const prompt =
+      tripOption === "oneway"
+        ? `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with all together ${duration} stops. Do not add numbers before the city names and include the starting city and destination.
+  Desired format:
+  City name: latitude, longitude`
+        : `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination} and back to ${startingCity}, with maximum ${Math.round(
+            (duration - 1) / 2
+          )} stops on the way there, and ${Math.round(
+            (duration - 1) / 2
+          )} different stops on the way back. Every city on the list should be unique. Do not add numbers before the city names and include the starting city and destination. Add ${startingCity} as the last stop.
   Desired format:
   City name: latitude, longitude`;
+    console.log(prompt);
     setIsLoading(true);
     event.preventDefault();
     const APIBody = {
@@ -131,6 +142,8 @@ const NewTripForm = (): JSX.Element => {
     setStartingCity("");
     setDestination("");
     setResponse([]);
+    setTripOption("oneway");
+    navigate("/");
   };
   useEffect(() => {
     if (response.length) {
@@ -164,8 +177,10 @@ const NewTripForm = (): JSX.Element => {
     });
     refreshData(res.data.updatedUser);
     console.log(res.data.updatedUser);
-    navigate("/");
+    navigate("/mytrips");
   };
+
+  console.log(tripOption);
 
   return (
     <section className="form-ctn">
@@ -181,11 +196,22 @@ const NewTripForm = (): JSX.Element => {
         <form className="trip-form" onSubmit={callOpenAIAPI}>
           <div className="trip-btn-ctn">
             <div>
-              <input type="radio" id="one-way" name="trip-option" checked />
+              <input
+                type="radio"
+                id="one-way"
+                name="trip-option"
+                checked
+                onClick={() => setTripOption("oneway")}
+              />
               <label className="option-btn">One-way Trip</label>
             </div>
             <div>
-              <input type="radio" id="round" name="trip-option" />
+              <input
+                type="radio"
+                id="round"
+                name="trip-option"
+                onClick={() => setTripOption("round")}
+              />
               <label className="option-btn">Round Trip</label>
             </div>
           </div>

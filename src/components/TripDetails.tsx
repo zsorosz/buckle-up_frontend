@@ -1,6 +1,7 @@
 import { City } from "./Map";
 import Map from "./Map";
 import { Activities } from "./NewTripForm";
+import { useNavigate } from "react-router-dom";
 
 export type TripProps = {
   cities: City[];
@@ -31,6 +32,7 @@ function TripDetails({
   destination,
   title,
 }: TripProps): JSX.Element {
+  const navigate = useNavigate();
   return (
     <div className="trip-ctn">
       {duration && startingCity && destination ? (
@@ -45,17 +47,24 @@ function TripDetails({
 
       <section className="trip-ctas">
         {saveTrip && resetTrip ? (
-          <button className="primary-btn" onClick={saveTrip}>
-            Save trip
-          </button>
+          <>
+            <button className="primary-btn" onClick={saveTrip}>
+              Save trip
+            </button>
+            <button className="secondary-btn" onClick={resetTrip}>
+              Create new trip
+            </button>
+          </>
         ) : (
-          <button className="primary-btn" onClick={saveTrip}>
-            Edit trip
-          </button>
+          <>
+            <button className="primary-btn" onClick={saveTrip}>
+              Edit trip
+            </button>
+            <button className="secondary-btn" onClick={() => navigate("/")}>
+              Create new trip
+            </button>
+          </>
         )}
-        <button className="secondary-btn" onClick={resetTrip}>
-          Create new trip
-        </button>
       </section>
 
       <section className="trip-summary">

@@ -26,7 +26,7 @@
 }
 .trip-title {
     color: $white-color;
-    padding-top: 5rem;
+    padding-top: 2rem;
     margin: 0;
     @include respond(tab-port) {
         padding-top: 0;
