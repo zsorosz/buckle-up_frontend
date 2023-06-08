@@ -84,12 +84,6 @@ const TripContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   const resetTrip = () => {
     setIsTripShowing(false);
-    // setStartQuery("");
-    // setDestQuery("");
-    // setStartingCity("");
-    // setDestination("");
-    // setResponse([]);
-    // setTripOption("oneway");
     setTripData(null);
     navigate("/");
   };

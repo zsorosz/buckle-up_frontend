@@ -53,21 +53,26 @@ function TripDetails(): JSX.Element {
             <div className="trip-itinerary">
               <h4>Itinerary:</h4>
 
-              {tripData.attractions.map((place: Activities) => (
+              {tripData.attractions.map((place: Activities, i) => (
                 <div
                   style={{ margin: "0 1rem", listStyle: "none" }}
                   className="trip-waypoints"
+                  key={i}
                 >
                   <div>
                     <img src="/placeholder.png" style={{ width: "25px" }} />
                     <div className="trip-line"></div>
                   </div>
-                  <h5>{place.city}:</h5>
+                  <h5>{place.city}</h5>
                   <ul>
-                    <b>Places to visit:</b>
-                    {place.attractions.map((at) => (
-                      <li>{at}</li>
-                    ))}
+                    {place.attractions.length ? (
+                      <>
+                        <b>Places to visit:</b>
+                        {place.attractions.map((at) => (
+                          <li>{at}</li>
+                        ))}
+                      </>
+                    ) : null}
                   </ul>
                 </div>
               ))}

@@ -20,7 +20,6 @@ const NewTripForm = (): JSX.Element => {
 
   const {
     setTripData,
-    isTripLoading,
     setIsTripLoading,
     isTripShowing,
     setIsTripShowing,
@@ -68,6 +67,14 @@ const NewTripForm = (): JSX.Element => {
           };
           activitiesArr.push(activities);
         });
+        if (tripOption === "round") {
+          const finalStop = {
+            city: startingCity,
+            attractions: [],
+          };
+          activitiesArr.push(finalStop);
+        }
+        console.log(activitiesArr);
         setAttractions(activitiesArr);
       });
   };
@@ -76,16 +83,12 @@ const NewTripForm = (): JSX.Element => {
   ): Promise<void> => {
     const prompt =
       tripOption === "oneway"
-        ? `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with all together ${duration} stops. Do not add numbers before the city names and include the starting city and destination.
-  Desired format:
-  City name: latitude, longitude`
-        : `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination} and back to ${startingCity}, with maximum ${Math.round(
-            (duration - 1) / 2
-          )} stops on the way there, and ${Math.round(
-            (duration - 1) / 2
-          )} different stops on the way back. Every city on the list should be unique. Do not add numbers before the city names and include the starting city and destination. Add ${startingCity} as the last stop.
-  Desired format:
-  City name: latitude, longitude`;
+        ? `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with all together ${duration} stops. Do not add numbers before the city names and include the starting city and destination. Desired format:
+      City name: latitude, longitude`
+        : `List the cities of a recommended road trip itinerary on a ${duration}-day round trip from ${startingCity} via ${destination} with all together ${
+            duration + 2
+          } cities to visit. Half of these cities should be visited before reaching ${destination}, other half after ${destination}. Do not add any text or numbers before the city names. Add ${startingCity} as the first and last stop of the itinerary. Add latitude and longitude to ${startingCity} as well. Desired format for each city: City name: latitude, longitude`;
+    console.log(prompt);
     setIsTripLoading(true);
     event.preventDefault();
     const APIBody = {
@@ -109,6 +112,7 @@ const NewTripForm = (): JSX.Element => {
         return data.json();
       })
       .then((data) => {
+        console.log(data);
         const cities = data.choices[0].text.trim().split("\n");
 
         const result: City[] = [];
@@ -172,7 +176,7 @@ const NewTripForm = (): JSX.Element => {
     setResponse([]);
     setTripOption("oneway");
   };
-
+  console.log(tripOption);
   return (
     <section className="form-ctn">
       {!isTripShowing && (
@@ -183,7 +187,7 @@ const NewTripForm = (): JSX.Element => {
                 type="radio"
                 id="one-way"
                 name="trip-option"
-                checked
+                defaultChecked
                 onClick={() => setTripOption("oneway")}
               />
               <label className="option-btn">One-way Trip</label>
@@ -257,11 +261,6 @@ const NewTripForm = (): JSX.Element => {
             Create a plan
           </button>
         </form>
-      )}
-      {isTripLoading && (
-        <div className="spinner-ctn">
-          <img className="spinner" src="/destination.gif" />
-        </div>
       )}
     </section>
   );
