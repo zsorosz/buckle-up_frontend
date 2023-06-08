@@ -29,7 +29,7 @@ function Footer(): JSX.Element {
             </ul>
           </div>
           <div className="footer-col">
-            <h4>get help</h4>
+            <h4>support</h4>
             <ul>
               <li>
                 <a href="#">FAQ</a>

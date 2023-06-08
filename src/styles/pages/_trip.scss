@@ -2,9 +2,8 @@
     background-color: $grey-color;
     padding: 0 1.5rem 2rem 1.5rem;
     @include respond(tab-port) {
-        position: absolute;
-        top: 5rem;
         width: 100vw;
+        padding-top: 4rem;
     }
     @include respond(tab-land) {
         display: grid;
@@ -43,6 +42,9 @@
 .trip-summary {
     text-align: left;
     color: $white-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     @include respond(tab-land) {
         grid-column: 2 / 3;
         grid-row: 3 / 4;

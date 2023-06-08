@@ -1,10 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { City } from "./Map";
 import SearchSuggestions from "./SearchSuggestions";
-import TripDetails from "./TripDetails";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { SessionContext } from "../contexts/SessionContext";
+import { TripContext } from "../contexts/TripContext";
 
 export type Activities = {
   city: string;
@@ -12,8 +9,6 @@ export type Activities = {
 };
 
 const NewTripForm = (): JSX.Element => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isTripShowing, setIsTripShowing] = useState(false);
   const [destination, setDestination] = useState("");
   const [startingCity, setStartingCity] = useState("");
   const [startQuery, setStartQuery] = useState("");
@@ -21,25 +16,27 @@ const NewTripForm = (): JSX.Element => {
   const [duration, setDuration] = useState(0);
   const [response, setResponse] = useState([] as City[]);
   const [attractions, setAttractions] = useState([] as Activities[]);
-  const [totalDistance, setTotalDistance] = useState(0);
-  const [totalTime, setTotalTime] = useState(0);
   const [tripOption, setTripOption] = useState("oneway");
-  const navigate = useNavigate();
 
-  const { userData, refreshData } = useContext(SessionContext);
+  const {
+    setTripData,
+    isTripLoading,
+    setIsTripLoading,
+    isTripShowing,
+    setIsTripShowing,
+    totalDistance,
+    totalTime,
+  } = useContext(TripContext);
 
   const OPENAI_API_KEY: string = import.meta.env.VITE_OPENAI_KEY as string;
-  const BASE_URL: string = import.meta.env.VITE_BASE_URL as string;
 
   const getAttractions = async (): Promise<void> => {
     const places: string[] = [];
     response.map((place: City) => {
       places.push(place.name);
     });
-    console.log(places);
     const attractionsPrompt = `Give me a list of maximum 3 tourist attractions in each of these cities: ${places}. 
     Desired format: Cityname: attraction1, attraction2, attraction3; Cityname: attraction1, attraction2, attraction3...`;
-    console.log(attractionsPrompt);
     const APIBody = {
       model: "text-davinci-003",
       prompt: attractionsPrompt,
@@ -72,7 +69,6 @@ const NewTripForm = (): JSX.Element => {
           activitiesArr.push(activities);
         });
         setAttractions(activitiesArr);
-        setIsLoading(false);
       });
   };
   const callOpenAIAPI = async (
@@ -90,8 +86,7 @@ const NewTripForm = (): JSX.Element => {
           )} different stops on the way back. Every city on the list should be unique. Do not add numbers before the city names and include the starting city and destination. Add ${startingCity} as the last stop.
   Desired format:
   City name: latitude, longitude`;
-    console.log(prompt);
-    setIsLoading(true);
+    setIsTripLoading(true);
     event.preventDefault();
     const APIBody = {
       model: "text-davinci-003",
@@ -135,23 +130,19 @@ const NewTripForm = (): JSX.Element => {
       });
   };
 
-  const resetTrip = () => {
-    setIsTripShowing(false);
-    setStartQuery("");
-    setDestQuery("");
-    setStartingCity("");
-    setDestination("");
-    setResponse([]);
-    setTripOption("oneway");
-    navigate("/");
-  };
+  useEffect(() => {
+    if (attractions.length && response.length) {
+      createTrip();
+    }
+  }, [attractions]);
+
   useEffect(() => {
     if (response.length) {
       getAttractions();
     }
   }, [response]);
 
-  const saveTrip = async () => {
+  const createTrip = () => {
     const trip = {
       title: `${duration}-day road trip from ${startingCity.substring(
         0,
@@ -171,27 +162,19 @@ const NewTripForm = (): JSX.Element => {
       totalDistance: totalDistance,
       totalTime: totalTime,
     };
-    const res = await axios.post(`${BASE_URL}/trip/add`, {
-      trip,
-      userData,
-    });
-    refreshData(res.data.updatedUser);
-    console.log(res.data.updatedUser);
-    navigate("/mytrips");
+    console.log(trip);
+    setTripData(trip);
+    setIsTripLoading(false);
+    setStartQuery("");
+    setDestQuery("");
+    setStartingCity("");
+    setDestination("");
+    setResponse([]);
+    setTripOption("oneway");
   };
-
-  console.log(tripOption);
 
   return (
     <section className="form-ctn">
-      {/* <h1>
-        {!isTripShowing
-          ? "New road trip"
-          : `${duration}-day road trip from ${startingCity.substring(
-            0,
-            startingCity.indexOf(",")
-            )} to ${destination.substring(0, destination.indexOf(","))}`}
-          </h1> */}
       {!isTripShowing && (
         <form className="trip-form" onSubmit={callOpenAIAPI}>
           <div className="trip-btn-ctn">
@@ -275,27 +258,11 @@ const NewTripForm = (): JSX.Element => {
           </button>
         </form>
       )}
-      {isLoading && (
+      {isTripLoading && (
         <div className="spinner-ctn">
           <img className="spinner" src="/destination.gif" />
         </div>
       )}
-
-      {!isLoading && response.length && attractions.length ? (
-        <TripDetails
-          cities={response as City[]}
-          attractions={attractions as Activities[]}
-          setTotalDistance={setTotalDistance}
-          setTotalTime={setTotalTime}
-          totalDistance={totalDistance}
-          totalTime={totalTime}
-          saveTrip={saveTrip}
-          resetTrip={resetTrip}
-          duration={duration}
-          destination={destination}
-          startingCity={startingCity}
-        />
-      ) : null}
     </section>
   );
 };

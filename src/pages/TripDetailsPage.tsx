@@ -47,11 +47,11 @@ function TripDetailsPage(): JSX.Element {
         <>
           {/* <h2>{tripData.title}</h2> */}
           <TripDetails
-            cities={tripData.waypoints}
-            attractions={tripData.attractions}
-            totalDistance={tripData.totalDistance}
-            totalTime={tripData.totalTime}
-            title={tripData.title}
+          // cities={tripData.waypoints}
+          // attractions={tripData.attractions}
+          // totalDistance={tripData.totalDistance}
+          // totalTime={tripData.totalTime}
+          // title={tripData.title}
           />
         </>
       )}

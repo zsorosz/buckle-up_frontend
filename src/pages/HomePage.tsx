@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import NewTripForm from "../components/NewTripForm";
+import TripDetails from "../components/TripDetails";
 import PopularDestinations from "../components/PopularDestinations";
+import { TripContext } from "../contexts/TripContext";
 
 function HomePage(): JSX.Element {
+  const { isTripShowing } = useContext(TripContext);
   return (
     <main className="home-ctn">
       <section className="home-main">
@@ -12,6 +16,7 @@ function HomePage(): JSX.Element {
         </div>
         <NewTripForm />
       </section>
+      {isTripShowing ? <TripDetails /> : null}
       <PopularDestinations />
     </main>
   );
