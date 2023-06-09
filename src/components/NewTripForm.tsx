@@ -93,7 +93,6 @@ const NewTripForm = (): JSX.Element => {
             duration / 2 
           )} different cities to visit on the way back.Try not to duplicate cities. Do not add numbers before the city names and include ${start} as the first and the last city on the list. 
           Desired format: City name: latitude(only number), longitude(only number)`;
-    console.log(prompt);
     setIsTripLoading(true);
     event.preventDefault();
     const APIBody = {
@@ -118,7 +117,6 @@ const NewTripForm = (): JSX.Element => {
         return data.json();
       })
       .then((data) => {
-        console.log(data);
         const cities = data.choices[0].text.trim().split("\n");
 
         const result: City[] = [];
@@ -172,7 +170,6 @@ const NewTripForm = (): JSX.Element => {
       totalDistance: totalDistance,
       totalTime: totalTime,
     };
-    console.log(trip);
     setTripData(trip);
     setIsTripLoading(false);
     setStartQuery("");
@@ -182,7 +179,6 @@ const NewTripForm = (): JSX.Element => {
     setResponse([]);
     setTripOption("oneway");
   };
-  console.log(tripOption);
   return (
     <section className="form-ctn">
       {!isTripShowing && (

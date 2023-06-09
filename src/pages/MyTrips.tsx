@@ -5,8 +5,6 @@ import axios from "axios";
 
 function MyTrips(): JSX.Element {
   const { userData } = useContext(SessionContext);
-  // console.log(userData);
-  // const trips: Trip[] | undefined = userData?.trips;
 
   const [user, setUser] = useState({} as UserData);
   const [isLoading, setIsLoading] = useState(true);

@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { City } from "./Map";
 import Map from "./Map";
 import { Activities } from "./NewTripForm";
@@ -18,9 +18,6 @@ function TripDetails(): JSX.Element {
   } = useContext(TripContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(totalDistance);
-  }, [totalDistance]);
   return (
     <>
       {tripData ? (

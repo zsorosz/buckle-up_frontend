@@ -15,12 +15,10 @@ const SignupPage = (): JSX.Element => {
   useEffect(() => {
     if (userData && userData.username !== undefined) {
       isAuthenticated && navigate("/");
-      console.log(userData);
     }
   }, [isAuthenticated, navigate, userData]);
 
   const handleSubmit = async (): Promise<void> => {
-    console.log("handling submit");
     const response = await fetch(`${BASE_URL}/auth/signup`, {
       method: "POST",
       headers: {

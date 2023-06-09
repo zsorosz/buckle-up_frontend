@@ -6,14 +6,10 @@ import SignupPage from "./pages/SignupPage";
 import MyTrips from "./pages/MyTrips";
 import Footer from "./components/Footer";
 import NewTripForm from "./components/NewTripForm";
-import { SessionContext } from "./contexts/SessionContext";
-import { useContext } from "react";
 import TripDetailsPage from "./pages/TripDetailsPage";
 import Header from "./components/Header";
 
 function App() {
-  const { isAuthenticated } = useContext(SessionContext);
-  console.log("isAuthenticated", isAuthenticated);
   return (
     <>
       <Header />
