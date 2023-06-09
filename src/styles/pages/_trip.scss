@@ -2,9 +2,8 @@
     background-color: $grey-color;
     padding: 0 1.5rem 2rem 1.5rem;
     @include respond(tab-port) {
-        position: absolute;
-        top: 5rem;
         width: 100vw;
+        padding-top: 4rem;
     }
     @include respond(tab-land) {
         display: grid;
@@ -43,6 +42,9 @@
 .trip-summary {
     text-align: left;
     color: $white-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     @include respond(tab-land) {
         grid-column: 2 / 3;
         grid-row: 3 / 4;
@@ -77,8 +79,6 @@
     height: 65%;
     left: 12px;
     top: 43px;
-    // bottom: 20px;
-    // z-index: -5;
     width: 2px;
     border-radius: 8px;
     background-image: repeating-linear-gradient(transparent, transparent 3px, $white-color 3px, $white-color 10px);
@@ -108,8 +108,6 @@
    height: 20rem;
    padding-top: 2rem;
    @include respond(tab-port) {
-    position: absolute;
-    top: 100%;
     width: 100vw;
 }
    

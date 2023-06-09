@@ -22,7 +22,6 @@ export type MapProps = {
 function Map({ cities, setTotalDistance, setTotalTime }: MapProps): JSX.Element {
   function CenterMap() {
     const map = useMapEvent("click", (e) => {
-      console.log(e.latlng);
       map.setView(e.latlng, map.getZoom());
     });
     return null;

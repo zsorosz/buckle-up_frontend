@@ -5,8 +5,6 @@ import axios from "axios";
 
 function MyTrips(): JSX.Element {
   const { userData } = useContext(SessionContext);
-  // console.log(userData);
-  // const trips: Trip[] | undefined = userData?.trips;
 
   const [user, setUser] = useState({} as UserData);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,8 +36,6 @@ function MyTrips(): JSX.Element {
                 <img
                   src={`https://source.unsplash.com/600x300/?${trip.destination}`}
                   alt="destination photo"
-                  width="1920"
-                  height="2193"
                 />
                 <div className="card-details">
                   <h2 className="card-title">{trip.title}</h2>

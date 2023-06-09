@@ -22,9 +22,7 @@ const createRoutineMachineLayer = ({
       city.name
     );
     waypoints.push(waypoint);
-    console.log(waypoint);
   });
-  console.log(waypoints);
   const instance = L.Routing.control({
     waypoints: waypoints,
     lineOptions: {
