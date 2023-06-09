@@ -54,7 +54,7 @@ function TripDetails(): JSX.Element {
                 <div
                   style={{ margin: "0 1rem", listStyle: "none" }}
                   className="trip-waypoints"
-                  key={i}
+                  key={`${place}+${i}`}
                 >
                   <div>
                     <img src="/placeholder.png" style={{ width: "25px" }} />
@@ -66,7 +66,7 @@ function TripDetails(): JSX.Element {
                       <>
                         <b>Places to visit:</b>
                         {place.attractions.map((at) => (
-                          <li>{at}</li>
+                          <li key={at}>{at}</li>
                         ))}
                       </>
                     ) : null}
