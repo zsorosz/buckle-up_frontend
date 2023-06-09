@@ -67,27 +67,32 @@ const NewTripForm = (): JSX.Element => {
           };
           activitiesArr.push(activities);
         });
-        if (tripOption === "round") {
-          const finalStop = {
-            city: startingCity,
-            attractions: [],
-          };
-          activitiesArr.push(finalStop);
-        }
-        console.log(activitiesArr);
         setAttractions(activitiesArr);
       });
   };
   const callOpenAIAPI = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
+    const start = startingCity.substring(0, startingCity.indexOf(",")) +
+    startingCity.substring(
+      startingCity.lastIndexOf(","),
+      startingCity.length
+    )
+    const end = destination.substring(0, destination.indexOf(",")) +
+    destination.substring(
+      destination.lastIndexOf(","),
+      destination.length
+    )
     const prompt =
       tripOption === "oneway"
-        ? `List the cities of a recommended itinerary on a ${duration}-day road trip from ${startingCity} to ${destination}, with all together ${duration} stops. Do not add numbers before the city names and include the starting city and destination. Desired format:
+        ? `List the cities of a recommended itinerary on a ${duration}-day road trip from ${start} to ${end}, with all together ${duration} stops. Do not add numbers before the city names and include the starting city and destination. Desired format:
       City name: latitude, longitude`
-        : `List the cities of a recommended road trip itinerary on a ${duration}-day round trip from ${startingCity} via ${destination} with all together ${
-            duration + 2
-          } cities to visit. Half of these cities should be visited before reaching ${destination}, other half after ${destination}. Do not add any text or numbers before the city names. Add ${startingCity} as the first and last stop of the itinerary. Add latitude and longitude to ${startingCity} as well. Desired format for each city: City name: latitude, longitude`;
+        : `Make a round trip between and list me the cities ${start} to ${end} , at least ${Math.round(
+            duration / 2
+          )} cities to visit on the way from ${start} to ${end}, and at least ${Math.round(
+            duration / 2 
+          )} different cities to visit on the way back.Try not to duplicate cities. Do not add numbers before the city names and include ${start} as the first and the last city on the list. 
+          Desired format: City name: latitude(only number), longitude(only number)`;
     console.log(prompt);
     setIsTripLoading(true);
     event.preventDefault();
@@ -99,6 +104,7 @@ const NewTripForm = (): JSX.Element => {
       top_p: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
+
     };
     await fetch("https://api.openai.com/v1/completions", {
       method: "POST",
