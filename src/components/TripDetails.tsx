@@ -37,9 +37,9 @@ function TripDetails(): JSX.Element {
               </>
             ) : (
               <>
-                <button className="primary-btn" onClick={saveTrip}>
+                <a href={`${tripData._id}/edit`} className="primary-btn">
                   Edit
-                </button>
+                </a>
                 <button className="delete-btn" onClick={deleteTrip}>
                   Delete
                 </button>

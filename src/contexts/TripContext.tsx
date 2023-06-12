@@ -13,7 +13,7 @@ export type City = {
   name: string;
   coord: number[];
 };
-interface TripData {
+export interface TripData {
   title: string;
   waypoints: City[];
   startingCity: string;
