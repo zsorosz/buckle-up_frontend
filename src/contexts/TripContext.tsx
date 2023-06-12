@@ -37,6 +37,7 @@ interface TripContextState {
   isTripShowing: boolean;
   setIsTripShowing: (state: boolean) => void;
   saveTrip: () => void;
+  deleteTrip: () => void;
   resetTrip: () => void;
 }
 
@@ -53,6 +54,7 @@ export const TripContext = createContext<TripContextState>({
   isTripShowing: false,
   setIsTripShowing: () => {},
   saveTrip: () => {},
+  deleteTrip: () => {},
   resetTrip: () => {},
 });
 
@@ -74,6 +76,16 @@ const TripContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   const saveTrip = async () => {
     const res = await axios.post(`${BASE_URL}/trip/add`, {
+      tripData,
+      userData,
+    });
+    refreshData(res.data.updatedUser);
+    setTripData(null);
+    navigate("/mytrips");
+  };
+
+  const deleteTrip = async () => {
+    const res = await axios.post(`${BASE_URL}/trip/delete`, {
       tripData,
       userData,
     });
@@ -104,6 +116,7 @@ const TripContextProvider = ({ children }: { children: React.ReactNode }) => {
         setIsTripShowing,
         saveTrip,
         resetTrip,
+        deleteTrip,
       }}
     >
       {children}

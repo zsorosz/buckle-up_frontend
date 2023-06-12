@@ -14,6 +14,7 @@ function TripDetails(): JSX.Element {
     setTotalTime,
     saveTrip,
     resetTrip,
+    deleteTrip,
     isTripShowing,
   } = useContext(TripContext);
   const navigate = useNavigate();
@@ -37,10 +38,13 @@ function TripDetails(): JSX.Element {
             ) : (
               <>
                 <button className="primary-btn" onClick={saveTrip}>
-                  Edit trip
+                  Edit
+                </button>
+                <button className="delete-btn" onClick={deleteTrip}>
+                  Delete
                 </button>
                 <button className="secondary-btn" onClick={() => navigate("/")}>
-                  Create new trip
+                  New trip
                 </button>
               </>
             )}
