@@ -63,7 +63,7 @@ const TripContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [totalDistance, setTotalDistance] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
 
-  const { userData, refreshData } = useContext(SessionContext);
+  const { userData, refreshData, isAuthenticated } = useContext(SessionContext);
 
   const navigate = useNavigate();
   const BASE_URL: string = import.meta.env.VITE_BASE_URL as string;
@@ -73,13 +73,17 @@ const TripContextProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const saveTrip = async () => {
-    const res = await axios.post(`${BASE_URL}/trip/add`, {
-      tripData,
-      userData,
-    });
-    refreshData(res.data.updatedUser);
-    setTripData(null);
-    navigate("/mytrips");
+    if (isAuthenticated) {
+      const res = await axios.post(`${BASE_URL}/trip/add`, {
+        tripData,
+        userData,
+      });
+      refreshData(res.data.updatedUser);
+      setTripData(null);
+      navigate("/mytrips");
+    } else {
+      navigate("/login");
+    }
   };
 
   const resetTrip = () => {

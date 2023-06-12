@@ -21,7 +21,7 @@ const LoginPage = (): JSX.Element => {
     });
     const parsed = await response.json();
     setToken(parsed.token);
-    navigate(-1);
+    navigate("/");
   };
 
   return (
