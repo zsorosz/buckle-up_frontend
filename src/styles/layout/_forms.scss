@@ -183,11 +183,11 @@
 }
 
 .edit-trip-ctn {
-    height: 100vh;
     padding: 4rem 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 1rem;
 }
 
 .edit-waypoint-input {
@@ -205,6 +205,6 @@
         height: 2rem;
     }
 }
-.edit-waypoints-input-ctn {
-    padding-bottom: 2rem;
+.update-trip-btn {
+    float: right;
 }

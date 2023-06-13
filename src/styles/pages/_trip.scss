@@ -98,6 +98,10 @@
     gap: 1rem;
     justify-content: center;
     background-color: $grey-color;
+    a {
+        text-decoration: none;
+        font-size: .9rem;
+    }
     @include respond(tab-land) {
         grid-column: 1 / -1;    
         justify-content: flex-end;

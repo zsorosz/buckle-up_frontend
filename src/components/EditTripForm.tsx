@@ -18,7 +18,7 @@ function EditTripForm(): JSX.Element {
     setTotalDistance,
     totalTime,
     setTotalTime,
-    saveTrip,
+    updateTrip,
   } = useContext(TripContext);
 
   const { tripId } = useParams();
@@ -32,12 +32,47 @@ function EditTripForm(): JSX.Element {
       console.log("Could not fetch trip details");
     }
   };
+
+  const saveUpdates = () => {
+    if (tripData) {
+      const updatedTrip = {
+        _id: tripData._id,
+        title: tripData.title,
+        // `${tripData?.duration}-day road trip from ${waypoints[0].name.substring(
+        //     0,
+        //     waypoints[0].name.indexOf(",")
+        //   )} to ${waypoints[-1].name.substring(0, waypoints[-1].name.indexOf(","))}`,
+        startingCity:
+          waypoints[0].name.substring(0, waypoints[0].name.indexOf(",")) +
+          waypoints[0].name.substring(
+            waypoints[0].name.lastIndexOf(","),
+            waypoints[0].name.length
+          ),
+        destination:
+          waypoints[waypoints.length - 1].name.substring(
+            0,
+            waypoints[waypoints.length - 1].name.indexOf(",")
+          ) +
+          waypoints[waypoints.length - 1].name.substring(
+            waypoints[waypoints.length - 1].name.lastIndexOf(","),
+            waypoints[waypoints.length - 1].name.length
+          ),
+        waypoints: waypoints,
+        attractions: tripData?.attractions,
+        totalDistance: totalDistance,
+        totalTime: totalTime,
+      };
+      setTripData(updatedTrip);
+      updateTrip(updatedTrip);
+    }
+  };
   useEffect(() => {
     getTripDetails();
   }, []);
 
   useEffect(() => {
     if (tripData) {
+      console.log(tripData);
       const waypointArr: City[] = [];
       tripData.waypoints.map((waypoint) => {
         waypointArr.push(waypoint);
@@ -61,6 +96,12 @@ function EditTripForm(): JSX.Element {
                 setSeed={setSeed}
               />
             ))}
+            <button
+              onClick={saveUpdates}
+              className="primary-btn update-trip-btn"
+            >
+              Save
+            </button>
           </section>
           <section className="trip-map">
             <Map
