@@ -3,6 +3,7 @@ import { City } from "./Map";
 import Map from "./Map";
 import { useParams } from "react-router-dom";
 import { TripContext } from "../contexts/TripContext";
+import { Activities } from "./NewTripForm";
 
 import axios from "axios";
 import WaypointInput from "./WaypointInput";
@@ -10,6 +11,7 @@ import WaypointInput from "./WaypointInput";
 function EditTripForm(): JSX.Element {
   const [waypoints, setWaypoints] = useState([] as City[]);
   const [seed, setSeed] = useState(1);
+  const [attractions, setAttractions] = useState([] as Activities[]);
 
   const {
     tripData,
@@ -23,6 +25,7 @@ function EditTripForm(): JSX.Element {
 
   const { tripId } = useParams();
   const BASE_URL: string = import.meta.env.VITE_BASE_URL as string;
+  const OPENAI_API_KEY: string = import.meta.env.VITE_OPENAI_KEY as string;
 
   const getTripDetails = async () => {
     try {
@@ -33,15 +36,57 @@ function EditTripForm(): JSX.Element {
     }
   };
 
-  const saveUpdates = () => {
+  const getAttractions = async (): Promise<void> => {
+    const places: string[] = [];
+    waypoints.map((place: City) => {
+      places.push(place.name);
+    });
+    const attractionsPrompt = `Give me a list of maximum 3 tourist attractions in each of these cities: ${places}. 
+    Desired format: Cityname: attraction1, attraction2, attraction3; Cityname: attraction1, attraction2, attraction3...`;
+    const APIBody = {
+      model: "text-davinci-003",
+      prompt: attractionsPrompt,
+      temperature: 0,
+      max_tokens: 1000,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    };
+    console.log(attractionsPrompt);
+    await fetch("https://api.openai.com/v1/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + OPENAI_API_KEY,
+      },
+      body: JSON.stringify(APIBody),
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        console.log(data.choices[0].text);
+        const responseArr: string[] = data.choices[0].text.trim().split(";");
+        const activitiesArr: Activities[] = [];
+        responseArr.map((element) => {
+          const splittedArr = element.split(":");
+          const activities = {
+            city: splittedArr[0],
+            attractions: splittedArr[1].split(","),
+          };
+          activitiesArr.push(activities);
+        });
+        setAttractions(activitiesArr);
+        console.log(activitiesArr);
+      });
+  };
+
+  const saveUpdates = async () => {
     if (tripData) {
+      console.log(attractions);
       const updatedTrip = {
         _id: tripData._id,
         title: tripData.title,
-        // `${tripData?.duration}-day road trip from ${waypoints[0].name.substring(
-        //     0,
-        //     waypoints[0].name.indexOf(",")
-        //   )} to ${waypoints[-1].name.substring(0, waypoints[-1].name.indexOf(","))}`,
         startingCity:
           waypoints[0].name.substring(0, waypoints[0].name.indexOf(",")) +
           waypoints[0].name.substring(
@@ -58,7 +103,7 @@ function EditTripForm(): JSX.Element {
             waypoints[waypoints.length - 1].name.length
           ),
         waypoints: waypoints,
-        attractions: tripData?.attractions,
+        attractions: attractions,
         totalDistance: totalDistance,
         totalTime: totalTime,
       };
@@ -69,6 +114,12 @@ function EditTripForm(): JSX.Element {
   useEffect(() => {
     getTripDetails();
   }, []);
+
+  useEffect(() => {
+    if (attractions.length) {
+      saveUpdates();
+    }
+  }, [attractions]);
 
   useEffect(() => {
     if (tripData) {
@@ -97,7 +148,7 @@ function EditTripForm(): JSX.Element {
               />
             ))}
             <button
-              onClick={saveUpdates}
+              onClick={getAttractions}
               className="primary-btn update-trip-btn"
             >
               Save

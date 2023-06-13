@@ -34,7 +34,12 @@ function WaypointInput({
   const saveWaypoint = (city: SuggestionData): void => {
     setSelected(city.display_name);
     const newWaypoint = {
-      name: city.display_name,
+      name:
+        city.display_name.substring(0, city.display_name.indexOf(",")) +
+        city.display_name.substring(
+          city.display_name.lastIndexOf(","),
+          city.display_name.length
+        ),
       coord: [Number(city.lat), Number(city.lon)],
     };
     const waypointsArr: City[] = structuredClone(waypoints);

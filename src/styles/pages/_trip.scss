@@ -20,6 +20,7 @@
 .trip-map {
     height: 500px;
     border: 1px solid $grey-color;
+    z-index: 5;
     @include respond(tab-land) {
         grid-column: 1 / 2;
         grid-row: 3 / 4;
