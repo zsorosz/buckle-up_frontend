@@ -48,6 +48,15 @@ function WaypointInput({
     setWaypoints(filteredArr);
     setSeed(Math.random());
   };
+  const addWaypoint = () => {
+    const waypointsArr: City[] = structuredClone(waypoints);
+    waypointsArr.splice(index + 1, 0, {
+      name: "",
+      coord: waypointsArr[index].coord,
+    });
+    setWaypoints(waypointsArr);
+    setSeed(Math.random());
+  };
 
   useEffect(() => {
     typeAhead();
@@ -73,7 +82,14 @@ function WaypointInput({
         >
           -
         </button>
-        <button className="primary-btn">+</button>
+        <button
+          onClick={() => {
+            addWaypoint();
+          }}
+          className="primary-btn"
+        >
+          +
+        </button>
       </div>
       <div className="search-suggestion edit-suggestion">
         {suggestions.length
