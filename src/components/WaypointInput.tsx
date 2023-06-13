@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { SuggestionData } from "./SearchSuggestions";
 import axios from "axios";
+import { City } from "./Map";
 
 type WaypointProps = {
-  waypoints: string[];
-  setWaypoints: (data: string[]) => void;
+  waypoints: City[];
+  setWaypoints: (data: City[]) => void;
   city: string;
   index: number;
 };
@@ -28,16 +29,31 @@ function WaypointInput({
     setSuggestions(res.data);
   };
 
+  const saveWaypoint = (city: SuggestionData): void => {
+    setSelected(city.display_name);
+    const newWaypoint = {
+      name: city.display_name,
+      coord: [Number(city.lat), Number(city.lon)],
+    };
+    const waypointsArr: City[] = structuredClone(waypoints);
+    waypointsArr.splice(index, 1, newWaypoint);
+    setWaypoints(waypointsArr);
+  };
+
+  const deleteWaypoint = () => {
+    const filteredArr = waypoints.filter((el, i) => i !== index);
+    setWaypoints(filteredArr);
+  };
+
   useEffect(() => {
     typeAhead();
   }, [query]);
 
   return (
     <div>
-      <div style={{ display: "flex" }}>
+      <div className="edit-waypoint-input">
         <input
           type="text"
-          key={city}
           value={selected}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -48,8 +64,7 @@ function WaypointInput({
         <button
           className="delete-btn"
           onClick={() => {
-            const filteredArr = waypoints.filter((el, i) => i !== index);
-            setWaypoints(filteredArr);
+            deleteWaypoint();
           }}
         >
           X
@@ -64,7 +79,8 @@ function WaypointInput({
                 onClick={(e) => {
                   e.preventDefault();
                   setSuggestions([]);
-                  setSelected(city.display_name);
+                  console.log(city);
+                  saveWaypoint(city);
                 }}
               >
                 {city.display_name}

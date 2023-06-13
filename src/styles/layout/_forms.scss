@@ -181,3 +181,15 @@
         width: 70%;
     }
 }
+
+.edit-trip-ctn {
+    height: 100vh;
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.edit-waypoint-input {
+    display: flex;
+}

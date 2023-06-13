@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-// import { City } from "./Map";
-// import Map from "./Map";
-// import { Activities } from "./NewTripForm";
+import { City } from "./Map";
+import Map from "./Map";
 import { useParams } from "react-router-dom";
 import { TripContext } from "../contexts/TripContext";
 
@@ -9,7 +8,7 @@ import axios from "axios";
 import WaypointInput from "./WaypointInput";
 
 function EditTripForm(): JSX.Element {
-  const [waypoints, setWaypoints] = useState([] as string[]);
+  const [waypoints, setWaypoints] = useState([] as City[]);
 
   const {
     tripData,
@@ -38,36 +37,35 @@ function EditTripForm(): JSX.Element {
 
   useEffect(() => {
     if (tripData) {
-      const waypointNames: string[] = [];
+      const waypointArr: City[] = [];
       tripData.waypoints.map((waypoint) => {
-        waypointNames.push(waypoint.name);
+        waypointArr.push(waypoint);
       });
-      setWaypoints(waypointNames);
+      setWaypoints(waypointArr);
     }
   }, [tripData]);
 
   return (
     <>
       {tripData ? (
-        <main
-          className="trip-ctn"
-          style={{
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          {waypoints.map((city, index) => (
-            <div key={index}>
+        <main className="trip-ctn edit-trip-ctn">
+          {waypoints.map((city: City, index: number) => (
+            <div key={city.name}>
               <WaypointInput
-                city={city}
+                city={city.name}
                 index={index}
                 waypoints={waypoints}
                 setWaypoints={setWaypoints}
               />
             </div>
           ))}
+          <section className="trip-map">
+            <Map
+              cities={waypoints as City[]}
+              setTotalDistance={setTotalDistance}
+              setTotalTime={setTotalTime}
+            />
+          </section>
         </main>
       ) : null}
     </>
