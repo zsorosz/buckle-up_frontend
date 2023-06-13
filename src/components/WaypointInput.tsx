@@ -8,6 +8,7 @@ type WaypointProps = {
   setWaypoints: (data: City[]) => void;
   city: string;
   index: number;
+  setSeed: (data: number) => void;
 };
 
 function WaypointInput({
@@ -15,6 +16,7 @@ function WaypointInput({
   setWaypoints,
   city,
   index,
+  setSeed,
 }: WaypointProps): JSX.Element {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([] as SuggestionData[]);
@@ -38,11 +40,13 @@ function WaypointInput({
     const waypointsArr: City[] = structuredClone(waypoints);
     waypointsArr.splice(index, 1, newWaypoint);
     setWaypoints(waypointsArr);
+    setSeed(Math.random());
   };
 
   const deleteWaypoint = () => {
     const filteredArr = waypoints.filter((el, i) => i !== index);
     setWaypoints(filteredArr);
+    setSeed(Math.random());
   };
 
   useEffect(() => {
@@ -67,11 +71,11 @@ function WaypointInput({
             deleteWaypoint();
           }}
         >
-          X
+          -
         </button>
         <button className="primary-btn">+</button>
       </div>
-      <div className="search-suggestion">
+      <div className="search-suggestion edit-suggestion">
         {suggestions.length
           ? suggestions.map((city: SuggestionData) => (
               <div

@@ -9,6 +9,7 @@ import WaypointInput from "./WaypointInput";
 
 function EditTripForm(): JSX.Element {
   const [waypoints, setWaypoints] = useState([] as City[]);
+  const [seed, setSeed] = useState(1);
 
   const {
     tripData,
@@ -48,24 +49,40 @@ function EditTripForm(): JSX.Element {
   return (
     <>
       {tripData ? (
-        <main className="trip-ctn edit-trip-ctn">
-          {waypoints.map((city: City, index: number) => (
-            <div key={city.name}>
+        <main className="edit-trip-ctn">
+          <section className="edit-waypoints-input-ctn">
+            {waypoints.map((city: City, index: number) => (
               <WaypointInput
+                key={city.name}
                 city={city.name}
                 index={index}
                 waypoints={waypoints}
                 setWaypoints={setWaypoints}
+                setSeed={setSeed}
               />
-            </div>
-          ))}
+            ))}
+          </section>
           <section className="trip-map">
             <Map
+              key={seed}
               cities={waypoints as City[]}
               setTotalDistance={setTotalDistance}
               setTotalTime={setTotalTime}
             />
           </section>
+          <div className="trip-data edit-trip-data">
+            <div>
+              <h5>Total Distance:</h5>{" "}
+              {totalDistance &&
+                Math.round((totalDistance + Number.EPSILON) * 100) / 100}{" "}
+              km
+            </div>
+            <div>
+              <h5>Total Driving Time:</h5>
+              {totalTime && Math.floor(totalTime / 3600)} h{" "}
+              {totalTime && Math.round((totalTime / 60) % 60)} min
+            </div>
+          </div>
         </main>
       ) : null}
     </>
