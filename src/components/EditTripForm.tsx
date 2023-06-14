@@ -21,6 +21,7 @@ function EditTripForm(): JSX.Element {
     totalTime,
     setTotalTime,
     updateTrip,
+    saveTrip,
   } = useContext(TripContext);
 
   const { tripId } = useParams();
@@ -108,6 +109,10 @@ function EditTripForm(): JSX.Element {
         totalTime: totalTime,
       };
       setTripData(updatedTrip);
+      if (tripData._id === undefined) {
+        console.log(tripData)
+        saveTrip(updatedTrip);
+      }
       updateTrip(updatedTrip);
     }
   };
@@ -135,7 +140,7 @@ function EditTripForm(): JSX.Element {
   return (
     <>
       {tripData ? (
-        <main className="edit-trip-ctn">
+        <div className="edit-trip-ctn">
           <section className="edit-waypoints-input-ctn">
             {waypoints.map((city: City, index: number) => (
               <WaypointInput
@@ -175,7 +180,7 @@ function EditTripForm(): JSX.Element {
               {totalTime && Math.round((totalTime / 60) % 60)} min
             </div>
           </div>
-        </main>
+        </div>
       ) : null}
     </>
   );
