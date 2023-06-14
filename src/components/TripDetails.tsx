@@ -4,6 +4,8 @@ import Map from "./Map";
 import { Activities } from "./NewTripForm";
 import { useNavigate } from "react-router-dom";
 import { TripContext } from "../contexts/TripContext";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 function TripDetails(): JSX.Element {
   const {
@@ -18,6 +20,17 @@ function TripDetails(): JSX.Element {
   } = useContext(TripContext);
   const navigate = useNavigate();
 
+  const downloadPDF =()=> {
+    const capture = document.querySelector('.trip-ctn') as HTMLElement;
+    html2canvas(capture).then((canvas)=>{
+      const imgData = canvas.toDataURL('img/png');
+      const doc = new jsPDF('p', 'mm', 'a4');
+      const componentWidth = doc.internal.pageSize.getWidth();
+      const componentHeight = doc.internal.pageSize.getHeight();
+      doc.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight);
+      doc.save('newRoute.pdf');
+    })
+  }
   return (
     <>
       {tripData ? (
@@ -27,6 +40,9 @@ function TripDetails(): JSX.Element {
           <section className="trip-ctas">
             {isTripShowing ? (
               <>
+                <button className="primary-btn" onClick={downloadPDF}>
+                  Download as PDF
+                </button>
                 <button className="primary-btn" onClick={saveTrip}>
                   Save trip
                 </button>
