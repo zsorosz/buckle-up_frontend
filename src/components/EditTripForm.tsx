@@ -110,7 +110,7 @@ function EditTripForm(): JSX.Element {
       };
       setTripData(updatedTrip);
       if (tripData._id === undefined) {
-        console.log(tripData)
+        console.log(tripData);
         saveTrip(updatedTrip);
       }
       updateTrip(updatedTrip);
@@ -159,7 +159,7 @@ function EditTripForm(): JSX.Element {
               Save
             </button>
           </section>
-          <section className="trip-map">
+          <section className="trip-map edit-trip-map">
             <Map
               key={seed}
               cities={waypoints as City[]}

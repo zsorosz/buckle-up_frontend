@@ -3,9 +3,10 @@ import NewTripForm from "../components/NewTripForm";
 import TripDetails from "../components/TripDetails";
 import PopularDestinations from "../components/PopularDestinations";
 import { TripContext } from "../contexts/TripContext";
+import EditTripForm from "../components/EditTripForm";
 
 function HomePage(): JSX.Element {
-  const { isTripShowing, isTripLoading } = useContext(TripContext);
+  const { isTripShowing, isTripLoading, isEditing } = useContext(TripContext);
   return (
     <main className="home-ctn">
       <section className="home-main">
@@ -21,6 +22,8 @@ function HomePage(): JSX.Element {
           <img className="spinner" src="/destination.gif" />
         </div>
       )}
+      {isEditing ? <EditTripForm /> : null}
+
       {isTripShowing ? <TripDetails /> : null}
       <PopularDestinations />
     </main>

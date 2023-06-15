@@ -36,6 +36,8 @@ interface TripContextState {
   setIsTripLoading: (state: boolean) => void;
   isTripShowing: boolean;
   setIsTripShowing: (state: boolean) => void;
+  isEditing: boolean;
+  setIsEditing: (state: boolean) => void;
   saveTrip: (trip: TripData) => void;
   updateTrip: (updatedTrip: TripData) => void;
   deleteTrip: () => void;
@@ -54,6 +56,8 @@ export const TripContext = createContext<TripContextState>({
   setIsTripLoading: () => {},
   isTripShowing: false,
   setIsTripShowing: () => {},
+  isEditing: false,
+  setIsEditing: () => {},
   saveTrip: () => {},
   updateTrip: () => {},
   deleteTrip: () => {},
@@ -66,6 +70,7 @@ const TripContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isTripShowing, setIsTripShowing] = useState(false);
   const [totalDistance, setTotalDistance] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
+  const [isEditing, setIsEditing] = useState(false);
 
   const { userData, refreshData } = useContext(SessionContext);
 
@@ -125,6 +130,8 @@ const TripContextProvider = ({ children }: { children: React.ReactNode }) => {
         setIsTripLoading,
         isTripShowing,
         setIsTripShowing,
+        isEditing,
+        setIsEditing,
         saveTrip,
         updateTrip,
         resetTrip,

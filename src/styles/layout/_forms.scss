@@ -183,11 +183,33 @@
 }
 
 .edit-trip-ctn {
-    padding: 4rem 1.5rem;
+    padding: 4rem 1.5rem 2rem 1.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
+    .edit-trip-map {
+        @include respond(tab-land){
+            grid-column: 1/2;
+            grid-row: 1/3;
+            margin-top: 0;
+        }
+    }
+    @include respond(tab-port) {
+        width: 100vw;
+        padding-top: 4rem;
+    }
+    @include respond(tab-land) {
+        display: grid;
+        grid-auto-rows: auto;
+        grid-template-columns: 60% 1fr;
+        grid-gap: 1rem;
+    }  
+}
+
+.edit-waypoints-input-ctn {
+    @include respond(tab-land) {
+        grid-column: 2/3;
+        grid-row: 1/2;
+    }
 }
 
 .edit-waypoint-input {
@@ -205,6 +227,21 @@
         height: 2rem;
     }
 }
+
+// .edit-trip-map {
+//     @include respond(tab-land){
+//         grid-column: 1/2;
+//         grid-row: 1/3;
+//         margin-top: 0;
+//     }
+// }
+.edit-trip-data {
+    @include respond(tab-land){
+        grid-column: 2/3;
+        grid-row: 2/3;
+    }
+}
 .update-trip-btn {
+    margin-bottom: 1rem;
     float: right;
 }
