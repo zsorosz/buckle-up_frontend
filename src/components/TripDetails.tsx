@@ -7,6 +7,9 @@ import { TripContext } from "../contexts/TripContext";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { SessionContext } from "../contexts/SessionContext";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import html2pdf from "html2pdf.js"
 
 function TripDetails(): JSX.Element {
   const {
@@ -26,8 +29,18 @@ function TripDetails(): JSX.Element {
   const navigate = useNavigate();
 
   const downloadPDF =()=> {
-    const capture = document.querySelector('.trip-ctn') as HTMLElement;
-    html2canvas(capture).then((canvas)=>{
+    const capture = document.querySelector('.trip-map') as HTMLElement;
+    const opt = {
+      margin:       1,
+      filename:     'myroute.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { useCORS: true },
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().from(capture).set(opt).save();
+    return
+    html2canvas(capture, {
+      useCORS: true,	}).then((canvas)=>{
       const imgData = canvas.toDataURL('img/png');
       const doc = new jsPDF('p', 'mm', 'a4');
       const componentWidth = doc.internal.pageSize.getWidth();
@@ -44,6 +57,9 @@ function TripDetails(): JSX.Element {
           <section className="trip-ctas">
             {isTripShowing ? (
               <>
+                <button className="primary-btn" onClick={downloadPDF}>
+                  Download as PDF
+                </button>
                 <button
                   onClick={() => {
                     !isAuthenticated ? navigate("/login") : setIsEditing(true);
