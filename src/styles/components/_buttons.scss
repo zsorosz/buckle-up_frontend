@@ -24,6 +24,11 @@
     color: $grey-color
 }
 
+.delete-btn {
+    @extend %btn;
+    background-color: rgb(247, 66, 66);
+}
+
 .option-btn {
     @extend %btn;
     color: $white-color;

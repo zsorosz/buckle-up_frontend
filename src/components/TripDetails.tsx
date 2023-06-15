@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { TripContext } from "../contexts/TripContext";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { SessionContext } from "../contexts/SessionContext";
 
 function TripDetails(): JSX.Element {
   const {
@@ -16,8 +17,12 @@ function TripDetails(): JSX.Element {
     setTotalTime,
     saveTrip,
     resetTrip,
+    deleteTrip,
     isTripShowing,
+    setIsTripShowing,
+    setIsEditing,
   } = useContext(TripContext);
+  const { isAuthenticated } = useContext(SessionContext);
   const navigate = useNavigate();
 
   const downloadPDF =()=> {
@@ -36,27 +41,38 @@ function TripDetails(): JSX.Element {
       {tripData ? (
         <section className="trip-ctn">
           <h2 className="trip-title">{tripData.title}</h2>
-
           <section className="trip-ctas">
             {isTripShowing ? (
               <>
-                <button className="primary-btn" onClick={downloadPDF}>
-                  Download as PDF
+                <button
+                  onClick={() => {
+                    !isAuthenticated ? navigate("/login") : setIsEditing(true);
+                    setIsTripShowing(false);
+                  }}
+                  className="primary-btn"
+                >
+                  Edit
                 </button>
-                <button className="primary-btn" onClick={saveTrip}>
-                  Save trip
+                <button
+                  className="primary-btn"
+                  onClick={() => saveTrip(tripData)}
+                >
+                  Save
                 </button>
                 <button className="secondary-btn" onClick={resetTrip}>
-                  Create new trip
+                  New trip
                 </button>
               </>
             ) : (
               <>
-                <button className="primary-btn" onClick={saveTrip}>
-                  Edit trip
+                <a href={`${tripData._id}/edit`} className="primary-btn">
+                  Edit
+                </a>
+                <button className="delete-btn" onClick={deleteTrip}>
+                  Delete
                 </button>
                 <button className="secondary-btn" onClick={() => navigate("/")}>
-                  Create new trip
+                  New trip
                 </button>
               </>
             )}

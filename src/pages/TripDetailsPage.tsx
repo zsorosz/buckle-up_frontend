@@ -44,9 +44,9 @@ function TripDetailsPage(): JSX.Element {
       {isLoading || !tripData ? (
         <p>Loading....</p>
       ) : (
-        <>
-          <TripDetails/>
-        </>
+        <div className="trip-details-ctn">
+          <TripDetails />
+        </div>
       )}
     </main>
   );

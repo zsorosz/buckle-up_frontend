@@ -13,7 +13,7 @@ export type City = {
   name: string;
   coord: number[];
 };
-interface TripData {
+export interface TripData {
   title: string;
   waypoints: City[];
   startingCity: string;
@@ -36,7 +36,11 @@ interface TripContextState {
   setIsTripLoading: (state: boolean) => void;
   isTripShowing: boolean;
   setIsTripShowing: (state: boolean) => void;
-  saveTrip: () => void;
+  isEditing: boolean;
+  setIsEditing: (state: boolean) => void;
+  saveTrip: (trip: TripData) => void;
+  updateTrip: (updatedTrip: TripData) => void;
+  deleteTrip: () => void;
   resetTrip: () => void;
 }
 
@@ -52,7 +56,11 @@ export const TripContext = createContext<TripContextState>({
   setIsTripLoading: () => {},
   isTripShowing: false,
   setIsTripShowing: () => {},
+  isEditing: false,
+  setIsEditing: () => {},
   saveTrip: () => {},
+  updateTrip: () => {},
+  deleteTrip: () => {},
   resetTrip: () => {},
 });
 
@@ -62,18 +70,38 @@ const TripContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isTripShowing, setIsTripShowing] = useState(false);
   const [totalDistance, setTotalDistance] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
+  const [isEditing, setIsEditing] = useState(false);
 
   const { userData, refreshData } = useContext(SessionContext);
 
   const navigate = useNavigate();
   const BASE_URL: string = import.meta.env.VITE_BASE_URL as string;
 
-  const refreshTripData = (updatedTrip: TripData) => {
+  const refreshTripData = (updatedTrip: TripData): void => {
     setTripData(updatedTrip);
   };
 
-  const saveTrip = async () => {
+  const saveTrip = async (trip: TripData) => {
     const res = await axios.post(`${BASE_URL}/trip/add`, {
+      trip,
+      userData,
+    });
+    refreshData(res.data.updatedUser);
+    setTripData(null);
+    navigate("/mytrips");
+  };
+  const updateTrip = async (updatedTrip: TripData) => {
+    const res = await axios.post(`${BASE_URL}/trip/update`, {
+      updatedTrip,
+      userData,
+    });
+    refreshData(res.data.updatedUser);
+    setTripData(res.data.updatedTrip);
+    navigate(`/${res.data.updatedTrip._id}`);
+  };
+
+  const deleteTrip = async () => {
+    const res = await axios.post(`${BASE_URL}/trip/delete`, {
       tripData,
       userData,
     });
@@ -102,8 +130,12 @@ const TripContextProvider = ({ children }: { children: React.ReactNode }) => {
         setIsTripLoading,
         isTripShowing,
         setIsTripShowing,
+        isEditing,
+        setIsEditing,
         saveTrip,
+        updateTrip,
         resetTrip,
+        deleteTrip,
       }}
     >
       {children}

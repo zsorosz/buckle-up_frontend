@@ -1,3 +1,7 @@
+.trip-details-ctn {
+    padding-top: 3rem;
+}
+
 .trip-ctn {
     background-color: $grey-color;
     padding: 0 1.5rem 2rem 1.5rem;
@@ -16,6 +20,7 @@
 .trip-map {
     height: 500px;
     border: 1px solid $grey-color;
+    z-index: 5;
     @include respond(tab-land) {
         grid-column: 1 / 2;
         grid-row: 3 / 4;
@@ -69,6 +74,7 @@
     ul {
         width: 50%;
         font-size: .8rem;
+        list-style: square;
     }
     li {
         margin-left: 1rem;
@@ -94,6 +100,10 @@
     gap: 1rem;
     justify-content: center;
     background-color: $grey-color;
+    a {
+        text-decoration: none;
+        font-size: .9rem;
+    }
     @include respond(tab-land) {
         grid-column: 1 / -1;    
         justify-content: flex-end;
@@ -115,4 +125,8 @@
 .spinner {
     width: 150px;
     height: 150px;
+}
+
+.edit-trip-data {
+    color: white;
 }

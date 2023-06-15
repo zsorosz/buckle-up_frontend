@@ -2,13 +2,14 @@ import L from "leaflet";
 import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
 import { City } from "./Map";
+import { useState, useEffect } from "react";
 
 type Coord = {
   lat: number;
   lng: number;
 };
 
-const createRoutineMachineLayer = ({
+export const createRoutineMachineLayer = ({
   cities,
   setTotalDistance,
   setTotalTime,
@@ -30,7 +31,7 @@ const createRoutineMachineLayer = ({
       extendToWaypoints: false,
       missingRouteTolerance: 2,
     },
-    show: true,
+    show: false,
     addWaypoints: true,
     routeWhileDragging: true,
     fitSelectedRoutes: true,
