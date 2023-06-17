@@ -1,15 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { City } from "./Map";
 import Map from "./Map";
 import { Activities } from "./NewTripForm";
 import { useNavigate } from "react-router-dom";
 import { TripContext } from "../contexts/TripContext";
 import { SessionContext } from "../contexts/SessionContext";
+import { Popup } from "./Popup";
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import html2pdf from "html2pdf.js";
 
 function TripDetails(): JSX.Element {
+  const [popupOpen, setPopupOpen] = useState(false);
   const {
     tripData,
     totalDistance,
@@ -21,20 +24,29 @@ function TripDetails(): JSX.Element {
     deleteTrip,
     isTripShowing,
     setIsTripShowing,
+    isEditing,
     setIsEditing,
   } = useContext(TripContext);
   const { isAuthenticated } = useContext(SessionContext);
   const navigate = useNavigate();
 
   const downloadPDF = (): void => {
-    const capture = document.querySelector(".trip-ctn") as HTMLElement;
+    const itinerary = document.querySelector(".trip-ctn") as HTMLElement;
 
     const opt = {
       margin: 1,
       filename: "myroute.pdf",
       image: { type: "jpeg", quality: 0.98 },
+      pagebreak: {
+        mode: "avoid-all",
+        avoid: ".trip-map",
+        before: ".trip-map",
+      },
       html2canvas: {
         useCORS: true,
+        scale: 4,
+        windowWidth: 300,
+        windowHeight: 900,
         ignoreElements: function (element: HTMLElement) {
           if (
             element.classList.contains("leaflet-overlay-pane") ||
@@ -44,9 +56,9 @@ function TripDetails(): JSX.Element {
           }
         },
       },
-      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+      jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
     };
-    html2pdf().from(capture).set(opt).save();
+    html2pdf().from(itinerary).set(opt).save();
   };
   return (
     <>
@@ -54,15 +66,16 @@ function TripDetails(): JSX.Element {
         <section className="trip-ctn">
           <h2 className="trip-title">{tripData.title}</h2>
           <section className="trip-ctas">
+            <button className="primary-btn" onClick={downloadPDF}>
+              Download
+            </button>
+
             {isTripShowing ? (
               <>
-                <button className="primary-btn" onClick={downloadPDF}>
-                  Download
-                </button>
                 <button
                   onClick={() => {
-                    !isAuthenticated ? navigate("/login") : setIsEditing(true);
-                    setIsTripShowing(false);
+                    !isAuthenticated ? setPopupOpen(true) : setIsEditing(true);
+                    isEditing && setIsTripShowing(false);
                   }}
                   className="primary-btn"
                 >
@@ -92,6 +105,13 @@ function TripDetails(): JSX.Element {
               </>
             )}
           </section>
+          {popupOpen ? (
+            <Popup
+              text="To save, edit or download a trip, you need to be logged it."
+              closePopup={() => setPopupOpen(false)}
+              isPopupOpen={popupOpen}
+            />
+          ) : null}
 
           <section className="trip-summary">
             <div className="trip-itinerary">
@@ -121,6 +141,7 @@ function TripDetails(): JSX.Element {
                 </div>
               ))}
             </div>
+            <div className="html2pdf__page-break"></div>
             <div className="trip-data">
               <div>
                 <h5>Total Distance:</h5>{" "}
@@ -135,6 +156,7 @@ function TripDetails(): JSX.Element {
               </div>
             </div>
           </section>
+          {/* <div className="html2pdf__page-break"></div> */}
           <section className="trip-map">
             <Map
               cities={tripData.waypoints as City[]}

@@ -15,7 +15,7 @@
     }
    }
    @include respond(tab-port) {
-    height: 60vh;
+    height: 70vh;
 }
    @include respond(desktop) {
     height: 80vh;
