@@ -2,7 +2,6 @@ import L from "leaflet";
 import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
 import { City } from "./Map";
-import { useState, useEffect } from "react";
 
 type Coord = {
   lat: number;

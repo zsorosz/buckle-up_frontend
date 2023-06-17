@@ -4,11 +4,11 @@ function PopularDestinations(): JSX.Element {
   const destinations: string[] = ["Berlin", "Paris", "Barcelona", "Rome"];
 
   return (
-    <section className="PopularDestinations-ctn">
+    <section className="popular-destinations-ctn">
       <h2>Popular destinations</h2>
       <div className="cards-container">
         {destinations.map((city) => (
-          <Card city={city} key={city} />
+          <Card city={city} key={city} title={city} link={`/${city}`} />
         ))}
       </div>
     </section>
