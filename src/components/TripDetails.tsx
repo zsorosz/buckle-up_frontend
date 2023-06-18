@@ -34,19 +34,18 @@ function TripDetails(): JSX.Element {
     const itinerary = document.querySelector(".trip-ctn") as HTMLElement;
 
     const opt = {
-      margin: 1,
+      margin: 0,
       filename: "myroute.pdf",
       image: { type: "jpeg", quality: 0.98 },
       pagebreak: {
-        mode: "avoid-all",
+        mode: "css",
         avoid: ".trip-map",
-        before: ".trip-map",
       },
       html2canvas: {
         useCORS: true,
         scale: 4,
-        windowWidth: 300,
-        windowHeight: 900,
+        windowWidth: 1024,
+        windowHeight: 700,
         ignoreElements: function (element: HTMLElement) {
           if (
             element.classList.contains("leaflet-overlay-pane") ||
@@ -56,7 +55,7 @@ function TripDetails(): JSX.Element {
           }
         },
       },
-      jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+      jsPDF: { unit: "in", format: "a4", orientation: "landscape" },
     };
     html2pdf().from(itinerary).set(opt).save();
   };
