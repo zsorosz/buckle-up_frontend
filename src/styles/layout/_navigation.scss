@@ -17,7 +17,7 @@
     @include respond(desktop) {
         height: 4rem;
         a{
-            font-size: 2rem;
+            font-size: 1.7rem;
             font-weight: bold;
         }
     }
@@ -31,9 +31,6 @@
             text-decoration: none;
             color: $white-color;
         }
-    }
-    @include respond(tab-port) {
-        text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
     }
 }
 
@@ -65,7 +62,7 @@
     a, div {
         text-decoration: none;
         color: $white-color;
-        font-weight: 400;
+        font-weight: 200;
         cursor: pointer;
         &:active {
             color: $primary-color;
@@ -74,7 +71,7 @@
             color: $primary-color;
         }
         @include respond(desktop) {
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
     }   
 }

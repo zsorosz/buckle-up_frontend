@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 type AuthFormProps = {
   username: string;
   email?: string;
@@ -19,6 +20,7 @@ const AuthForm = ({
   handleSubmit,
   isLogin = false,
 }: AuthFormProps): JSX.Element => {
+  const navigate = useNavigate();
   const submitCallback = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleSubmit();
@@ -64,6 +66,21 @@ const AuthForm = ({
       <button type="submit" className="primary-btn">
         {isLogin ? "Log In" : "Sign Up"}
       </button>
+      {isLogin ? (
+        <div className="auth-redirect">
+          <p>Don't have an account yet?</p>
+          <button className="outline-btn" onClick={() => navigate("/signup")}>
+            Sign up
+          </button>
+        </div>
+      ) : (
+        <div className="auth-redirect">
+          <p>Already signed up?</p>
+          <button className="outline-btn" onClick={() => navigate("/login")}>
+            Log in
+          </button>
+        </div>
+      )}
     </form>
   );
 };

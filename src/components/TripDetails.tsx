@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { City } from "./Map";
 import Map from "./Map";
 import { Activities } from "./NewTripForm";
@@ -13,6 +13,7 @@ import html2pdf from "html2pdf.js";
 
 function TripDetails(): JSX.Element {
   const [popupOpen, setPopupOpen] = useState(false);
+  const [isDownloaded, setIsDownloaded] = useState(false);
   const {
     tripData,
     totalDistance,
@@ -30,11 +31,12 @@ function TripDetails(): JSX.Element {
   const { isAuthenticated } = useContext(SessionContext);
   const navigate = useNavigate();
 
+  const itinerary = document.querySelector(".trip-ctn") as HTMLElement;
   const downloadPDF = (): void => {
-    const itinerary = document.querySelector(".trip-ctn") as HTMLElement;
+    itinerary.classList.add("pdf-download");
 
     const opt = {
-      margin: 0,
+      margin: 0.5,
       filename: "myroute.pdf",
       image: { type: "jpeg", quality: 0.98 },
       pagebreak: {
@@ -46,6 +48,8 @@ function TripDetails(): JSX.Element {
         scale: 4,
         windowWidth: 1024,
         windowHeight: 700,
+        y: 200,
+        pagebreak: { after: "div", mode: "avoid-all" },
         ignoreElements: function (element: HTMLElement) {
           if (
             element.classList.contains("leaflet-overlay-pane") ||
@@ -55,10 +59,19 @@ function TripDetails(): JSX.Element {
           }
         },
       },
-      jsPDF: { unit: "in", format: "a4", orientation: "landscape" },
+      jsPDF: { unit: "cm", format: "a4", orientation: "landscape" },
     };
     html2pdf().from(itinerary).set(opt).save();
+    setIsDownloaded(true);
+    // itinerary.classList.remove("pdf-download");
   };
+
+  useEffect(() => {
+    if (isDownloaded) {
+      itinerary.classList.remove("pdf-download");
+      setIsDownloaded(false);
+    }
+  }, [isDownloaded]);
   return (
     <>
       {tripData ? (

@@ -77,8 +77,16 @@ function EditTripForm(): JSX.Element {
           };
           activitiesArr.push(activities);
         });
+        if (places[0] === places[places.length - 1]) {
+          const finalStop = {
+            city:
+              places[0].substring(0, places[0].indexOf(",")) +
+              places[0].substring(places[0].lastIndexOf(","), places[0].length),
+            attractions: [],
+          };
+          activitiesArr.push(finalStop);
+        }
         setAttractions(activitiesArr);
-        console.log(activitiesArr);
       });
   };
 
