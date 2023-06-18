@@ -66,7 +66,12 @@ function TripDetails(): JSX.Element {
         <section className="trip-ctn">
           <h2 className="trip-title">{tripData.title}</h2>
           <section className="trip-ctas">
-            <button className="primary-btn" onClick={downloadPDF}>
+            <button
+              className="primary-btn"
+              onClick={() => {
+                !isAuthenticated ? setPopupOpen(true) : downloadPDF();
+              }}
+            >
               Download
             </button>
 
@@ -83,7 +88,9 @@ function TripDetails(): JSX.Element {
                 </button>
                 <button
                   className="primary-btn"
-                  onClick={() => saveTrip(tripData)}
+                  onClick={() => {
+                    !isAuthenticated ? setPopupOpen(true) : saveTrip(tripData);
+                  }}
                 >
                   Save
                 </button>
@@ -104,14 +111,14 @@ function TripDetails(): JSX.Element {
                 </button>
               </>
             )}
+            {popupOpen ? (
+              <Popup
+                text="To save, edit or download a trip, you need to be logged in."
+                closePopup={() => setPopupOpen(false)}
+                isPopupOpen={popupOpen}
+              />
+            ) : null}
           </section>
-          {popupOpen ? (
-            <Popup
-              text="To save, edit or download a trip, you need to be logged it."
-              closePopup={() => setPopupOpen(false)}
-              isPopupOpen={popupOpen}
-            />
-          ) : null}
 
           <section className="trip-summary">
             <div className="trip-itinerary">

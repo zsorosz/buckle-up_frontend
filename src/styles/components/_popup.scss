@@ -7,14 +7,17 @@
     opacity: 1;
     background-color: white;
     position: absolute;
+    margin: 0 auto;
+    z-index: 100;
     border-radius: 7px;
     box-shadow: rgb(23, 24, 26) 0px 20px 30px -10px;
     width: 20rem;
-    top: 50vh;
-    bottom: 0;
-    right: 0;
-    left: 30vw;
     transition: opacity 500ms;
+    @include respond(tab-land) {
+        margin: 0 50vw;
+        transform: translateX(70%);
+        
+    }
   }
   .popup {
     padding: 20px;
