@@ -48,22 +48,12 @@ function TripDetails(): JSX.Element {
         scale: 4,
         windowWidth: 1024,
         windowHeight: 700,
-        y: 200,
         pagebreak: { after: "div", mode: "avoid-all" },
-        ignoreElements: function (element: HTMLElement) {
-          if (
-            element.classList.contains("leaflet-overlay-pane") ||
-            element.classList.contains("trip-ctas")
-          ) {
-            return true;
-          }
-        },
       },
       jsPDF: { unit: "cm", format: "a4", orientation: "landscape" },
     };
     html2pdf().from(itinerary).set(opt).save();
     setIsDownloaded(true);
-    // itinerary.classList.remove("pdf-download");
   };
 
   useEffect(() => {
