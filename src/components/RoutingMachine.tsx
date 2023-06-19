@@ -8,7 +8,7 @@ type Coord = {
   lng: number;
 };
 
-const createRoutineMachineLayer = ({
+export const createRoutineMachineLayer = ({
   cities,
   setTotalDistance,
   setTotalTime,
@@ -30,7 +30,7 @@ const createRoutineMachineLayer = ({
       extendToWaypoints: false,
       missingRouteTolerance: 2,
     },
-    show: true,
+    show: false,
     addWaypoints: true,
     routeWhileDragging: true,
     fitSelectedRoutes: true,

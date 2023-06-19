@@ -16,7 +16,7 @@ const SignupPage = (): JSX.Element => {
     if (userData && userData.username !== undefined) {
       isAuthenticated && navigate("/");
     }
-  }, [isAuthenticated, navigate, userData]);
+  }, [isAuthenticated]);
 
   const handleSubmit = async (): Promise<void> => {
     const response = await fetch(`${BASE_URL}/auth/signup`, {

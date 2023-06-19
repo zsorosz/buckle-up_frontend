@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserData } from "../types";
+import {TripContext} from "./TripContext";
 
 interface SessionContextState {
   setToken: (token: string | null) => void;
@@ -37,6 +38,7 @@ const SessionContextProvider = ({
   const [token, setToken] = useState<string | null | undefined>();
   const [userData, setUserData] = useState<UserData | null | undefined>();
 
+  const { setTripData } = useContext(TripContext);
   const navigate = useNavigate();
 
   const BASE_URL: string = import.meta.env.VITE_BASE_URL;
@@ -87,6 +89,7 @@ const SessionContextProvider = ({
     setIsAuthenticated(false);
     setToken(null);
     navigate("/");
+    setTripData(null)
   };
 
   const refreshData = (updatedUser: UserData) => {

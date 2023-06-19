@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { SessionContext } from "../contexts/SessionContext";
 import { UserData } from "../types";
 import axios from "axios";
+import Card from "../components/Card";
 
 function MyTrips(): JSX.Element {
   const { userData } = useContext(SessionContext);
@@ -32,15 +33,11 @@ function MyTrips(): JSX.Element {
           <h2 className="mytrips-title">My Trips</h2>
           <div className="cards-container">
             {user.trips?.map((trip) => (
-              <a href={`/${trip._id}`} className="card">
-                <img
-                  src={`https://source.unsplash.com/600x300/?${trip.destination}`}
-                  alt="destination photo"
-                />
-                <div className="card-details">
-                  <h2 className="card-title">{trip.title}</h2>
-                </div>
-              </a>
+              <Card
+                city={trip.destination}
+                title={trip.title}
+                link={`/${trip._id}`}
+              />
             ))}
           </div>
         </>

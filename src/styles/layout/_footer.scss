@@ -11,7 +11,7 @@ ul{
 }
 .footer{
 	background-color: #24262b;
-    padding: 70px 0;
+    padding: 1rem 0;
 }
 .footer-col{
    width: 100%;
@@ -62,4 +62,9 @@ ul{
 .footer-col .social-links a:hover{
 	color: #24262b;
 	background-color: #ffffff;
+}
+.copyright {
+	color: #bbbbbb;
+	margin-top: 2rem;
+	font-size: 0.75rem;
 }

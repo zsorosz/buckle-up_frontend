@@ -1,3 +1,54 @@
+.auth-form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    background-color: $white-color;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    @include respond(tab-port) {
+        width: 50%;
+    }
+    @include respond(tab-land) {
+        width: 30%;
+    }
+    @include respond(desktop) {
+        width: 20%;
+    }
+    h2 {
+        margin: 0;
+        
+    }
+    h6 {
+        margin: 1rem 0;
+        font-size: .8rem;
+    }
+    input {
+        width: 100%;
+        height: 2rem;
+        font-size: .8rem;
+        font-family: $font-primary;
+        padding: 0 5px;
+        border: 1px solid $grey-color;
+        border-radius: 5px;
+        background-color: $white-color;
+        color: $grey-color;
+        margin-bottom: 1rem;  
+    }
+    button {
+        width: 70%;
+    }
+}
+
+.auth-redirect {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
 .form-ctn {
     width: 100%;
     height: auto;
@@ -23,8 +74,7 @@
     width: 100%;
     background-color: $white-color;
     margin: 0 auto;
-    padding: 1rem 1rem 2rem 1rem;
-    gap: .5rem;
+    padding: 0 1rem 2rem 1rem;
     border-radius: 0 8px 8px 8px;
     input {
         width: 100%;
@@ -58,6 +108,7 @@
     @include respond(tab-port) {
         flex-direction: row;
         padding-right: 10rem;
+        gap: .5rem;
     }
     @include respond(big-desktop) {
         padding: 1.5rem 10rem 1.5rem 1rem;
@@ -138,46 +189,67 @@
     justify-content: center;
     align-items: center;
 }
-.auth-form {
-    width: 90%;
+
+.edit-trip-ctn {
+    padding: 4rem 1.5rem 2rem 1.5rem;
     display: flex;
     flex-direction: column;
-    background-color: $white-color;
-    margin: 0 auto;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    .edit-trip-map {
+        @include respond(tab-land){
+            grid-column: 1/2;
+            grid-row: 1/3;
+            margin-top: 0;
+        }
+    }
     @include respond(tab-port) {
-        width: 50%;
+        width: 100vw;
+        padding-top: 4rem;
     }
     @include respond(tab-land) {
-        width: 30%;
+        display: grid;
+        grid-auto-rows: auto;
+        grid-template-columns: 60% 1fr;
+        grid-gap: 1rem;
+    }  
+}
+
+.edit-waypoints-input-ctn {
+    @include respond(tab-land) {
+        grid-column: 2/3;
+        grid-row: 1/2;
     }
-    @include respond(desktop) {
-        width: 20%;
-        padding: 4rem;
-    }
-    h2 {
-        margin: 0;
-        
-    }
-    h6 {
-        margin: 1rem 0;
-        font-size: .8rem;
-    }
+}
+
+.edit-waypoint-input {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
     input {
-        width: 100%;
-        height: 2rem;
-        font-size: .8rem;
-        font-family: $font-primary;
-        padding: 0 5px;
-        border: 1px solid $grey-color;
-        border-radius: 5px;
-        background-color: $white-color;
-        color: $grey-color;
-        margin-bottom: 1rem;  
+        height: 3rem;
+        flex: 1;
+        // padding-right: 1rem;
     }
     button {
-        width: 70%;
+        margin: 0;
+        width: 2rem;
+        height: 2rem;
     }
+}
+
+// .edit-trip-map {
+//     @include respond(tab-land){
+//         grid-column: 1/2;
+//         grid-row: 1/3;
+//         margin-top: 0;
+//     }
+// }
+.edit-trip-data {
+    @include respond(tab-land){
+        grid-column: 2/3;
+        grid-row: 2/3;
+    }
+}
+.update-trip-btn {
+    margin-bottom: 1rem;
+    float: right;
 }

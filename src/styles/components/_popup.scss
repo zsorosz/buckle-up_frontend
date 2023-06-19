@@ -1,0 +1,60 @@
+.popup-hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+.popup-visible {
+    visibility: visible;
+    opacity: 1;
+    background-color: white;
+    position: absolute;
+    margin: 0 auto;
+    z-index: 100;
+    border-radius: 7px;
+    box-shadow: rgb(23, 24, 26) 0px 20px 30px -10px;
+    width: 20rem;
+    transition: opacity 500ms;
+    @include respond(tab-land) {
+        margin: 0 50vw;
+        transform: translateX(70%);
+        
+    }
+  }
+  .popup {
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 100%; 
+    position: relative;
+    transition: all 5s ease-in-out;
+    h2 {
+        margin-top: 0;
+        color: $grey-color;
+    }
+    .close {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: $grey-color;
+        &:hover {
+            cursor: pointer;
+            color: #000;
+          }
+      }
+      .content {
+        max-height: 30%;
+        overflow: auto;
+        margin-top: 10%;
+      }
+  }
+  .popup-ctas {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  

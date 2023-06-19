@@ -1,3 +1,7 @@
+.trip-details-ctn {
+    padding-top: 3rem;
+}
+
 .trip-ctn {
     background-color: $grey-color;
     padding: 0 1.5rem 2rem 1.5rem;
@@ -16,6 +20,8 @@
 .trip-map {
     height: 500px;
     border: 1px solid $grey-color;
+    z-index: 5;
+    break-inside: avoid;
     @include respond(tab-land) {
         grid-column: 1 / 2;
         grid-row: 3 / 4;
@@ -27,6 +33,7 @@
     color: $white-color;
     padding-top: 2rem;
     margin: 0;
+    text-align: center;
     @include respond(tab-port) {
         padding-top: 0;
     }
@@ -69,6 +76,8 @@
     ul {
         width: 50%;
         font-size: .8rem;
+        list-style: square;
+        color: white;
     }
     li {
         margin-left: 1rem;
@@ -91,9 +100,14 @@
 }
 .trip-ctas {
     display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    column-gap: 1rem;
     justify-content: center;
     background-color: $grey-color;
+    a {
+        text-decoration: none;
+        font-size: .9rem;
+    }
     @include respond(tab-land) {
         grid-column: 1 / -1;    
         justify-content: flex-end;
@@ -115,4 +129,32 @@
 .spinner {
     width: 150px;
     height: 150px;
+}
+
+.edit-trip-data {
+    color: white;
+}
+
+.pdf-download {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 60% 1fr;
+    grid-gap: 1rem;
+    grid-template-rows: 4rem 1fr;
+    padding: 0;
+    h2, h4, div, ul {
+        color: black;
+    }
+    .trip-ctas {
+        display: none;
+    }
+    .leaflet-overlay-pane {
+        display: none;
+    }
+    // .leaflet-zoom-animated {
+    //     transform: translate3d(-58px, -50px, 0px);
+    //     width: 701;
+    //     height: 598;
+    //     display: none;
+    // }
 }

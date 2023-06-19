@@ -8,7 +8,7 @@ type SearchProps = {
   setDestination: (arg0: string) => void;
 };
 
-type SuggestionData = {
+export type SuggestionData = {
   place_id: string;
   osm_id: string;
   osm_type: string;
@@ -70,7 +70,7 @@ const SearchSuggestions = ({
         : null}
       {destSuggestions.length
         ? destSuggestions.map((city: SuggestionData) => (
-            <div 
+            <div
               key={city.place_id}
               onClick={(e) => {
                 e.preventDefault();
