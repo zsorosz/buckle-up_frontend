@@ -149,7 +149,6 @@ const NewTripForm = (): JSX.Element => {
           result.push(waypoint);
         });
         setResponse(result);
-        setIsTripShowing(true);
       });
   };
 
@@ -193,6 +192,7 @@ const NewTripForm = (): JSX.Element => {
     setDestination("");
     setResponse([]);
     setTripOption("oneway");
+    setIsTripShowing(true);
   };
   return (
     <section className="form-ctn">
