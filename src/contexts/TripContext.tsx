@@ -72,7 +72,7 @@ const TripContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [totalTime, setTotalTime] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
 
-  const { userData, refreshData, isAuthenticated } = useContext(SessionContext);
+  const { userData, refreshData} = useContext(SessionContext);
 
   const navigate = useNavigate();
   const BASE_URL: string = import.meta.env.VITE_BASE_URL as string;

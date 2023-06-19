@@ -49,7 +49,7 @@ function WaypointInput({
   };
 
   const deleteWaypoint = () => {
-    const filteredArr = waypoints.filter((el, i) => i !== index);
+    const filteredArr = waypoints.filter((_, i) => i !== index);
     setWaypoints(filteredArr);
     setSeed(Math.random());
   };
