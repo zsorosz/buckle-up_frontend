@@ -1,11 +1,13 @@
 .mytrips-ctn {
   padding: 3rem 1.5rem;
   margin: 0 auto;
+  min-height: 75vh;
   @include respond(tab-land) {
     padding: 3rem 7rem;
   }
   @include respond(big-desktop) {
     padding: 3rem 30rem;
+    min-height: 90vh;
   }
 }
 

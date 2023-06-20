@@ -5,9 +5,10 @@ import AuthForm from "../components/AuthForm";
 
 const SignupPage = (): JSX.Element => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("")
 
   const BASE_URL: string = import.meta.env.VITE_BASE_URL as string;
   const { userData, isAuthenticated } = useContext(SessionContext);
@@ -26,7 +27,12 @@ const SignupPage = (): JSX.Element => {
       },
       body: JSON.stringify({ username, email, password }),
     });
-    if (response.status === 201) {
+    const parsed = await response.json();
+    if (response.status === 403) {
+      setError(parsed.message)
+    }
+    else if (response.status === 201) {
+      setError("");
       navigate("/login");
     }
   };
@@ -40,6 +46,7 @@ const SignupPage = (): JSX.Element => {
         password={password}
         setPassword={setPassword}
         handleSubmit={handleSubmit}
+        error={error}
       />
     </main>
   );

@@ -76,6 +76,9 @@
     h2{
         color: white;
     }
+    @include respond (big-desktop) {
+        padding-bottom: 4rem;
+    }
 }
 .card:hover {
         /* transform: translateY(5px); */

@@ -227,7 +227,6 @@
     input {
         height: 3rem;
         flex: 1;
-        // padding-right: 1rem;
     }
     button {
         margin: 0;
@@ -236,13 +235,6 @@
     }
 }
 
-// .edit-trip-map {
-//     @include respond(tab-land){
-//         grid-column: 1/2;
-//         grid-row: 1/3;
-//         margin-top: 0;
-//     }
-// }
 .edit-trip-data {
     @include respond(tab-land){
         grid-column: 2/3;
@@ -252,4 +244,11 @@
 .update-trip-btn {
     margin-bottom: 1rem;
     float: right;
+}
+
+.error-message {
+    padding: 0;
+    background-color: #FEE;
+    border: 1px solid #EDD;
+    color: rgb(255, 0, 0);
 }

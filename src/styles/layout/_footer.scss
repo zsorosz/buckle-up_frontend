@@ -12,6 +12,11 @@ ul{
 .footer{
 	background-color: #24262b;
     padding: 1rem 0;
+	@include respond(tab-port) {
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
 }
 .footer-col{
    width: 100%;

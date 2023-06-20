@@ -8,6 +8,7 @@ type AuthFormProps = {
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   handleSubmit: () => Promise<void>;
   isLogin?: boolean;
+  error: string;
 };
 
 const AuthForm = ({
@@ -19,6 +20,7 @@ const AuthForm = ({
   setPassword,
   handleSubmit,
   isLogin = false,
+  error,
 }: AuthFormProps): JSX.Element => {
   const navigate = useNavigate();
   const submitCallback = (event: React.FormEvent<HTMLFormElement>) => {
@@ -48,7 +50,7 @@ const AuthForm = ({
         <div className="auth-ctn">
           <input
             className="input-ctn"
-            type="text"
+            type="email"
             value={email}
             onChange={(event) => setEmail && setEmail(event.target.value)}
             placeholder="Email"
@@ -66,6 +68,7 @@ const AuthForm = ({
           required
         />
       </div>
+      {error.length? <p className="error-message">{error}</p> : null}
       <button type="submit" className="primary-btn">
         {isLogin ? "Log In" : "Sign Up"}
       </button>

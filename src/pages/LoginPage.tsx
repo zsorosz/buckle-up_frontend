@@ -5,15 +5,12 @@ import AuthForm from "../components/AuthForm";
 
 const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("")
 
   const BASE_URL: string = import.meta.env.VITE_BASE_URL as string;
   const { setToken } = useContext(SessionContext);
-
-  // const element = document.querySelector(".auth-form-ctn") as HTMLElement;
-
-  // element.scrollIntoView();
 
   const handleSubmit = async (): Promise<void> => {
     const response = await fetch(`${BASE_URL}/auth/login`, {
@@ -24,8 +21,14 @@ const LoginPage = (): JSX.Element => {
       body: JSON.stringify({ username, password }),
     });
     const parsed = await response.json();
+    if (parsed.message) {
+      setError(parsed.message)
+    }
+    else {
     setToken(parsed.token);
+    setError("");
     navigate("/");
+  }
   };
 
   return (
@@ -37,6 +40,7 @@ const LoginPage = (): JSX.Element => {
         setPassword={setPassword}
         isLogin
         handleSubmit={handleSubmit}
+        error={error}
       />
     </main>
   );
