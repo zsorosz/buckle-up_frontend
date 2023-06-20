@@ -2,7 +2,11 @@
     display: grid;
     grid-auto-rows: min-content;
     grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    justify-content: center;
     gap: 1rem;
+    @include respond(tab-port) {
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 20vw));
+    }
   }
   .card {
     height: 10rem;
