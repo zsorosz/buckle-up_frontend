@@ -11,6 +11,10 @@ const LoginPage = (): JSX.Element => {
   const BASE_URL: string = import.meta.env.VITE_BASE_URL as string;
   const { setToken } = useContext(SessionContext);
 
+  // const element = document.querySelector(".auth-form-ctn") as HTMLElement;
+
+  // element.scrollIntoView();
+
   const handleSubmit = async (): Promise<void> => {
     const response = await fetch(`${BASE_URL}/auth/login`, {
       method: "POST",

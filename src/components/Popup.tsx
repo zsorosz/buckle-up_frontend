@@ -28,11 +28,23 @@ export const Popup = ({ text, closePopup, isPopupOpen }: PopupProps) => {
         </span>
         <div className="content">{text}</div>
         <div className="popup-ctas">
-          <button className="primary-btn" onClick={() => navigate("/login")}>
+          <button
+            className="primary-btn"
+            onClick={() => {
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+              navigate("/login");
+            }}
+          >
             Log in
           </button>
           <p>Don't have an account yet?</p>
-          <button className="primary-btn" onClick={() => navigate("/signup")}>
+          <button
+            className="primary-btn"
+            onClick={() => {
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+              navigate("/signup");
+            }}
+          >
             Sign up
           </button>
         </div>
