@@ -39,6 +39,7 @@ const AuthForm = ({
           value={username}
           onChange={(event) => setUsername(event.target.value)}
           placeholder="Username"
+          required
         />
       </div>
       {isLogin ? (
@@ -51,6 +52,7 @@ const AuthForm = ({
             value={email}
             onChange={(event) => setEmail && setEmail(event.target.value)}
             placeholder="Email"
+            required
           />
         </div>
       )}
@@ -61,6 +63,7 @@ const AuthForm = ({
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           placeholder="Password"
+          required
         />
       </div>
       <button type="submit" className="primary-btn">
