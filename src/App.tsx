@@ -9,6 +9,7 @@ import NewTripForm from "./components/NewTripForm";
 import TripDetailsPage from "./pages/TripDetailsPage";
 import Header from "./components/Header";
 import EditTripForm from "./components/EditTripForm";
+import DestinationDetails from "./components/DestinationDetails";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/trip-planner" element={<NewTripForm />} />
         <Route path="/:tripId" element={<TripDetailsPage />} />
         <Route path="/:tripId/edit" element={<EditTripForm />} />
+        <Route path="/destination/:city" element={<DestinationDetails />} />
       </Routes>
       <Footer />
     </>

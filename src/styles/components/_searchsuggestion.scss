@@ -16,6 +16,8 @@
     div {
         font-style: italic;
         font-size: .9rem;
+        padding: 5px 0;
+        border-bottom: 1px solid $grey-color;
         &:hover{
             cursor: pointer;
             background-color: lightblue;

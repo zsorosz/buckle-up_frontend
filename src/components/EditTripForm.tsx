@@ -53,7 +53,6 @@ function EditTripForm(): JSX.Element {
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
     };
-    console.log(attractionsPrompt);
     await fetch("https://api.openai.com/v1/completions", {
       method: "POST",
       headers: {
@@ -66,7 +65,6 @@ function EditTripForm(): JSX.Element {
         return data.json();
       })
       .then((data) => {
-        console.log(data.choices[0].text);
         const responseArr: string[] = data.choices[0].text.trim().split(";");
         const activitiesArr: Activities[] = [];
         responseArr.map((element) => {
@@ -92,7 +90,6 @@ function EditTripForm(): JSX.Element {
 
   const saveUpdates = async () => {
     if (tripData) {
-      console.log(attractions);
       const updatedTrip = {
         _id: tripData._id,
         title: tripData.title,
@@ -118,7 +115,6 @@ function EditTripForm(): JSX.Element {
       };
       setTripData(updatedTrip);
       if (tripData._id === undefined) {
-        console.log(tripData);
         saveTrip(updatedTrip);
       }
       updateTrip(updatedTrip);
@@ -136,7 +132,6 @@ function EditTripForm(): JSX.Element {
 
   useEffect(() => {
     if (tripData) {
-      console.log(tripData);
       const waypointArr: City[] = [];
       tripData.waypoints.map((waypoint) => {
         waypointArr.push(waypoint);

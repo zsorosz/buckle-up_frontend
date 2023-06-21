@@ -104,7 +104,6 @@ function WaypointInput({
                 onClick={(e) => {
                   e.preventDefault();
                   setSuggestions([]);
-                  console.log(city);
                   saveWaypoint(city);
                 }}
               >

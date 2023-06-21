@@ -48,7 +48,6 @@ const NewTripForm = (): JSX.Element => {
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
     };
-    console.log(attractionsPrompt);
     await fetch("https://api.openai.com/v1/completions", {
       method: "POST",
       headers: {
@@ -61,7 +60,6 @@ const NewTripForm = (): JSX.Element => {
         return data.json();
       })
       .then((data) => {
-        console.log(data.choices[0].text);
         const responseArr: string[] = data.choices[0].text.trim().split(";");
         const activitiesArr: Activities[] = [];
         responseArr.map((element) => {
@@ -133,7 +131,6 @@ const NewTripForm = (): JSX.Element => {
       })
       .then((data) => {
         const cities = data.choices[0].text.trim().split("\n");
-        console.log(data.choices[0].text);
         const result: City[] = [];
 
         cities.map((city: string) => {

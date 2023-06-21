@@ -26,7 +26,6 @@ function Map({
   useEffect(() => {
     if (cities.length) {
       setIsLoading(false);
-      console.log(cities);
     }
   }, [cities]);
 

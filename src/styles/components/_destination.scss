@@ -1,0 +1,27 @@
+.destination-ctn {
+    min-height: 75vh;
+    padding: 3rem 1rem;
+    color: white;
+    @include respond(tab-port){
+        padding: 3rem 2rem;
+        h2 {
+            font-size: 2rem;
+        }
+    }
+    @include respond(tab-land){
+        padding: 3rem 7rem;
+    }
+}
+.city-image {
+    width: 90vw;
+    padding-bottom: 2rem;
+    @include respond(tab-land){
+        display: flex;
+        width: 30vw;
+        float: left;
+        padding-right: 2rem;
+    }
+}
+.city-description {
+    text-align: left;
+}
