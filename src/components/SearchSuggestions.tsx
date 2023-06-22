@@ -49,7 +49,7 @@ const SearchSuggestions = ({
 
   const typeAhead = async (): Promise<void> => {
     const res = await axios.get(
-      `https://api.locationiq.com/v1/autocomplete?key=${LOCATION_API_KEY}&q=${query}&limit=5&tag=place:city,place:town,place:village`
+      `https://api.locationiq.com/v1/autocomplete?key=${LOCATION_API_KEY}&q=${query}&limit=5&tag=place:city,place:town,place:village&dedupe=1`
     );
     waypoint === "start"
       ? setStartSuggestions(res.data)
@@ -57,7 +57,9 @@ const SearchSuggestions = ({
   };
 
   useEffect(() => {
-    typeAhead();
+    setTimeout(() => {
+      typeAhead();
+    }, 1000);
   }, [query]);
 
   return (
@@ -70,11 +72,15 @@ const SearchSuggestions = ({
                 e.preventDefault();
                 setStartSuggestions([]);
                 setStartingCity(
-                  `${city.address.name}, ${city.address.country}`
+                  `${city.address.name}, ${
+                    city.address.state ? `${city.address.state}, ` : ``
+                  } ${city.address.country}`
                 );
               }}
             >
-              {city.address.name}, {city.address.country}
+              {city.address.name},{" "}
+              {city.address.state && `${city.address.state}, `}{" "}
+              {city.address.country}
             </div>
           ))
         : null}
@@ -84,11 +90,17 @@ const SearchSuggestions = ({
               key={city.place_id}
               onClick={(e) => {
                 e.preventDefault();
-                setDestination(`${city.address.name}, ${city.address.country}`);
+                setDestination(
+                  `${city.address.name}, ${
+                    city.address.state ? `${city.address.state}, ` : ``
+                  } ${city.address.country}`
+                );
                 setDestSuggestions([]);
               }}
             >
-              {city.address.name}, {city.address.country}
+              {city.address.name},{" "}
+              {city.address.state && `${city.address.state}, `}{" "}
+              {city.address.country}
             </div>
           ))
         : null}
