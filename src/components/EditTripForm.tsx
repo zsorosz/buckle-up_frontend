@@ -77,9 +77,7 @@ function EditTripForm(): JSX.Element {
         });
         if (places[0] === places[places.length - 1]) {
           const finalStop = {
-            city:
-              places[0].substring(0, places[0].indexOf(",")) +
-              places[0].substring(places[0].lastIndexOf(","), places[0].length),
+            city: places[0],
             attractions: [],
           };
           activitiesArr.push(finalStop);
@@ -93,21 +91,8 @@ function EditTripForm(): JSX.Element {
       const updatedTrip = {
         _id: tripData._id,
         title: tripData.title,
-        startingCity:
-          waypoints[0].name.substring(0, waypoints[0].name.indexOf(",")) +
-          waypoints[0].name.substring(
-            waypoints[0].name.lastIndexOf(","),
-            waypoints[0].name.length
-          ),
-        destination:
-          waypoints[waypoints.length - 1].name.substring(
-            0,
-            waypoints[waypoints.length - 1].name.indexOf(",")
-          ) +
-          waypoints[waypoints.length - 1].name.substring(
-            waypoints[waypoints.length - 1].name.lastIndexOf(","),
-            waypoints[waypoints.length - 1].name.length
-          ),
+        startingCity: waypoints[0].name,
+        destination: waypoints[waypoints.length - 1].name,
         waypoints: waypoints,
         attractions: attractions,
         totalDistance: totalDistance,

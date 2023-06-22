@@ -73,11 +73,7 @@ const NewTripForm = (): JSX.Element => {
         if (tripOption === "round") {
           const finalStop = {
             city:
-              startingCity.substring(0, startingCity.indexOf(",")) +
-              startingCity.substring(
-                startingCity.lastIndexOf(","),
-                startingCity.length
-              ),
+              startingCity,
             attractions: [],
           };
           activitiesArr.push(finalStop);
@@ -88,15 +84,12 @@ const NewTripForm = (): JSX.Element => {
   const callOpenAIAPI = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
+    const form = document.querySelector(".trip-form");
+    form?.scrollIntoView({ behavior: "smooth", inline: "end" });
     const start =
-      startingCity.substring(0, startingCity.indexOf(",")) +
-      startingCity.substring(
-        startingCity.lastIndexOf(","),
-        startingCity.length
-      );
+      startingCity;
     const end =
-      destination.substring(0, destination.indexOf(",")) +
-      destination.substring(destination.lastIndexOf(","), destination.length);
+      destination;
     const prompt =
       tripOption === "oneway"
         ? `List the cities of a recommended itinerary on a ${duration}-day road trip from ${start} to ${end}, with all together ${duration} stops. Do not add numbers before the city names and include the starting city and destination. Desired format:
@@ -168,14 +161,9 @@ const NewTripForm = (): JSX.Element => {
         startingCity.indexOf(",")
       )} to ${destination.substring(0, destination.indexOf(","))}`,
       startingCity:
-        startingCity.substring(0, startingCity.indexOf(",")) +
-        startingCity.substring(
-          startingCity.lastIndexOf(","),
-          startingCity.length
-        ),
+        startingCity,
       destination:
-        destination.substring(0, destination.indexOf(",")) +
-        destination.substring(destination.lastIndexOf(","), destination.length),
+        destination,
       waypoints: response,
       attractions: attractions,
       totalDistance: totalDistance,

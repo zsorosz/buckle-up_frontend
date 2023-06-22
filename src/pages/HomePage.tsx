@@ -24,7 +24,7 @@ function HomePage(): JSX.Element {
       )}
       {isEditing ? <EditTripForm /> : null}
 
-      {isTripShowing ? <TripDetails /> : null}
+      {isTripShowing && !isEditing ? <TripDetails /> : null}
       <PopularDestinations />
     </main>
   );

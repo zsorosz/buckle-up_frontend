@@ -21,7 +21,15 @@ export type SuggestionData = {
   display_name: string;
   display_place: string;
   display_address: string;
-  address: object;
+  address: Address;
+};
+
+export type Address = {
+  country: string;
+  country_code: string;
+  county: string;
+  name: string;
+  state: string;
 };
 
 const SearchSuggestions = ({
@@ -61,10 +69,12 @@ const SearchSuggestions = ({
               onClick={(e) => {
                 e.preventDefault();
                 setStartSuggestions([]);
-                setStartingCity(city.display_name);
+                setStartingCity(
+                  `${city.address.name}, ${city.address.country}`
+                );
               }}
             >
-              {city.display_name}
+              {city.address.name}, {city.address.country}
             </div>
           ))
         : null}
@@ -74,11 +84,11 @@ const SearchSuggestions = ({
               key={city.place_id}
               onClick={(e) => {
                 e.preventDefault();
-                setDestination(city.display_name);
+                setDestination(`${city.address.name}, ${city.address.country}`);
                 setDestSuggestions([]);
               }}
             >
-              {city.display_name}
+              {city.address.name}, {city.address.country}
             </div>
           ))
         : null}
