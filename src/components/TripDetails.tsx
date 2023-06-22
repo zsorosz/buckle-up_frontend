@@ -24,8 +24,6 @@ function TripDetails(): JSX.Element {
     resetTrip,
     deleteTrip,
     isTripShowing,
-    setIsTripShowing,
-    isEditing,
     setIsEditing,
   } = useContext(TripContext);
   const { isAuthenticated } = useContext(SessionContext);
@@ -82,7 +80,6 @@ function TripDetails(): JSX.Element {
                 <button
                   onClick={() => {
                     !isAuthenticated ? setPopupOpen(true) : setIsEditing(true);
-                    isEditing && setIsTripShowing(false);
                   }}
                   className="primary-btn"
                 >
@@ -165,7 +162,6 @@ function TripDetails(): JSX.Element {
               </div>
             </div>
           </section>
-          {/* <div className="html2pdf__page-break"></div> */}
           <section className="trip-map">
             <Map
               cities={tripData.waypoints as City[]}

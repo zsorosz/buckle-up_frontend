@@ -13,7 +13,7 @@ const NewTripForm = (): JSX.Element => {
   const [startingCity, setStartingCity] = useState("");
   const [startQuery, setStartQuery] = useState("");
   const [destQuery, setDestQuery] = useState("");
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(1);
   const [response, setResponse] = useState([] as City[]);
   const [attractions, setAttractions] = useState([] as Activities[]);
   const [tripOption, setTripOption] = useState("oneway");
@@ -72,12 +72,7 @@ const NewTripForm = (): JSX.Element => {
         });
         if (tripOption === "round") {
           const finalStop = {
-            city:
-              startingCity.substring(0, startingCity.indexOf(",")) +
-              startingCity.substring(
-                startingCity.lastIndexOf(","),
-                startingCity.length
-              ),
+            city: startingCity,
             attractions: [],
           };
           activitiesArr.push(finalStop);
@@ -88,15 +83,10 @@ const NewTripForm = (): JSX.Element => {
   const callOpenAIAPI = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
-    const start =
-      startingCity.substring(0, startingCity.indexOf(",")) +
-      startingCity.substring(
-        startingCity.lastIndexOf(","),
-        startingCity.length
-      );
-    const end =
-      destination.substring(0, destination.indexOf(",")) +
-      destination.substring(destination.lastIndexOf(","), destination.length);
+    const form = document.querySelector(".trip-form");
+    form?.scrollIntoView({ behavior: "smooth", inline: "end" });
+    const start = startingCity;
+    const end = destination;
     const prompt =
       tripOption === "oneway"
         ? `List the cities of a recommended itinerary on a ${duration}-day road trip from ${start} to ${end}, with all together ${duration} stops. Do not add numbers before the city names and include the starting city and destination. Desired format:
@@ -167,15 +157,8 @@ const NewTripForm = (): JSX.Element => {
         0,
         startingCity.indexOf(",")
       )} to ${destination.substring(0, destination.indexOf(","))}`,
-      startingCity:
-        startingCity.substring(0, startingCity.indexOf(",")) +
-        startingCity.substring(
-          startingCity.lastIndexOf(","),
-          startingCity.length
-        ),
-      destination:
-        destination.substring(0, destination.indexOf(",")) +
-        destination.substring(destination.lastIndexOf(","), destination.length),
+      startingCity: startingCity,
+      destination: destination,
       waypoints: response,
       attractions: attractions,
       totalDistance: totalDistance,
@@ -190,6 +173,7 @@ const NewTripForm = (): JSX.Element => {
     setResponse([]);
     setTripOption("oneway");
     setIsTripShowing(true);
+    setDuration(1);
   };
   return (
     <section className="form-ctn">
@@ -266,7 +250,7 @@ const NewTripForm = (): JSX.Element => {
               <input
                 type="number"
                 min="1"
-                defaultValue={1}
+                value={duration}
                 onChange={(e) => setDuration(e.target.valueAsNumber)}
               />
             </section>

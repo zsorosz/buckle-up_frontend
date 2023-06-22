@@ -21,7 +21,15 @@ export type SuggestionData = {
   display_name: string;
   display_place: string;
   display_address: string;
-  address: object;
+  address: Address;
+};
+
+export type Address = {
+  country: string;
+  country_code: string;
+  county: string;
+  name: string;
+  state: string;
 };
 
 const SearchSuggestions = ({
@@ -41,7 +49,7 @@ const SearchSuggestions = ({
 
   const typeAhead = async (): Promise<void> => {
     const res = await axios.get(
-      `https://api.locationiq.com/v1/autocomplete?key=${LOCATION_API_KEY}&q=${query}&limit=5&tag=place:city,place:town,place:village`
+      `https://api.locationiq.com/v1/autocomplete?key=${LOCATION_API_KEY}&q=${query}&limit=5&tag=place:city,place:town,place:village&dedupe=1`
     );
     waypoint === "start"
       ? setStartSuggestions(res.data)
@@ -49,7 +57,9 @@ const SearchSuggestions = ({
   };
 
   useEffect(() => {
-    typeAhead();
+    setTimeout(() => {
+      typeAhead();
+    }, 1000);
   }, [query]);
 
   return (
@@ -61,10 +71,16 @@ const SearchSuggestions = ({
               onClick={(e) => {
                 e.preventDefault();
                 setStartSuggestions([]);
-                setStartingCity(city.display_name);
+                setStartingCity(
+                  `${city.address.name}, ${
+                    city.address.state ? `${city.address.state}, ` : ``
+                  } ${city.address.country}`
+                );
               }}
             >
-              {city.display_name}
+              {city.address.name},{" "}
+              {city.address.state && `${city.address.state}, `}{" "}
+              {city.address.country}
             </div>
           ))
         : null}
@@ -74,11 +90,17 @@ const SearchSuggestions = ({
               key={city.place_id}
               onClick={(e) => {
                 e.preventDefault();
-                setDestination(city.display_name);
+                setDestination(
+                  `${city.address.name}, ${
+                    city.address.state ? `${city.address.state}, ` : ``
+                  } ${city.address.country}`
+                );
                 setDestSuggestions([]);
               }}
             >
-              {city.display_name}
+              {city.address.name},{" "}
+              {city.address.state && `${city.address.state}, `}{" "}
+              {city.address.country}
             </div>
           ))
         : null}
