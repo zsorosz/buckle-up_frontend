@@ -2,7 +2,7 @@
 import { createContext, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserData } from "../types";
-import {TripContext} from "./TripContext";
+import { TripContext } from "./TripContext";
 
 interface SessionContextState {
   setToken: (token: string | null) => void;
@@ -62,10 +62,8 @@ const SessionContextProvider = ({
         setUserData(null);
         setIsAuthenticated(false);
         setToken(null);
-        console.log("userData not found");
       }
     } catch (error) {
-      console.log(error);
       window.localStorage.removeItem("authToken");
     }
   };
@@ -89,7 +87,7 @@ const SessionContextProvider = ({
     setIsAuthenticated(false);
     setToken(null);
     navigate("/");
-    setTripData(null)
+    setTripData(null);
   };
 
   const refreshData = (updatedUser: UserData) => {

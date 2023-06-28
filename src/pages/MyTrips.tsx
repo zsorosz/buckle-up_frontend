@@ -37,6 +37,7 @@ function MyTrips(): JSX.Element {
                 city={trip.destination}
                 title={trip.title}
                 link={`/${trip._id}`}
+                key={trip._id}
               />
             ))}
           </div>

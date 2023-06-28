@@ -29,7 +29,7 @@ function DestinationDetails(): JSX.Element {
 
   useEffect(() => {
     fetchCityData();
-  }, []);
+  }, [cityData]);
 
   return (
     <main className="destination-ctn">

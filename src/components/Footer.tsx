@@ -72,7 +72,9 @@ function Footer(): JSX.Element {
           </div>
         </div>
       </div>
-      <div className="copyright">Copyright © 2023 BuckleUp All rights reserved.</div>
+      <div className="copyright">
+        Copyright © 2023 BuckleUp All rights reserved. Photos: unsplash.com
+      </div>
     </footer>
   );
 }
