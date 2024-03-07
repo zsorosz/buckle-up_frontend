@@ -53,7 +53,7 @@ function EditTripForm(): JSX.Element {
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
     };
-    await fetch("https://api.openai.com/v1/completions", {
+    await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
