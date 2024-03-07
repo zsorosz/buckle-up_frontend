@@ -40,7 +40,7 @@ const NewTripForm = (): JSX.Element => {
     const attractionsPrompt = `Give me a list of maximum 3 tourist attractions in each of these cities: ${places}. 
     Desired format: Cityname: attraction1, attraction2, attraction3; Cityname: attraction1, attraction2, attraction3...`;
     const APIBody = {
-      model: "text-davinci-003",
+      model: "gpt-3.5-turbo",
       prompt: attractionsPrompt,
       temperature: 0,
       max_tokens: 1000,
@@ -100,7 +100,7 @@ const NewTripForm = (): JSX.Element => {
     setIsTripLoading(true);
     event.preventDefault();
     const APIBody = {
-      model: "text-davinci-003",
+      model: "gpt-3.5-turbo",
       prompt: prompt,
       temperature: 0,
       max_tokens: 1000,
