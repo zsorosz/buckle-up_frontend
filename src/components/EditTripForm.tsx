@@ -51,7 +51,6 @@ function EditTripForm(): JSX.Element {
           "role": "user",
           "content": attractionsPrompt
         }],
-      prompt: attractionsPrompt,
       temperature: 0,
       max_tokens: 1000,
       top_p: 1.0,

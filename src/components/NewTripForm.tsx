@@ -128,7 +128,6 @@ const NewTripForm = (): JSX.Element => {
         return data.json();
       })
       .then((data) => {
-        console.log(data)
         const cities = data.choices[0].message.content.trim().split("\n");
         const result: City[] = [];
 
