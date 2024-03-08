@@ -45,7 +45,12 @@ function EditTripForm(): JSX.Element {
     const attractionsPrompt = `Give me a list of maximum 3 tourist attractions in each of these cities: ${places}. 
     Desired format: Cityname: attraction1, attraction2, attraction3; Cityname: attraction1, attraction2, attraction3...`;
     const APIBody = {
-      model: "text-davinci-003",
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          "role": "user",
+          "content": attractionsPrompt
+        }],
       prompt: attractionsPrompt,
       temperature: 0,
       max_tokens: 1000,
@@ -65,7 +70,7 @@ function EditTripForm(): JSX.Element {
         return data.json();
       })
       .then((data) => {
-        const responseArr: string[] = data.choices[0].text.trim().split(";");
+        const responseArr: string[] = data.choices[0].message.content.trim().split(";");
         const activitiesArr: Activities[] = [];
         responseArr.map((element) => {
           const splittedArr = element.split(":");

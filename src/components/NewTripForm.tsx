@@ -41,7 +41,11 @@ const NewTripForm = (): JSX.Element => {
     Desired format: Cityname: attraction1, attraction2, attraction3; Cityname: attraction1, attraction2, attraction3...`;
     const APIBody = {
       model: "gpt-3.5-turbo",
-      prompt: attractionsPrompt,
+      messages: [
+        {
+          "role": "user",
+          "content": attractionsPrompt
+        }],
       temperature: 0,
       max_tokens: 1000,
       top_p: 1.0,
@@ -60,7 +64,7 @@ const NewTripForm = (): JSX.Element => {
         return data.json();
       })
       .then((data) => {
-        const responseArr: string[] = data.choices[0].text.trim().split(";");
+        const responseArr: string[] = data.choices[0].message.content.trim().split(";");
         const activitiesArr: Activities[] = [];
         responseArr.map((element) => {
           const splittedArr = element.split(":");
@@ -101,7 +105,11 @@ const NewTripForm = (): JSX.Element => {
     event.preventDefault();
     const APIBody = {
       model: "gpt-3.5-turbo",
-      prompt: prompt,
+      messages: [
+        {
+          "role": "user",
+          "content": prompt
+        }],
       temperature: 0,
       max_tokens: 1000,
       top_p: 1.0,
@@ -120,7 +128,8 @@ const NewTripForm = (): JSX.Element => {
         return data.json();
       })
       .then((data) => {
-        const cities = data.choices[0].text.trim().split("\n");
+        console.log(data)
+        const cities = data.choices[0].message.content.trim().split("\n");
         const result: City[] = [];
 
         cities.map((city: string) => {
