@@ -29,14 +29,17 @@ function DestinationDetails(): JSX.Element {
 
   useEffect(() => {
     fetchCityData();
-  }, [cityData]);
+  }, []);
 
   return (
     <main className="destination-ctn">
-      {isLoading && null}
-      <h2>{cityData.name}</h2>
-      <img className="city-image" src={cityData.image} />
-      <article className="city-description">{cityData.description}</article>
+      {!isLoading && (
+        <>
+          <h2>{cityData.name}</h2>
+          <img className="city-image" src={cityData.image} />
+          <article className="city-description">{cityData.description}</article>
+        </>
+      )}
     </main>
   );
 }

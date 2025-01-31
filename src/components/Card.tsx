@@ -2,15 +2,18 @@ type CardProps = {
   city: string;
   title: string;
   link: string;
+  image?: string
 };
 
-function Card({ city, title, link }: CardProps): JSX.Element {
+function Card({ title, link, image }: CardProps): JSX.Element {
   return (
     <a href={link} className="card">
-      <img
-        src={`https://source.unsplash.com/600x300/?${city}`}
-        alt="destination photo"
-      />
+      {image &&
+        <img
+          src={image}
+          alt="destination photo"
+        />
+      }
       <div className="card-details">
         <h2 className="card-title">{title}</h2>
       </div>
