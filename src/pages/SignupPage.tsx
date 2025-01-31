@@ -8,7 +8,9 @@ const SignupPage = (): JSX.Element => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
+
+  const isDemo = true;
 
   const BASE_URL: string = import.meta.env.VITE_BASE_URL as string;
   const { userData, isAuthenticated } = useContext(SessionContext);
@@ -29,25 +31,28 @@ const SignupPage = (): JSX.Element => {
     });
     const parsed = await response.json();
     if (response.status === 403) {
-      setError(parsed.message)
-    }
-    else if (response.status === 201) {
+      setError(parsed.message);
+    } else if (response.status === 201) {
       setError("");
       navigate("/login");
     }
   };
   return (
     <main className="auth-form-ctn">
-      <AuthForm
-        username={username}
-        setUsername={setUsername}
-        email={email}
-        setEmail={setEmail}
-        password={password}
-        setPassword={setPassword}
-        handleSubmit={handleSubmit}
-        error={error}
-      />
+      {isDemo ? (
+        <div className="demo-note">This website is a demo page for portfolio purposes only and should not be used for real or sensitive personal information. For test account credentials, please contact the owner of the project.</div>
+      ) : (
+        <AuthForm
+          username={username}
+          setUsername={setUsername}
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          handleSubmit={handleSubmit}
+          error={error}
+        />
+      )}
     </main>
   );
 };
