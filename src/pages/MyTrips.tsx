@@ -38,6 +38,7 @@ function MyTrips(): JSX.Element {
                 title={trip.title}
                 link={`/${trip._id}`}
                 key={trip._id}
+                image="/buckle_up-hero.jpg"
               />
             ))}
           </div>
